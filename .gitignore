@@ -1,0 +1,7 @@
+node_modules/
+lib/
+.vscode
+.npm
+.eslintcache
+.DS_Store
+coverage
