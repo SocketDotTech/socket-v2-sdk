@@ -19,7 +19,7 @@
     "build": "tsc",
     "lint": "eslint . --ext .ts",
     "test": "jest",
-    "generate": "npx openapi-typescript-codegen --input ./spec.json --output ./src/client --indent 2 --postfix \"\" --client axios --useOptions && prettier --write ./src/client"
+    "generate": "npx openapi-typescript-codegen --input ./spec.json --output ./src/client --indent 2 --postfix \"\" --client axios --useOptions && prettier --write ./src/client-generated"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.22.0",
