@@ -15,7 +15,7 @@ export class Server {
    * @returns HealthResponseDTO Health Check for Fund Movr API
    * @throws ApiError
    */
-  public static appControllerGetHealth(): CancelablePromise<HealthResponseDTO> {
+  public static getHealth(): CancelablePromise<HealthResponseDTO> {
     return __request(OpenAPI, {
       method: "GET",
       url: "/v2/health",
@@ -26,7 +26,7 @@ export class Server {
    * @returns any Health Check for Fund Movr API RPCS
    * @throws ApiError
    */
-  public static appControllerGetHealthRpc(): CancelablePromise<any> {
+  public static getHealthRpc(): CancelablePromise<any> {
     return __request(OpenAPI, {
       method: "GET",
       url: "/v2/health-rpc",
@@ -37,7 +37,7 @@ export class Server {
    * @returns GasPriceResponseDTO Current gas prices for a chain
    * @throws ApiError
    */
-  public static appControllerGetGasPrice({
+  public static getGasPrice({
     chainId,
   }: {
     /** ID of chain, e.g Ethereum Mainnet = 1 **/
@@ -56,7 +56,7 @@ export class Server {
    * @returns TokenPriceResponseDTO Returns price of token for a given chain
    * @throws ApiError
    */
-  public static appControllerGetTokenPrice({
+  public static getTokenPrice({
     tokenAddress,
     chainId,
   }: {
@@ -80,7 +80,7 @@ export class Server {
    * @returns any
    * @throws ApiError
    */
-  public static appControllerGetSingleTx({
+  public static getSingleTx({
     requestBody,
     apiKey,
   }: {
@@ -102,7 +102,7 @@ export class Server {
    * @returns BridgeStatusResponseDTO Returns the status of the bridging transaction if completed or pending.
    * @throws ApiError
    */
-  public static appControllerGetBridgingStatus({
+  public static getBridgingStatus({
     transactionHash,
     fromChainId,
     toChainId,
@@ -138,7 +138,7 @@ export class Server {
    * @returns TransactionReceiptResponseDTO Returns the receipt of the transaction.
    * @throws ApiError
    */
-  public static appControllerGetTransactionReceipt({
+  public static getTransactionReceipt({
     transactionHash,
     chainId,
     apiKey,

@@ -10,7 +10,7 @@ export class Approvals {
    * @returns ApprovalOutputDTO Gives approval values of given tokens for a given owner & chainId
    * @throws ApiError
    */
-  public static approveControllerFetchApprovals({
+  public static fetchApprovals({
     chainId,
     owner,
     allowanceTarget,
@@ -46,7 +46,7 @@ export class Approvals {
    * @returns ApprovalTxOutputDTO Return the Approval Tx Data for the given params.
    * @throws ApiError
    */
-  public static approveControllerFetchApprovalsCalldata({
+  public static fetchApprovalsCalldata({
     chainId,
     owner,
     allowanceTarget,

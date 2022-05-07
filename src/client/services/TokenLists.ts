@@ -9,7 +9,7 @@ export class TokenLists {
    * @returns TokenListOutputDTO All Supported token by a given chainId
    * @throws ApiError
    */
-  public static tokenListControllerGetfromTokenList({
+  public static getfromTokenList({
     fromChainId,
     toChainId,
     disableSwapping,
@@ -83,7 +83,7 @@ export class TokenLists {
    * @returns TokenListOutputDTO All Supported token by a given route
    * @throws ApiError
    */
-  public static tokenListControllerGetToTokenList({
+  public static getToTokenList({
     fromChainId,
     toChainId,
     disableSwapping,

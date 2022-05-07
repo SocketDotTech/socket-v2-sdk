@@ -9,7 +9,7 @@ export class Quote {
    * @returns QuoteOutputDTO Returns all the possible routes for bridging tokens from one chain to another. One of the routes can be selected and passed in to start the route.
    * @throws ApiError
    */
-  public static quoteControllerGetQuote({
+  public static getQuote({
     fromChainId,
     fromTokenAddress,
     toChainId,

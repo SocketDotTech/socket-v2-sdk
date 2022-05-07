@@ -10,7 +10,7 @@ export class Supported {
    * @returns SupportedBridgesOutputDTO All Supported Bridges
    * @throws ApiError
    */
-  public static supportedControllerGetAllBridges(): CancelablePromise<SupportedBridgesOutputDTO> {
+  public static getAllBridges(): CancelablePromise<SupportedBridgesOutputDTO> {
     return __request(OpenAPI, {
       method: "GET",
       url: "/v2/supported/bridges",
@@ -21,7 +21,7 @@ export class Supported {
    * @returns SupportedChainsOutputDTO All Supported Chains by Movr
    * @throws ApiError
    */
-  public static supportedControllerGetAllSupportedRoutes({
+  public static getAllSupportedRoutes({
     apiKey,
   }: {
     apiKey?: string;
@@ -39,7 +39,7 @@ export class Supported {
    * @returns SupportedChainsOutputDTO Get if token is supported
    * @throws ApiError
    */
-  public static supportedControllerGetIfTokenIsSupported({
+  public static getIfTokenIsSupported({
     chainId,
     address,
     apiKey,

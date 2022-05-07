@@ -10,7 +10,7 @@ export class Balances {
    * @returns Balance Returns the balance of all tokens for a user address on all supported chains
    * @throws ApiError
    */
-  public static balancesControllerGetBalances({
+  public static getBalances({
     userAddress,
     apiKey,
   }: {
@@ -33,7 +33,7 @@ export class Balances {
    * @returns TokenBalanceReponseDTO Returns the balance of the token on any given chain
    * @throws ApiError
    */
-  public static balancesControllerGetBalance({
+  public static getBalance({
     tokenAddress,
     chainId,
     userAddress,

@@ -19,7 +19,7 @@ export class Routes {
    * @returns any
    * @throws ApiError
    */
-  public static activeRoutesControllerStartActiveRoute({
+  public static startActiveRoute({
     requestBody,
     apiKey,
   }: {
@@ -41,7 +41,7 @@ export class Routes {
    * @returns ActiveRoutesOutputDTO Get active route details using active route id
    * @throws ApiError
    */
-  public static activeRoutesControllerGetActiveRoutes({
+  public static getActiveRoutes({
     activeRouteId,
     apiKey,
   }: {
@@ -65,7 +65,7 @@ export class Routes {
    * @returns ActiveRoutesOutputDTO Get all the active routes from a user address. Filters like fromChainId, toChainId and token addresses can be used to get back specific active routes.
    * @throws ApiError
    */
-  public static activeRoutesControllerGetActiveRoutesForUser({
+  public static getActiveRoutesForUser({
     userAddress,
     sort,
     offset,
@@ -121,7 +121,7 @@ export class Routes {
    * @returns NextTxOutputDTO Get next tx details of an active route
    * @throws ApiError
    */
-  public static activeRoutesControllerNextTx({
+  public static nextTx({
     activeRouteId,
     apiKey,
   }: {
@@ -145,7 +145,7 @@ export class Routes {
    * @returns RouteStatusOutputDTO Get status of an active route
    * @throws ApiError
    */
-  public static activeRoutesControllerGetActiveRouteStatus({
+  public static getActiveRouteStatus({
     activeRouteId,
     userTxIndex,
     txHash,
