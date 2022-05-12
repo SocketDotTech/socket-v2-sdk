@@ -82,16 +82,14 @@ export class Server {
    */
   public static getSingleTx({
     requestBody,
-    apiKey,
   }: {
     requestBody: SingleTxDTO;
-    apiKey?: string;
   }): CancelablePromise<SingleTxOutputDTO | any> {
     return __request(OpenAPI, {
       method: "POST",
       url: "/v2/build-tx",
       headers: {
-        "API-KEY": apiKey,
+        "API-KEY": OpenAPI.API_KEY,
       },
       body: requestBody,
       mediaType: "application/json",
@@ -107,7 +105,6 @@ export class Server {
     fromChainId,
     toChainId,
     bridgeName,
-    apiKey,
   }: {
     /** Transaction hash originating from the source chain while bridging assets. **/
     transactionHash: string;
@@ -117,13 +114,12 @@ export class Server {
     toChainId: string;
     /** Name of the bridge used while bridging. **/
     bridgeName?: string;
-    apiKey?: string;
   }): CancelablePromise<BridgeStatusResponseDTO> {
     return __request(OpenAPI, {
       method: "GET",
       url: "/v2/bridge-status",
       headers: {
-        "API-KEY": apiKey,
+        "API-KEY": OpenAPI.API_KEY,
       },
       query: {
         transactionHash: transactionHash,
@@ -141,19 +137,17 @@ export class Server {
   public static getTransactionReceipt({
     transactionHash,
     chainId,
-    apiKey,
   }: {
     /** Transaction hash originating from the source chain while bridging assets. **/
     transactionHash: string;
     /** ID of source chain, e.g Ethereum Mainnet = 1 **/
     chainId: string;
-    apiKey?: string;
   }): CancelablePromise<TransactionReceiptResponseDTO> {
     return __request(OpenAPI, {
       method: "GET",
       url: "/v2/tx-receipt",
       headers: {
-        "API-KEY": apiKey,
+        "API-KEY": OpenAPI.API_KEY,
       },
       query: {
         transactionHash: transactionHash,

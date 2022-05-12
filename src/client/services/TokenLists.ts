@@ -19,7 +19,6 @@ export class TokenLists {
     excludeBridges,
     singleTxOnly,
     isShortList,
-    apiKey,
   }: {
     /** Id of source chain, e.g Optimism = 10 **/
     fromChainId: string;
@@ -57,13 +56,12 @@ export class TokenLists {
     singleTxOnly?: boolean;
     /** To be Marked true if you want the shorter and more efficient token list. **/
     isShortList?: boolean;
-    apiKey?: string;
   }): CancelablePromise<TokenListOutputDTO> {
     return __request(OpenAPI, {
       method: "GET",
       url: "/v2/token-lists/from-token-list",
       headers: {
-        "API-KEY": apiKey,
+        "API-KEY": OpenAPI.API_KEY,
       },
       query: {
         fromChainId: fromChainId,
@@ -93,7 +91,6 @@ export class TokenLists {
     excludeBridges,
     singleTxOnly,
     isShortList,
-    apiKey,
   }: {
     /** Id of source chain, e.g Optimism = 10 **/
     fromChainId: string;
@@ -132,13 +129,12 @@ export class TokenLists {
     singleTxOnly?: boolean;
     /** To be Marked true if you want the shorter and more efficient token list. **/
     isShortList?: boolean;
-    apiKey?: string;
   }): CancelablePromise<TokenListOutputDTO> {
     return __request(OpenAPI, {
       method: "GET",
       url: "/v2/token-lists/to-token-list",
       headers: {
-        "API-KEY": apiKey,
+        "API-KEY": OpenAPI.API_KEY,
       },
       query: {
         fromChainId: fromChainId,

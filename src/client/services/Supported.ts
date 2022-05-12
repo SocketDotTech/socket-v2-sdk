@@ -21,16 +21,12 @@ export class Supported {
    * @returns SupportedChainsOutputDTO All Supported Chains by Movr
    * @throws ApiError
    */
-  public static getAllSupportedRoutes({
-    apiKey,
-  }: {
-    apiKey?: string;
-  }): CancelablePromise<SupportedChainsOutputDTO> {
+  public static getAllSupportedRoutes(): CancelablePromise<SupportedChainsOutputDTO> {
     return __request(OpenAPI, {
       method: "GET",
       url: "/v2/supported/chains",
       headers: {
-        "API-KEY": apiKey,
+        "API-KEY": OpenAPI.API_KEY,
       },
     });
   }
@@ -42,19 +38,17 @@ export class Supported {
   public static getIfTokenIsSupported({
     chainId,
     address,
-    apiKey,
   }: {
     /** Id of chain, e.g Optimism = 10 **/
     chainId: string;
     /** Contract address of the token **/
     address: string;
-    apiKey?: string;
   }): CancelablePromise<SupportedChainsOutputDTO> {
     return __request(OpenAPI, {
       method: "GET",
       url: "/v2/supported/token-support",
       headers: {
-        "API-KEY": apiKey,
+        "API-KEY": OpenAPI.API_KEY,
       },
       query: {
         chainId: chainId,

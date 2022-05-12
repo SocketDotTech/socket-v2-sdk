@@ -27,7 +27,6 @@ export class Quote {
     maxUserTxs,
     singleTxOnly,
     isContractCall,
-    apiKey,
   }: {
     /** Chain id of source chain. **/
     fromChainId: string;
@@ -82,13 +81,12 @@ export class Quote {
     singleTxOnly?: boolean;
     /** Only get quotes with that are compatible with contracts **/
     isContractCall?: boolean;
-    apiKey?: string;
   }): CancelablePromise<QuoteOutputDTO> {
     return __request(OpenAPI, {
       method: "GET",
       url: "/v2/quote",
       headers: {
-        "API-KEY": apiKey,
+        "API-KEY": OpenAPI.API_KEY,
       },
       query: {
         fromChainId: fromChainId,

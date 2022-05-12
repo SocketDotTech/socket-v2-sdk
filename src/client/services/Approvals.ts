@@ -15,7 +15,6 @@ export class Approvals {
     owner,
     allowanceTarget,
     tokenAddress,
-    apiKey,
   }: {
     /** ID of chain, e.g Ethereum Mainnet = 1 **/
     chainId: string;
@@ -25,13 +24,12 @@ export class Approvals {
     allowanceTarget: string;
     /** Contract address of token **/
     tokenAddress: string;
-    apiKey?: string;
   }): CancelablePromise<ApprovalOutputDTO> {
     return __request(OpenAPI, {
       method: "GET",
       url: "/v2/approval/check-allowance",
       headers: {
-        "API-KEY": apiKey,
+        "API-KEY": OpenAPI.API_KEY,
       },
       query: {
         chainID: chainId,
@@ -52,7 +50,6 @@ export class Approvals {
     allowanceTarget,
     tokenAddress,
     amount,
-    apiKey,
   }: {
     /** ID of chain, e.g Ethereum Mainnet = 1 **/
     chainId: string;
@@ -64,13 +61,12 @@ export class Approvals {
     tokenAddress: string;
     /** Amount of tokens to approve, e.g 10 USDC (6 decimals) **/
     amount: string;
-    apiKey?: string;
   }): CancelablePromise<ApprovalTxOutputDTO> {
     return __request(OpenAPI, {
       method: "GET",
       url: "/v2/approval/build-tx",
       headers: {
-        "API-KEY": apiKey,
+        "API-KEY": OpenAPI.API_KEY,
       },
       query: {
         chainID: chainId,

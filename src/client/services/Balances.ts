@@ -12,16 +12,14 @@ export class Balances {
    */
   public static getBalances({
     userAddress,
-    apiKey,
   }: {
     userAddress: string;
-    apiKey?: string;
   }): CancelablePromise<Balance> {
     return __request(OpenAPI, {
       method: "GET",
       url: "/v2/balances",
       headers: {
-        "API-KEY": apiKey,
+        "API-KEY": OpenAPI.API_KEY,
       },
       query: {
         userAddress: userAddress,

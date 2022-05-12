@@ -21,16 +21,14 @@ export class Routes {
    */
   public static startActiveRoute({
     requestBody,
-    apiKey,
   }: {
     requestBody: StartActiveRouteInputDTO;
-    apiKey?: string;
   }): CancelablePromise<StartActiveRouteResponseDTO | any> {
     return __request(OpenAPI, {
       method: "POST",
       url: "/v2/route/start",
       headers: {
-        "API-KEY": apiKey,
+        "API-KEY": OpenAPI.API_KEY,
       },
       body: requestBody,
       mediaType: "application/json",
@@ -43,17 +41,15 @@ export class Routes {
    */
   public static getActiveRoutes({
     activeRouteId,
-    apiKey,
   }: {
     /** Id of the Active Route. **/
     activeRouteId: string;
-    apiKey?: string;
   }): CancelablePromise<ActiveRoutesOutputDTO> {
     return __request(OpenAPI, {
       method: "GET",
       url: "/v2/route/active-routes",
       headers: {
-        "API-KEY": apiKey,
+        "API-KEY": OpenAPI.API_KEY,
       },
       query: {
         activeRouteId: activeRouteId,
@@ -75,7 +71,6 @@ export class Routes {
     toChainId,
     fromTokenAddress,
     toTokenAddress,
-    apiKey,
   }: {
     /** Address of user starting the route. **/
     userAddress: string;
@@ -95,13 +90,12 @@ export class Routes {
     fromTokenAddress?: string;
     /** Token address on destination chain. **/
     toTokenAddress?: string;
-    apiKey?: string;
   }): CancelablePromise<ActiveRoutesOutputDTO> {
     return __request(OpenAPI, {
       method: "GET",
       url: "/v2/route/active-routes/users",
       headers: {
-        "API-KEY": apiKey,
+        "API-KEY": OpenAPI.API_KEY,
       },
       query: {
         userAddress: userAddress,
@@ -123,17 +117,15 @@ export class Routes {
    */
   public static nextTx({
     activeRouteId,
-    apiKey,
   }: {
     /** Id of Active Route. **/
     activeRouteId: string;
-    apiKey?: string;
   }): CancelablePromise<NextTxOutputDTO> {
     return __request(OpenAPI, {
       method: "GET",
       url: "/v2/route/build-next-tx",
       headers: {
-        "API-KEY": apiKey,
+        "API-KEY": OpenAPI.API_KEY,
       },
       query: {
         activeRouteId: activeRouteId,
@@ -150,7 +142,6 @@ export class Routes {
     userTxIndex,
     txHash,
     signature,
-    apiKey,
   }: {
     /** Id of Active Route. **/
     activeRouteId: string;
@@ -160,13 +151,12 @@ export class Routes {
     txHash?: string;
     /** Signature to be sent in case the next transaction is dependant on the signature. **/
     signature?: string;
-    apiKey?: string;
   }): CancelablePromise<RouteStatusOutputDTO> {
     return __request(OpenAPI, {
       method: "GET",
       url: "/v2/route/prepare",
       headers: {
-        "API-KEY": apiKey,
+        "API-KEY": OpenAPI.API_KEY,
       },
       query: {
         activeRouteId: activeRouteId,

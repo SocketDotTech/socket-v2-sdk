@@ -9,6 +9,7 @@ export type OpenAPIConfig = {
   WITH_CREDENTIALS: boolean;
   CREDENTIALS: "include" | "omit" | "same-origin";
   TOKEN?: string | Resolver<string>;
+  API_KEY?: string | Resolver<string>;
   USERNAME?: string | Resolver<string>;
   PASSWORD?: string | Resolver<string>;
   HEADERS?: Headers | Resolver<Headers>;
@@ -20,6 +21,7 @@ export const OpenAPI: OpenAPIConfig = {
   VERSION: "1.0",
   WITH_CREDENTIALS: false,
   CREDENTIALS: "include",
+  API_KEY: undefined,
   TOKEN: undefined,
   USERNAME: undefined,
   PASSWORD: undefined,
