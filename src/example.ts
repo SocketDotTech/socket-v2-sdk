@@ -42,5 +42,7 @@ const wallet = ethers.Wallet.createRandom();
   console.log(`Sending: ${sendTx.hash}`);
   await sendTx.wait();
 
+  // TODO: watch status
+
   console.log("Trade completed");
 })();

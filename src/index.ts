@@ -151,6 +151,8 @@ export class Trade {
       value: buildTx.value,
     });
   }
+
+  // TOOD: getStatus()
 }
 
 export * as client from "./client";
