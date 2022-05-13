@@ -1624,12 +1624,7 @@
             "example": "0x3e8cB4bd04d81498aB4b94a392c334F5328b237b"
           }
         },
-        "required": [
-          "minimumApprovalAmount",
-          "approvalTokenAddress",
-          "allowanceTarget",
-          "owner"
-        ]
+        "required": ["minimumApprovalAmount", "approvalTokenAddress", "allowanceTarget", "owner"]
       },
       "SingleTxResponse": {
         "type": "object",
@@ -1966,14 +1961,7 @@
             "example": "100000000000000000"
           }
         },
-        "required": [
-          "address",
-          "icon",
-          "name",
-          "symbol",
-          "decimals",
-          "minNativeCurrencyForGas"
-        ]
+        "required": ["address", "icon", "name", "symbol", "decimals", "minNativeCurrencyForGas"]
       },
       "ChainDetails": {
         "type": "object",
@@ -2260,13 +2248,7 @@
             ]
           }
         },
-        "required": [
-          "fromChainId",
-          "toChainId",
-          "fromAssetAddress",
-          "toAssetAddress",
-          "route"
-        ]
+        "required": ["fromChainId", "toChainId", "fromAssetAddress", "toAssetAddress", "route"]
       },
       "StartActiveRouteResponseDTO": {
         "type": "object",

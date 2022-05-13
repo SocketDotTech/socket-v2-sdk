@@ -1,5 +1,6 @@
 import type { ChainGasBalances } from "./ChainGasBalances";
 import type { MinGasBalances } from "./MinGasBalances";
+import { UserTx } from "./UserTx";
 
 export type Route = {
   /**
@@ -47,7 +48,7 @@ export type Route = {
   /**
    * Array of user transactions.
    */
-  userTxs: Array<any>;
+  userTxs: Array<UserTx>;
   /**
    * Estimate of total time in seconds, excluding the transaction time.
    */

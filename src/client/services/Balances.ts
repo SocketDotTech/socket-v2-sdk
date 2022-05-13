@@ -10,11 +10,7 @@ export class Balances {
    * @returns Balance Returns the balance of all tokens for a user address on all supported chains
    * @throws ApiError
    */
-  public static getBalances({
-    userAddress,
-  }: {
-    userAddress: string;
-  }): CancelablePromise<Balance> {
+  public static getBalances({ userAddress }: { userAddress: string }): CancelablePromise<Balance> {
     return __request(OpenAPI, {
       method: "GET",
       url: "/v2/balances",

@@ -84,7 +84,7 @@ export class Server {
     requestBody,
   }: {
     requestBody: SingleTxDTO;
-  }): CancelablePromise<SingleTxOutputDTO | any> {
+  }): CancelablePromise<SingleTxOutputDTO> {
     return __request(OpenAPI, {
       method: "POST",
       url: "/v2/build-tx",

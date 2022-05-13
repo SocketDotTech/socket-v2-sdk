@@ -9,7 +9,7 @@ export class TokenLists {
    * @returns TokenListOutputDTO All Supported token by a given chainId
    * @throws ApiError
    */
-  public static getfromTokenList({
+  public static getFromTokenList({
     fromChainId,
     toChainId,
     disableSwapping,
@@ -21,9 +21,9 @@ export class TokenLists {
     isShortList,
   }: {
     /** Id of source chain, e.g Optimism = 10 **/
-    fromChainId: string;
+    fromChainId: number;
     /** Id of destination chain, e.g xDAI = 100 **/
-    toChainId: string;
+    toChainId: number;
     /** Flag to specify if tokens that need dex swap should be ignored. **/
     disableSwapping?: boolean;
     /** Specify Dexes that should be included for token support. **/
@@ -93,9 +93,9 @@ export class TokenLists {
     isShortList,
   }: {
     /** Id of source chain, e.g Optimism = 10 **/
-    fromChainId: string;
+    fromChainId: number;
     /** Id of destination chain, e.g xDAI = 100 **/
-    toChainId: string;
+    toChainId: number;
     /** Flag to specify if tokens that need dex swap should be ignored.
      * This option will be ignored if singleTxOnly is marked true. **/
     disableSwapping?: boolean;

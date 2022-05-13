@@ -1,4 +1,5 @@
 import type { TokenAsset } from "./TokenAsset";
+import { UserTx } from "./UserTx";
 
 export type ActiveRouteResponse = {
   /**
@@ -16,7 +17,7 @@ export type ActiveRouteResponse = {
   /**
    * Array of user txs.
    */
-  userTxs: Array<any>;
+  userTxs: Array<UserTx>;
   /**
    * Id of source chain.
    */

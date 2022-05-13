@@ -8,9 +8,7 @@ import { CancelablePromise } from "./CancelablePromise";
 import type { OnCancel } from "./CancelablePromise";
 import type { OpenAPIConfig } from "./OpenAPI";
 
-const isDefined = <T>(
-  value: T | null | undefined
-): value is Exclude<T, null | undefined> => {
+const isDefined = <T>(value: T | null | undefined): value is Exclude<T, null | undefined> => {
   return value !== undefined && value !== null;
 };
 
@@ -149,9 +147,7 @@ const getHeaders = async (
   const username = await resolve(options, config.USERNAME);
   const password = await resolve(options, config.PASSWORD);
   const additionalHeaders = await resolve(options, config.HEADERS);
-  const formHeaders =
-    (typeof formData?.getHeaders === "function" && formData?.getHeaders()) ||
-    {};
+  const formHeaders = (typeof formData?.getHeaders === "function" && formData?.getHeaders()) || {};
 
   const headers = Object.entries({
     Accept: "application/json",
@@ -240,10 +236,7 @@ const getResponseBody = (response: AxiosResponse<any>): any => {
   return undefined;
 };
 
-const catchErrorCodes = (
-  options: ApiRequestOptions,
-  result: ApiResult
-): void => {
+const catchErrorCodes = (options: ApiRequestOptions, result: ApiResult): void => {
   const errors: Record<number, string> = {
     400: "Bad Request",
     401: "Unauthorized",
@@ -294,10 +287,7 @@ export const request = <T>(
           onCancel
         );
         const responseBody = getResponseBody(response);
-        const responseHeader = getResponseHeader(
-          response,
-          options.responseHeader
-        );
+        const responseHeader = getResponseHeader(response, options.responseHeader);
 
         const result: ApiResult = {
           url,
