@@ -1,12 +1,11 @@
 import BigNumber from "bignumber.js";
 import { Chain, client, Path, Quotes, TokenList, Trade } from ".";
-import ethers from "ethers";
+import * as ethers from "ethers";
 
 client.OpenAPI.API_KEY = "645b2c8c-5825-4930-baf3-d9b997fcd88c"; // Testing key
 
 const ETH_TOKEN_ADDRESS = "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
 const wallet = ethers.Wallet.createRandom();
-
 (async () => {
   const userAddress = await wallet.getAddress();
   const chains = await Chain.getSupportedChains();

@@ -3,7 +3,7 @@ import { ChainDetails, TokenLists, TokenAsset, Quote, Route, Approvals, Server }
 
 import { Supported } from "./client";
 
-import ethers from "ethers";
+import * as ethers from "ethers";
 
 export class Chain {
   chainDetails: ChainDetails;
@@ -19,23 +19,20 @@ export class Chain {
 
 export class TokenList {
   static async getTokenList(fromChainId: number, toChainId: number) {
-    const fromTokenList = (
-      await TokenLists.getFromTokenList({
-        fromChainId,
-        toChainId,
-        isShortList: true,
-      })
-    ).results;
-    const toTokenList = (
-      await TokenLists.getToTokenList({
-        fromChainId,
-        toChainId,
-        isShortList: true,
-      })
-    ).results;
+    const fromTokenList = await TokenLists.getFromTokenList({
+      fromChainId,
+      toChainId,
+      isShortList: true,
+    });
+    const toTokenList = await TokenLists.getToTokenList({
+      fromChainId,
+      toChainId,
+      isShortList: true,
+    });
+
     return {
-      from: fromTokenList,
-      to: toTokenList,
+      from: fromTokenList.result,
+      to: toTokenList.result,
     };
   }
 }
