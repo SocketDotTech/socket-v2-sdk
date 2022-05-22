@@ -149,7 +149,16 @@ export class Trade {
     });
   }
 
-  // TOOD: getStatus()
+  async getStatus(hash: string) {
+    return (
+      await Server.getBridgingStatus({
+        transactionHash: hash,
+        fromChainId: this.path.fromChain.chainDetails.chainId,
+        toChainId: this.path.toChain.chainDetails.chainId,
+        bridgeName: this.route.userTxs[0].steps[0].protocol.bridgeName, // TODO: there should be more to this.
+      })
+    ).result;
+  }
 }
 
 export * as client from "./client";

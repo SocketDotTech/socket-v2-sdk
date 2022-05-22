@@ -9,6 +9,7 @@ import type { TransactionReceiptResponseDTO } from "../models/TransactionReceipt
 import type { CancelablePromise } from "../core/CancelablePromise";
 import { OpenAPI } from "../core/OpenAPI";
 import { request as __request } from "../core/request";
+import { BridgeName } from "../models/BridgeDetails";
 
 export class Server {
   /**
@@ -109,11 +110,11 @@ export class Server {
     /** Transaction hash originating from the source chain while bridging assets. **/
     transactionHash: string;
     /** ID of source chain, e.g Ethereum Mainnet = 1 **/
-    fromChainId: string;
+    fromChainId: number;
     /** ID of destination chain, e.g Ethereum Mainnet = 1 **/
-    toChainId: string;
+    toChainId: number;
     /** Name of the bridge used while bridging. **/
-    bridgeName?: string;
+    bridgeName?: BridgeName;
   }): CancelablePromise<BridgeStatusResponseDTO> {
     return __request(OpenAPI, {
       method: "GET",
