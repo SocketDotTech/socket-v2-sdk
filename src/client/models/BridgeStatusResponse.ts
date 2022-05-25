@@ -12,7 +12,7 @@ export type BridgeStatusResponse = {
   /**
    * Destination Transaction hash.
    */
-  destinationTransactionHash: string;
+  destinationTransactionHash?: string;
   /**
    * Status of destination transaction while bridging.
    */

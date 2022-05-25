@@ -2,4 +2,4 @@
 
 ## Test
 
-`npx ts-node src/example.ts`
+`PRIVATE_KEY="<YOUR_PRIVATE_KEY_WITH_GT_10_MATIC>" npx ts-node examples/maticToXDai.ts`

@@ -14,5 +14,5 @@
     "rootDir": ".",
     "outDir": "lib"
   },
-  "include": ["src/**/*", "example.ts"]
+  "include": ["src/**/*"]
 }

@@ -41,9 +41,9 @@ export class Quote {
     /** Address of user. This will be used to check approvals. **/
     userAddress: string;
     /** Flag to return only best route per bridge using the sort criteria **/
-    uniqueRoutesPerBridge: boolean;
+    uniqueRoutesPerBridge?: boolean;
     /** Param to sort routes based on. **/
-    sort: "output" | "gas" | "time";
+    sort?: "output" | "gas" | "time";
     /** Address of recipient. This will be used to check approvals. **/
     recipient?: string;
     /** Flag to specify if routes that have dex swap should be ignored. **/

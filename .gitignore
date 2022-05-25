@@ -5,3 +5,4 @@ lib/
 .eslintcache
 .DS_Store
 coverage
+.env

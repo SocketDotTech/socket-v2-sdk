@@ -1,3 +1,4 @@
+import { BridgeName } from "./BridgeDetails";
 import type { ChainGasBalances } from "./ChainGasBalances";
 import type { MinGasBalances } from "./MinGasBalances";
 import { UserTx } from "./UserTx";
@@ -20,15 +21,7 @@ export type Route = {
   /**
    * Array of bridges used in the route
    */
-  usedBridgeNames: Array<
-    | "polygon-bridge"
-    | "hop"
-    | "anyswap-router-v4"
-    | "hyphen"
-    | "arbitrum-bridge"
-    | "connext"
-    | "celer"
-  >;
+  usedBridgeNames: Array<BridgeName>;
   /**
    * Total number of transactions for the route.
    */

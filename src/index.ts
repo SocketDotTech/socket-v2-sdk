@@ -2,8 +2,8 @@ import BigNumber from "bignumber.js";
 import { ChainDetails, TokenLists, TokenAsset, Quote, Route, Approvals, Server } from "./client";
 
 import { Supported } from "./client";
-
-import * as ethers from "ethers";
+import { TxStatus } from "./client/models/TxStatus";
+import { sleep } from "./utils";
 
 export class Chain {
   chainDetails: ChainDetails;
@@ -60,8 +60,8 @@ export class Quotes {
         toTokenAddress: path.toToken.address,
         fromAmount: amount.toFixed(),
         userAddress: address,
-        sort: "gas",
-        uniqueRoutesPerBridge: true,
+        recipient: address,
+        singleTxOnly: true,
       })
     ).result;
   }
@@ -71,7 +71,6 @@ export class Trade {
   userAddress: string;
   path: Path;
   route: Route;
-  signer: ethers.Signer | undefined;
 
   get approvalData() {
     return this.route.userTxs.find((tx) => tx.approvalData)?.approvalData;
@@ -87,20 +86,13 @@ export class Trade {
     this.route = route;
   }
 
-  connect(signer: ethers.Signer) {
-    this.signer = signer;
-  }
-
-  async approve() {
-    if (!this.signer) {
-      throw new Error("Signer required to approve.");
-    }
+  async getApproveTransaction() {
     if (!this.approvalData) {
       throw new Error("Trade does not require approval.");
     }
-    const userAddress = await this.signer.getAddress();
-    if (userAddress !== this.approvalData.owner) {
-      throw new Error("Wrong address signer");
+
+    if (this.userAddress !== this.approvalData.owner) {
+      throw new Error("Wrong address");
     }
 
     const buildApproval = (
@@ -113,22 +105,10 @@ export class Trade {
       })
     ).result;
 
-    const rpc = this.path.fromChain.chainDetails.rpcs[0];
-    const provider = new ethers.providers.JsonRpcProvider(
-      rpc,
-      this.path.fromChain.chainDetails.chainId
-    );
-
-    return this.signer.connect(provider).sendTransaction({
-      ...buildApproval,
-    });
+    return buildApproval;
   }
 
-  async send() {
-    if (!this.signer) {
-      throw new Error("Signer required to send.");
-    }
-
+  async getSendTransaction() {
     const buildTx = (
       await Server.getSingleTx({
         requestBody: {
@@ -137,27 +117,43 @@ export class Trade {
       })
     ).result;
 
-    const rpc = this.path.fromChain.chainDetails.rpcs[0];
-    const provider = new ethers.providers.JsonRpcProvider(
-      rpc,
-      this.path.fromChain.chainDetails.chainId
-    );
-    return this.signer.connect(provider).sendTransaction({
+    return {
       to: buildTx.txTarget,
       data: buildTx.txData,
       value: buildTx.value,
-    });
+    };
   }
 
   async getStatus(hash: string) {
-    return (
-      await Server.getBridgingStatus({
-        transactionHash: hash,
-        fromChainId: this.path.fromChain.chainDetails.chainId,
-        toChainId: this.path.toChain.chainDetails.chainId,
-        bridgeName: this.route.userTxs[0].steps[0].protocol.bridgeName, // TODO: there should be more to this.
-      })
-    ).result;
+    const _getStatus = async () => {
+      return (
+        await Server.getBridgingStatus({
+          transactionHash: hash,
+          fromChainId: this.path.fromChain.chainDetails.chainId,
+          toChainId: this.path.toChain.chainDetails.chainId,
+          bridgeName: this.route.usedBridgeNames[0], // TODO: there should be more to this.
+        })
+      ).result;
+    };
+
+    const status = await _getStatus();
+
+    return {
+      ...status,
+      async wait() {
+        for (;;) {
+          const currentStatus = await _getStatus();
+          const pending =
+            currentStatus.sourceTxStatus === TxStatus.PENDING ||
+            currentStatus.destinationTxStatus === TxStatus.PENDING;
+          if (pending) {
+            await sleep(5000);
+          } else {
+            return currentStatus;
+          }
+        }
+      },
+    };
   }
 }
 
