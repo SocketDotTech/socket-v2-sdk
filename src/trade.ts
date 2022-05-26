@@ -1,3 +1,4 @@
+import { BigNumber } from "ethers";
 import { Approvals, Route, Server } from "./client";
 import { TxStatus } from "./client/models/TxStatus";
 import { Path } from "./path";
@@ -7,13 +8,10 @@ export class Trade {
   userAddress: string;
   path: Path;
   route: Route;
+  approvalChecked = false;
 
   get approvalData() {
     return this.route.userTxs.find((tx) => tx.approvalData)?.approvalData;
-  }
-
-  get approvalRequired() {
-    return !!this.approvalData;
   }
 
   constructor(userAddress: string, path: Path, route: Route) {
@@ -22,9 +20,32 @@ export class Trade {
     this.route = route;
   }
 
+  async approvalRequired() {
+    this.approvalChecked = true;
+    if (!this.approvalData) return false;
+
+    const allowance = (
+      await Approvals.fetchApprovals({
+        chainId: this.path.fromChain.chainDetails.chainId,
+        owner: this.approvalData?.owner,
+        allowanceTarget: this.approvalData?.allowanceTarget,
+        tokenAddress: this.approvalData?.approvalTokenAddress,
+      })
+    ).result;
+
+    const allowanceValue = BigNumber.from(allowance.value);
+    const minimumApprovalAmount = BigNumber.from(this.approvalData.minimumApprovalAmount);
+    return allowanceValue.lt(minimumApprovalAmount);
+  }
+
   async getApproveTransaction() {
     if (!this.approvalData) {
-      throw new Error("Trade does not require approval.");
+      return null;
+    }
+
+    const approvalRequired = await this.approvalRequired();
+    if (!approvalRequired) {
+      return null;
     }
 
     if (this.userAddress !== this.approvalData.owner) {
@@ -37,7 +58,7 @@ export class Trade {
         allowanceTarget: this.approvalData.allowanceTarget,
         amount: this.approvalData.minimumApprovalAmount,
         owner: this.approvalData.owner,
-        tokenAddress: this.path.fromToken.address,
+        tokenAddress: this.approvalData.approvalTokenAddress,
       })
     ).result;
 
@@ -45,6 +66,12 @@ export class Trade {
   }
 
   async getSendTransaction() {
+    if (!this.approvalChecked) {
+      throw new Error(
+        "Approval not checked. Check `getApproveTransaction` before attempting to send."
+      );
+    }
+
     const buildTx = (
       await Server.getSingleTx({
         requestBody: {

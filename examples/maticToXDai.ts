@@ -1,4 +1,3 @@
-import BigNumber from "bignumber.js";
 import { Chain, client, Path, Quotes, TokenList, Trade } from "../src";
 import * as ethers from "ethers";
 import { TokenAsset } from "../src/client";
@@ -34,7 +33,7 @@ const wallet = process.env.PRIVATE_KEY
 
 const provider = new ethers.providers.JsonRpcProvider("https://polygon-rpc.com");
 
-const TEN_MATIC = new BigNumber("10000000000000000000");
+const TEN_MATIC = ethers.BigNumber.from("10000000000000000000");
 
 (async () => {
   const userAddress = await wallet.getAddress();
@@ -62,12 +61,8 @@ const TEN_MATIC = new BigNumber("10000000000000000000");
 
   const trade = new Trade(userAddress, path, quote.routes[0]);
 
-  if (trade.approvalRequired) {
-    const approvalTxData = await trade.getApproveTransaction();
-    const approvalTx = await wallet.connect(provider).sendTransaction(approvalTxData);
-    console.log(`Approving: ${approvalTx.hash}`);
-    await approvalTx.wait();
-  }
+  const approvalTxData = await trade.getApproveTransaction();
+  if (approvalTxData) throw new Error("Approval not expected");
 
   const sendTxData = await trade.getSendTransaction();
   const sendTx = await wallet.connect(provider).sendTransaction({

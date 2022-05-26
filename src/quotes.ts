@@ -1,16 +1,16 @@
-import BigNumber from "bignumber.js";
+import { ethers } from "ethers";
 import { Quote } from "./client";
 import { Path } from "./path";
 
 export class Quotes {
-  static async getQuotes(path: Path, amount: BigNumber, address: string) {
+  static async getQuotes(path: Path, amount: ethers.BigNumber, address: string) {
     return (
       await Quote.getQuote({
         fromChainId: path.fromToken.chainId,
         toChainId: path.toToken.chainId,
         fromTokenAddress: path.fromToken.address,
         toTokenAddress: path.toToken.address,
-        fromAmount: amount.toFixed(),
+        fromAmount: amount.toString(),
         userAddress: address,
         recipient: address,
         singleTxOnly: true,
