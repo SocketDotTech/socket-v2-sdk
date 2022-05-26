@@ -52,7 +52,7 @@ export class Approvals {
     amount,
   }: {
     /** ID of chain, e.g Ethereum Mainnet = 1 **/
-    chainId: string;
+    chainId: number;
     /** Wallet address of token holder **/
     owner: string;
     /** Address whose spending allowance is to be checked **/

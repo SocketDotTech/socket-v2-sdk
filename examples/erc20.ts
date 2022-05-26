@@ -23,23 +23,23 @@ const HUNDRED_USDC = ethers.BigNumber.from("10000000");
   const gnosis = chains.find((chain) => chain.chainDetails.chainId === 100)!;
   const matic = chains.find((chain) => chain.chainDetails.chainId === 137)!;
 
-  const tokenList = await TokenList.getTokenList(
-    gnosis.chainDetails.chainId,
-    matic.chainDetails.chainId
-  );
+  const tokenList = await TokenList.getTokenList({
+    fromChainId: gnosis.chainDetails.chainId,
+    toChainId: matic.chainDetails.chainId,
+  });
 
   // Select USDC on both chains
   const usdcOnGnosis = tokenList.from.find(usdcTokenFinder)!;
   const usdcOnPolygon = tokenList.to.find(usdcTokenFinder)!;
 
-  const path = new Path(gnosis, matic, usdcOnGnosis, usdcOnPolygon);
-  const quote = await Quotes.getQuotes(path, HUNDRED_USDC, userAddress);
+  const path = new Path({ fromToken: usdcOnGnosis, toToken: usdcOnPolygon });
+  const quote = await Quotes.getQuotes({ path: path, amount: HUNDRED_USDC, address: userAddress });
 
   if (!quote.routes || !quote.routes.length) {
     throw new Error("no routes");
   }
 
-  const trade = new Trade(userAddress, path, quote.routes[0]);
+  const trade = new Trade({ userAddress, path, route: quote.routes[0] });
   const approvalTxData = await trade.getApproveTransaction();
   if (approvalTxData) {
     const approvalTx = await wallet.connect(provider).sendTransaction(approvalTxData);

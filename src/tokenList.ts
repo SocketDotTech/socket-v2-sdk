@@ -1,7 +1,13 @@
 import { TokenLists } from "./client";
 
 export class TokenList {
-  static async getTokenList(fromChainId: number, toChainId: number) {
+  static async getTokenList({
+    fromChainId,
+    toChainId,
+  }: {
+    fromChainId: number;
+    toChainId: number;
+  }) {
     const fromTokenList = await TokenLists.getFromTokenList({
       fromChainId,
       toChainId,

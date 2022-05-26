@@ -14,7 +14,7 @@ export class Trade {
     return this.route.userTxs.find((tx) => tx.approvalData)?.approvalData;
   }
 
-  constructor(userAddress: string, path: Path, route: Route) {
+  constructor({ userAddress, path, route }: { userAddress: string; path: Path; route: Route }) {
     this.userAddress = userAddress;
     this.path = path;
     this.route = route;
@@ -26,7 +26,7 @@ export class Trade {
 
     const allowance = (
       await Approvals.fetchApprovals({
-        chainId: this.path.fromChain.chainDetails.chainId,
+        chainId: this.path.fromToken.chainId,
         owner: this.approvalData?.owner,
         allowanceTarget: this.approvalData?.allowanceTarget,
         tokenAddress: this.approvalData?.approvalTokenAddress,
@@ -92,8 +92,8 @@ export class Trade {
       return (
         await Server.getBridgingStatus({
           transactionHash: hash,
-          fromChainId: this.path.fromChain.chainDetails.chainId,
-          toChainId: this.path.toChain.chainDetails.chainId,
+          fromChainId: this.path.fromToken.chainId,
+          toChainId: this.path.toToken.chainId,
           bridgeName: this.route.usedBridgeNames[0], // TODO: there should be more to this.
         })
       ).result;

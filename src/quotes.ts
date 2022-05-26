@@ -3,7 +3,15 @@ import { Quote } from "./client";
 import { Path } from "./path";
 
 export class Quotes {
-  static async getQuotes(path: Path, amount: ethers.BigNumber, address: string) {
+  static async getQuotes({
+    path,
+    amount,
+    address,
+  }: {
+    path: Path;
+    amount: ethers.BigNumber;
+    address: string;
+  }) {
     return (
       await Quote.getQuote({
         fromChainId: path.fromToken.chainId,

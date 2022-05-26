@@ -29,11 +29,11 @@ export class Quote {
     isContractCall,
   }: {
     /** Chain id of source chain. **/
-    fromChainId: string;
+    fromChainId: number;
     /** Token address on source chain. **/
     fromTokenAddress: string;
     /** Chain id of destination chain. **/
-    toChainId: string;
+    toChainId: number;
     /** Token address on destination chain. **/
     toTokenAddress: string;
     /** Amount of sending tokens. **/

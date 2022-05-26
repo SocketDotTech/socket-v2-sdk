@@ -43,23 +43,23 @@ const TEN_MATIC = ethers.BigNumber.from("10000000000000000000");
   const matic = chains.find((chain) => chain.chainDetails.chainId === 137)!;
   const gnosis = chains.find((chain) => chain.chainDetails.chainId === 100)!;
 
-  const tokenList = await TokenList.getTokenList(
-    matic.chainDetails.chainId,
-    gnosis.chainDetails.chainId
-  );
+  const tokenList = await TokenList.getTokenList({
+    fromChainId: matic.chainDetails.chainId,
+    toChainId: gnosis.chainDetails.chainId,
+  });
 
   // Select native tokens (MATIC & xDAI)
   const maticOnPolygon = tokenList.from.find(nativeTokenFinder)!;
   const daiOnGnosis = tokenList.to.find(nativeTokenFinder)!;
 
-  const path = new Path(matic, gnosis, maticOnPolygon, daiOnGnosis);
-  const quote = await Quotes.getQuotes(path, TEN_MATIC, userAddress);
+  const path = new Path({ fromToken: maticOnPolygon, toToken: daiOnGnosis });
+  const quote = await Quotes.getQuotes({ path, amount: TEN_MATIC, address: userAddress });
 
   if (!quote.routes || !quote.routes.length) {
     throw new Error("no routes");
   }
 
-  const trade = new Trade(userAddress, path, quote.routes[0]);
+  const trade = new Trade({ userAddress, path, route: quote.routes[0] });
 
   const approvalTxData = await trade.getApproveTransaction();
   if (approvalTxData) throw new Error("Approval not expected");
