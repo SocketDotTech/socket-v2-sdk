@@ -44,6 +44,10 @@ export class Trade {
       return null;
     }
 
+    if (!this.approvalData) {
+      return null;
+    }
+
     if (this.userAddress !== this.approvalData.owner) {
       throw new Error("Wrong address");
     }
