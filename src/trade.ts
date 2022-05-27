@@ -39,10 +39,6 @@ export class Trade {
   }
 
   async getApproveTransaction() {
-    if (!this.approvalData) {
-      return null;
-    }
-
     const approvalRequired = await this.approvalRequired();
     if (!approvalRequired) {
       return null;
