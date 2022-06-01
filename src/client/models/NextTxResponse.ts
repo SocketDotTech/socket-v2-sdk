@@ -2,7 +2,11 @@ import type { ApprovalData } from "./ApprovalData";
 import { ChainId } from "./ChainId";
 import { UserTxType } from "./UserTxType";
 
-export type NextTxResponse = {
+export interface NextTxResponse {
+  /**
+   * Id of Active Route.
+   */
+  activeRouteId: number;
   /**
    * Type of user transaction.
    */
@@ -14,7 +18,7 @@ export type NextTxResponse = {
   /**
    * Id of chain where transaction has to be sent.
    */
-  chainId: ChainId;
+  chainId: number;
   /**
    * Calldata for transaction.
    */
@@ -23,10 +27,7 @@ export type NextTxResponse = {
    * Type of transaction.
    */
   txType: ChainId;
-  /**
-   * Id of Active Route.
-   */
-  activeRouteId: number;
+
   /**
    * Native token amount to be sent with transaction.
    */
@@ -40,4 +41,4 @@ export type NextTxResponse = {
    */
   totalUserTx: number;
   approvalData: ApprovalData;
-};
+}

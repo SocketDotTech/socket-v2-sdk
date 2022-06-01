@@ -1,15 +1,14 @@
-import { ChainId } from "./ChainId";
 import type { Route } from "./Route";
 
 export type StartActiveRouteInputDTO = {
   /**
    * Chain id of source chain.
    */
-  fromChainId: ChainId;
+  fromChainId: number;
   /**
    * Chain id of destination chain.
    */
-  toChainId: ChainId;
+  toChainId: number;
   /**
    * Token address on source chain.
    */

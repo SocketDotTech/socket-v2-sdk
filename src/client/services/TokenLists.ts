@@ -3,6 +3,7 @@ import type { TokenListOutputDTO } from "../models/TokenListOutputDTO";
 import type { CancelablePromise } from "../core/CancelablePromise";
 import { OpenAPI } from "../core/OpenAPI";
 import { request as __request } from "../core/request";
+import { BridgeName } from "../models/BridgeDetails";
 
 export class TokenLists {
   /**
@@ -32,26 +33,10 @@ export class TokenLists {
      * This option will be ignored if includeDexes is specified. **/
     excludeDexes?: Array<"oneinch" | "zerox">;
     /** Specify Bridges that should be included for token support. **/
-    includeBridges?: Array<
-      | "polygon-bridge"
-      | "hop"
-      | "anyswap-router-v4"
-      | "hyphen"
-      | "arbitrum-bridge"
-      | "connext"
-      | "celer"
-    >;
+    includeBridges?: Array<BridgeName>;
     /** Specify Bridges that should be excluded for token support.
      * This option will be ignored if includeBridges is specified. **/
-    excludeBridges?: Array<
-      | "polygon-bridge"
-      | "hop"
-      | "anyswap-router-v4"
-      | "hyphen"
-      | "arbitrum-bridge"
-      | "connext"
-      | "celer"
-    >;
+    excludeBridges?: Array<BridgeName>;
     /** To be Marked true if you want the token list that needs only a single transaction from the user to bridge. **/
     singleTxOnly?: boolean;
     /** To be Marked true if you want the shorter and more efficient token list. **/
@@ -105,26 +90,10 @@ export class TokenLists {
      * This option will be ignored if includeDexes is specified. **/
     excludeDexes?: Array<"oneinch" | "zerox">;
     /** Specify Bridges that should be included for token support. **/
-    includeBridges?: Array<
-      | "polygon-bridge"
-      | "hop"
-      | "anyswap-router-v4"
-      | "hyphen"
-      | "arbitrum-bridge"
-      | "connext"
-      | "celer"
-    >;
+    includeBridges?: Array<BridgeName>;
     /** Specify Bridges that should be excluded for token support.
      * This option will be ignored if includeBridges is specified. **/
-    excludeBridges?: Array<
-      | "polygon-bridge"
-      | "hop"
-      | "anyswap-router-v4"
-      | "hyphen"
-      | "arbitrum-bridge"
-      | "connext"
-      | "celer"
-    >;
+    excludeBridges?: Array<BridgeName>;
     /** To be Marked true if you want the token list that needs only a single transaction from the user to bridge. **/
     singleTxOnly?: boolean;
     /** To be Marked true if you want the shorter and more efficient token list. **/

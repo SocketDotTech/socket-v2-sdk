@@ -28,7 +28,6 @@ export type { SingleTxDTO } from "./models/SingleTxDTO";
 export type { SingleTxOutputDTO } from "./models/SingleTxOutputDTO";
 export { SingleTxResponse } from "./models/SingleTxResponse";
 export { StartActiveRouteInputDTO } from "./models/StartActiveRouteInputDTO";
-export { StartActiveRouteResponseDTO } from "./models/StartActiveRouteResponseDTO";
 export type { SupportedBridgesOutputDTO } from "./models/SupportedBridgesOutputDTO";
 export type { SupportedChainsOutputDTO } from "./models/SupportedChainsOutputDTO";
 export { TokenAsset } from "./models/TokenAsset";

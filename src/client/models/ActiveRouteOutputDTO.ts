@@ -1,9 +1,9 @@
 import type { ActiveRouteResponse } from "./ActiveRouteResponse";
 
-export type ActiveRoutesOutputDTO = {
+export type ActiveRouteOutputDTO = {
   /**
    * Status of API response.
    */
   success: boolean;
-  result: Array<ActiveRouteResponse>;
+  result: ActiveRouteResponse;
 };

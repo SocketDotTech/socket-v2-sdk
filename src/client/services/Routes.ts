@@ -2,11 +2,12 @@ import type { ActiveRoutesOutputDTO } from "../models/ActiveRoutesOutputDTO";
 import type { NextTxOutputDTO } from "../models/NextTxOutputDTO";
 import type { RouteStatusOutputDTO } from "../models/RouteStatusOutputDTO";
 import type { StartActiveRouteInputDTO } from "../models/StartActiveRouteInputDTO";
-import type { StartActiveRouteResponseDTO } from "../models/StartActiveRouteResponseDTO";
 
 import type { CancelablePromise } from "../core/CancelablePromise";
 import { OpenAPI } from "../core/OpenAPI";
 import { request as __request } from "../core/request";
+import { ActiveRoutesRequest } from "../models/ActiveRoutesRequest";
+import { ActiveRouteOutputDTO } from "../models/ActiveRouteOutputDTO";
 
 export class Routes {
   /**
@@ -20,31 +21,31 @@ export class Routes {
    * @throws ApiError
    */
   public static startActiveRoute({
-    requestBody,
+    startRequest,
   }: {
-    requestBody: StartActiveRouteInputDTO;
-  }): CancelablePromise<StartActiveRouteResponseDTO | any> {
+    startRequest: StartActiveRouteInputDTO;
+  }): CancelablePromise<NextTxOutputDTO> {
     return __request(OpenAPI, {
       method: "POST",
       url: "/v2/route/start",
       headers: {
         "API-KEY": OpenAPI.API_KEY,
       },
-      body: requestBody,
+      body: startRequest,
       mediaType: "application/json",
     });
   }
 
   /**
-   * @returns ActiveRoutesOutputDTO Get active route details using active route id
+   * @returns ActiveRouteDTO Get active route details using active route id
    * @throws ApiError
    */
-  public static getActiveRoutes({
+  public static getActiveRoute({
     activeRouteId,
   }: {
     /** Id of the Active Route. **/
     activeRouteId: string;
-  }): CancelablePromise<ActiveRoutesOutputDTO> {
+  }): CancelablePromise<ActiveRouteOutputDTO> {
     return __request(OpenAPI, {
       method: "GET",
       url: "/v2/route/active-routes",
@@ -61,53 +62,16 @@ export class Routes {
    * @returns ActiveRoutesOutputDTO Get all the active routes from a user address. Filters like fromChainId, toChainId and token addresses can be used to get back specific active routes.
    * @throws ApiError
    */
-  public static getActiveRoutesForUser({
-    userAddress,
-    sort,
-    offset,
-    limit,
-    routeStatus,
-    fromChainId,
-    toChainId,
-    fromTokenAddress,
-    toTokenAddress,
-  }: {
-    /** Address of user starting the route. **/
-    userAddress: string;
-    /** Sort param for routes. **/
-    sort?: "updatedAt" | "createdAt";
-    /** Offset for fetching active routes. **/
-    offset?: string;
-    /** Number of active routes to return in one API call. **/
-    limit?: string;
-    /** Status of the route. The route will only be marked completed if all the user txs have been completed. **/
-    routeStatus?: "PENDING" | "COMPLETED";
-    /** Id of sending chain **/
-    fromChainId?: string;
-    /** Id of destination chain. **/
-    toChainId?: string;
-    /** Address of token on source chain. **/
-    fromTokenAddress?: string;
-    /** Token address on destination chain. **/
-    toTokenAddress?: string;
-  }): CancelablePromise<ActiveRoutesOutputDTO> {
+  public static getActiveRoutesForUser(
+    request: ActiveRoutesRequest
+  ): CancelablePromise<ActiveRoutesOutputDTO> {
     return __request(OpenAPI, {
       method: "GET",
       url: "/v2/route/active-routes/users",
       headers: {
         "API-KEY": OpenAPI.API_KEY,
       },
-      query: {
-        userAddress: userAddress,
-        sort: sort,
-        offset: offset,
-        limit: limit,
-        routeStatus: routeStatus,
-        fromChainId: fromChainId,
-        toChainId: toChainId,
-        fromTokenAddress: fromTokenAddress,
-        toTokenAddress: toTokenAddress,
-      },
+      query: request,
     });
   }
 
@@ -119,7 +83,7 @@ export class Routes {
     activeRouteId,
   }: {
     /** Id of Active Route. **/
-    activeRouteId: string;
+    activeRouteId: number;
   }): CancelablePromise<NextTxOutputDTO> {
     return __request(OpenAPI, {
       method: "GET",
@@ -144,9 +108,9 @@ export class Routes {
     signature,
   }: {
     /** Id of Active Route. **/
-    activeRouteId: string;
+    activeRouteId: number;
     /** Index of the userTxs in the Active Route. Every active route will have a userTxs array. userTxIndex is the index of the object in the userTxs array. **/
-    userTxIndex: string;
+    userTxIndex: number;
     /** Transaction hash that relates to the userTxIndex. Each object in the userTxs is a transaction that has to be done by the user to progress in the route. If all the transactions are completed in the route, it will be marked complete. **/
     txHash?: string;
     /** Signature to be sent in case the next transaction is dependant on the signature. **/

@@ -1,10 +1,11 @@
-import { Chain, client, Path, Quotes, TokenList, Trade } from "../src";
 import * as ethers from "ethers";
 import { TokenAsset } from "../src/client";
 import axios from "axios";
+import { Socket } from "../src";
+import { Path } from "../src/path";
 
 // Set the socket SDK api key
-client.OpenAPI.API_KEY = "645b2c8c-5825-4930-baf3-d9b997fcd88c"; // Testing key
+const API_KEY = "645b2c8c-5825-4930-baf3-d9b997fcd88c"; // Testing key
 
 // Polygon ethers fee data is broken
 async function getPolygonFeeData() {
@@ -33,17 +34,21 @@ const wallet = process.env.PRIVATE_KEY
 
 const provider = new ethers.providers.JsonRpcProvider("https://polygon-rpc.com");
 
-const TEN_MATIC = ethers.BigNumber.from("10000000000000000000");
+const FIVE_MATIC = ethers.BigNumber.from("5000000000000000000");
+
+const socket = new Socket(API_KEY, {
+  singleTxOnly: true,
+});
 
 (async () => {
   const userAddress = await wallet.getAddress();
-  const chains = await Chain.getSupportedChains();
+  const chains = await socket.getSupportedChains();
 
   // Select chains
   const matic = chains.find((chain) => chain.chainDetails.chainId === 137)!;
   const gnosis = chains.find((chain) => chain.chainDetails.chainId === 100)!;
 
-  const tokenList = await TokenList.getTokenList({
+  const tokenList = await socket.getTokenList({
     fromChainId: matic.chainDetails.chainId,
     toChainId: gnosis.chainDetails.chainId,
   });
@@ -53,27 +58,25 @@ const TEN_MATIC = ethers.BigNumber.from("10000000000000000000");
   const daiOnGnosis = tokenList.to.find(nativeTokenFinder)!;
 
   const path = new Path({ fromToken: maticOnPolygon, toToken: daiOnGnosis });
-  const quote = await Quotes.getQuotes({ path, amount: TEN_MATIC, address: userAddress });
+  const quote = await socket.getBestQuote({ path, amount: FIVE_MATIC, address: userAddress });
 
-  if (!quote.routes || !quote.routes.length) {
+  if (!quote) {
     throw new Error("no routes");
   }
 
-  const trade = new Trade({ userAddress, path, route: quote.routes[0] });
+  for await (const tx of socket.start(quote)) {
+    const approvalTxData = await tx.getApproveTransaction();
+    if (approvalTxData) {
+      throw new Error("approval not expected");
+    }
+    const sendTxData = await tx.getSendTransaction();
+    const sendTx = await wallet.connect(provider).sendTransaction({
+      ...sendTxData,
+      ...(await getPolygonFeeData()),
+    });
+    console.log(`Sending: ${sendTx.hash}`);
+    await sendTx.wait();
 
-  const approvalTxData = await trade.getApproveTransaction();
-  if (approvalTxData) throw new Error("Approval not expected");
-
-  const sendTxData = await trade.getSendTransaction();
-  const sendTx = await wallet.connect(provider).sendTransaction({
-    ...sendTxData,
-    ...(await getPolygonFeeData()), // Polygon rpc fee calculation is broken
-  });
-  console.log(`Sending: ${sendTx.hash}`);
-  await sendTx.wait();
-
-  const status = await trade.getStatus(sendTx.hash);
-  console.log("Status", status);
-  const finalStatus = await status.wait();
-  console.log("Trade completed", finalStatus);
+    await tx.done(sendTx.hash);
+  }
 })();
