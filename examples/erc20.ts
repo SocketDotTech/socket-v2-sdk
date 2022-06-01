@@ -24,12 +24,12 @@ const FIVE_USDC = ethers.BigNumber.from("5000000");
   const chains = await socket.getSupportedChains();
 
   // Select chains
-  const gnosis = chains.find((chain) => chain.chainDetails.chainId === 100)!;
-  const matic = chains.find((chain) => chain.chainDetails.chainId === 137)!;
+  const gnosis = chains.find((chain) => chain.chainId === 100)!;
+  const matic = chains.find((chain) => chain.chainId === 137)!;
 
   const tokenList = await socket.getTokenList({
-    fromChainId: gnosis.chainDetails.chainId,
-    toChainId: matic.chainDetails.chainId,
+    fromChainId: gnosis.chainId,
+    toChainId: matic.chainId,
   });
 
   // Select USDC on both chains

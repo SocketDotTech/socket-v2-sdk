@@ -45,12 +45,12 @@ const socket = new Socket(API_KEY, {
   const chains = await socket.getSupportedChains();
 
   // Select chains
-  const matic = chains.find((chain) => chain.chainDetails.chainId === 137)!;
-  const gnosis = chains.find((chain) => chain.chainDetails.chainId === 100)!;
+  const matic = chains.find((chain) => chain.chainId === 137)!;
+  const gnosis = chains.find((chain) => chain.chainId === 100)!;
 
   const tokenList = await socket.getTokenList({
-    fromChainId: matic.chainDetails.chainId,
-    toChainId: gnosis.chainDetails.chainId,
+    fromChainId: matic.chainId,
+    toChainId: gnosis.chainId,
   });
 
   // Select native tokens (MATIC & xDAI)

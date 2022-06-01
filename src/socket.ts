@@ -14,7 +14,7 @@ export class Socket {
   }
 
   async getSupportedChains() {
-    (await Supported.getAllSupportedRoutes()).result;
+    return (await Supported.getAllSupportedRoutes()).result;
   }
 
   async getTokenList({ fromChainId, toChainId }: { fromChainId: number; toChainId: number }) {
