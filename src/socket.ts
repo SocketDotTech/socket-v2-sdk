@@ -39,8 +39,8 @@ export class Socket {
     };
   }
 
-  async getBestQuote(params: QuoteParams) {
-    const allRoutes = await this.getAllQuotes(params);
+  async getBestQuote(params: QuoteParams, preferences?: QuotePreferences) {
+    const allRoutes = await this.getAllQuotes(params, preferences);
     return allRoutes ? allRoutes[0] : null;
   }
 
