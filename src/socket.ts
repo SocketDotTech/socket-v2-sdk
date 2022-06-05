@@ -1,7 +1,11 @@
+import { BigNumber } from "ethers";
 import { NextTxResponse, OpenAPI, Quote, Routes, Supported, TokenLists } from "./client";
+import { ActiveRouteStatus } from "./client/models/ActiveRouteResponse";
+import { ActiveRoutesRequest } from "./client/models/ActiveRoutesRequest";
 import { QuotePreferences } from "./client/models/QuoteRequest";
+import { Path } from "./path";
 import { SocketTx } from "./socketTx";
-import { QuoteParams, SocketQuote } from "./types";
+import { QuoteParams, SocketActiveQuote, SocketQuote } from "./types";
 
 export class Socket {
   apiKey: string;
@@ -92,5 +96,30 @@ export class Socket {
       }
       yield new SocketTx(nextTx);
     } while (nextTx.userTxIndex + 1 < nextTx.totalUserTx);
+  }
+
+  async *continue(activeRouteId: number): AsyncGenerator<SocketTx> {
+    const activeRoute = (await Routes.getActiveRoute({ activeRouteId: activeRouteId })).result;
+    if (activeRoute.routeStatus === ActiveRouteStatus.COMPLETED) {
+      throw new Error(`Route ${activeRoute.activeRouteId} is already complete`);
+    }
+
+    let nextTx: NextTxResponse;
+
+    do {
+      nextTx = (await Routes.nextTx({ activeRouteId: activeRoute.activeRouteId })).result;
+      yield new SocketTx(nextTx);
+    } while (nextTx.userTxIndex + 1 < nextTx.totalUserTx);
+  }
+
+  async getActiveQuotes(options: ActiveRoutesRequest): Promise<SocketActiveQuote[]> {
+    const routes = (await Routes.getActiveRoutesForUser(options)).result;
+    const quotes = routes.map((route) => ({
+      route,
+      path: new Path({ fromToken: route.fromAsset, toToken: route.toAsset }),
+      address: route.userAddress,
+      amount: BigNumber.from(route.fromAmount),
+    }));
+    return quotes;
   }
 }

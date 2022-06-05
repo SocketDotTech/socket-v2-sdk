@@ -44,7 +44,7 @@ export class Routes {
     activeRouteId,
   }: {
     /** Id of the Active Route. **/
-    activeRouteId: string;
+    activeRouteId: number;
   }): CancelablePromise<ActiveRouteOutputDTO> {
     return __request(OpenAPI, {
       method: "GET",

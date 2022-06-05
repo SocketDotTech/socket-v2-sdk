@@ -4,7 +4,7 @@
 /**
  * Status of transaction while bridging.
  */
-export enum RouteTxStatus {
+export enum PrepareActiveRouteStatus {
   PENDING = "pending",
   COMPLETED = "completed",
 }
@@ -14,5 +14,5 @@ export type RouteStatusOutputDTO = {
    * Status of API.
    */
   status: boolean;
-  result: RouteTxStatus;
+  result: PrepareActiveRouteStatus;
 };

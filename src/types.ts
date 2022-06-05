@@ -1,5 +1,5 @@
 import { BigNumber } from "ethers";
-import { Route } from "./client";
+import { ActiveRouteResponse, Route } from "./client";
 import { Path } from "./path";
 
 export interface QuoteParams {
@@ -10,4 +10,8 @@ export interface QuoteParams {
 
 export interface SocketQuote extends QuoteParams {
   route: Route;
+}
+
+export interface SocketActiveQuote extends QuoteParams {
+  route: ActiveRouteResponse;
 }

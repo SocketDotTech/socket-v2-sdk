@@ -1,6 +1,11 @@
 import type { TokenAsset } from "./TokenAsset";
 import { UserTx } from "./UserTx";
 
+export enum ActiveRouteStatus {
+  PENDING = "PENDING",
+  COMPLETED = "COMPLETED",
+}
+
 export type ActiveRouteResponse = {
   /**
    * Id of the Active Route.
@@ -45,7 +50,7 @@ export type ActiveRouteResponse = {
   /**
    * Status of the Active Route.
    */
-  routeStatus: string;
+  routeStatus: ActiveRouteStatus;
   /**
    * Timestamp of Route start.
    */

@@ -1,6 +1,6 @@
 import { BigNumber } from "ethers";
 import { Approvals, NextTxResponse, Routes } from "./client";
-import { RouteTxStatus } from "./client/models/RouteStatusOutputDTO";
+import { PrepareActiveRouteStatus } from "./client/models/RouteStatusOutputDTO";
 import { sleep } from "./utils";
 
 const STATUS_CHECK_INTERVAL = 10000;
@@ -81,15 +81,13 @@ export class SocketTx {
       txHash: hash,
     });
 
-    console.log(status.result);
-
     return status.result;
   }
 
   async done(hash: string) {
     for (;;) {
       const currentStatus = await this.getStatus(hash);
-      const pending = currentStatus === RouteTxStatus.PENDING;
+      const pending = currentStatus === PrepareActiveRouteStatus.PENDING;
       if (pending) {
         await sleep(STATUS_CHECK_INTERVAL);
       } else {

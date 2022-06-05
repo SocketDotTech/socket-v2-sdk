@@ -2,7 +2,7 @@ export type BridgeDetails = {
   /**
    * Name of bridge.
    */
-  bridgeName: BridgeName;
+  name: BridgeName;
   /**
    * URL for icon of bridge.
    */
@@ -21,6 +21,7 @@ export type BridgeDetails = {
  * Name of bridge.
  */
 export enum BridgeName {
+  ONE_INCH = "oneinch",
   POLYGON_BRIDGE = "polygon-bridge",
   HOP = "hop",
   ANYSWAP_ROUTER_V4 = "anyswap-router-v4",

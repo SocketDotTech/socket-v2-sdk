@@ -1,4 +1,6 @@
+import { TransactionReceipt } from "@ethersproject/abstract-provider";
 import { ApprovalData, BridgeDetails, TokenAsset } from "..";
+import { PrepareActiveRouteStatus } from "./RouteStatusOutputDTO";
 import { TxType } from "./TxType";
 import { UserTxType } from "./UserTxType";
 
@@ -36,4 +38,9 @@ export type UserTx = {
   serviceTime: number;
   recipient: string;
   userTxIndex: number;
+  userTxStatus: PrepareActiveRouteStatus;
+  sourceTransactionHash?: string;
+  sourceTransactionReceipt?: TransactionReceipt;
+  destinationTxHash?: string;
+  destinationTxReceipt?: TransactionReceipt;
 };
