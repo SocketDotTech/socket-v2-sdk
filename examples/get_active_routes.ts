@@ -12,6 +12,6 @@ const socket = new Socket(API_KEY);
 
 (async () => {
   const userAddress = await wallet.getAddress();
-  const routes = await socket.getActiveRoutes({ userAddress });
+  const routes = await socket.client.routes.getActiveRoutesForUser({ userAddress });
   console.log(routes);
 })();

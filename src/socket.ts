@@ -1,24 +1,37 @@
-import { BigNumber } from "ethers";
-import { NextTxResponse, OpenAPI, Quote, Routes, Supported, TokenLists } from "./client";
+import {
+  Approvals,
+  Balances,
+  NextTxResponse,
+  OpenAPI,
+  Quote,
+  Routes,
+  Server,
+  Supported,
+  TokenLists,
+} from "./client";
 import { ActiveRouteStatus } from "./client/models/ActiveRouteResponse";
-import { ActiveRoutesRequest } from "./client/models/ActiveRoutesRequest";
 import { QuotePreferences } from "./client/models/QuoteRequest";
-import { Path } from "./path";
 import { SocketTx } from "./socketTx";
-import { QuoteParams, SocketActiveQuote, SocketQuote } from "./types";
+import { QuoteParams, SocketQuote } from "./types";
 
 export class Socket {
   apiKey: string;
   defaultQuotePreferences?: QuotePreferences;
 
+  client = {
+    routes: Routes,
+    balances: Balances,
+    approvals: Approvals,
+    server: Server,
+    quote: Quote,
+    supported: Supported,
+    tokenLists: TokenLists,
+  };
+
   constructor(apiKey: string, defaultQuotePreferences?: QuotePreferences) {
     this.apiKey = apiKey;
     OpenAPI.API_KEY = this.apiKey;
     this.defaultQuotePreferences = defaultQuotePreferences;
-  }
-
-  async getSupportedChains() {
-    return (await Supported.getAllSupportedRoutes()).result;
   }
 
   async getTokenList({ fromChainId, toChainId }: { fromChainId: number; toChainId: number }) {
@@ -110,17 +123,5 @@ export class Socket {
       nextTx = (await Routes.nextTx({ activeRouteId: activeRoute.activeRouteId })).result;
       yield new SocketTx(nextTx);
     } while (nextTx.userTxIndex + 1 < nextTx.totalUserTx);
-  }
-
-  async getActiveRoutes(options: ActiveRoutesRequest): Promise<SocketActiveQuote[]> {
-    // TODO: pagination
-    const routes = (await Routes.getActiveRoutesForUser(options)).result.activeRoutes;
-    const quotes = routes.map((route) => ({
-      route,
-      path: new Path({ fromToken: route.fromAsset, toToken: route.toAsset }),
-      address: route.userAddress,
-      amount: BigNumber.from(route.fromAmount),
-    }));
-    return quotes;
   }
 }
