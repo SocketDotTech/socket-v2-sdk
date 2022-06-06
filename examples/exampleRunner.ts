@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Socket } from "../src";
 import * as ethers from "ethers";
 import { Path } from "../src/path";
@@ -5,36 +6,55 @@ import { BridgeName } from "../src/client/models/BridgeDetails";
 
 const API_KEY = "645b2c8c-5825-4930-baf3-d9b997fcd88c"; // Testing key
 
-const socket = new Socket(API_KEY, {
-  singleTxOnly: true,
-});
-
 const wallet = process.env.PRIVATE_KEY
   ? new ethers.Wallet(process.env.PRIVATE_KEY)
   : ethers.Wallet.createRandom();
 
+// Polygon ethers fee data is broken
+async function getPolygonFeeData() {
+  const gas: {
+    standard: {
+      maxPriorityFee: number;
+      maxFee: number;
+    };
+  } = (await axios.get("https://gasstation-mainnet.matic.network/v2")).data;
+
+  return {
+    maxPriorityFeePerGas: ethers.utils.parseUnits(
+      Math.ceil(gas.standard.maxPriorityFee).toString(),
+      "gwei"
+    ),
+    maxFeePerGas: ethers.utils.parseUnits(Math.ceil(gas.standard.maxFee).toString(), "gwei"),
+  };
+}
+
+const chainProviders: { [index: number]: ethers.providers.JsonRpcProvider } = {
+  100: new ethers.providers.JsonRpcProvider("https://gnosis-mainnet.public.blastapi.io"),
+  137: new ethers.providers.JsonRpcProvider("https://polygon-rpc.com"),
+  56: new ethers.providers.JsonRpcProvider("https://bsc-dataseed4.binance.org"),
+};
+
 export async function runRoute({
-  provider,
   fromAmount,
   fromChainId,
   toChainId,
   fromTokenAddress,
   toTokenAddress,
-  getFeeData,
   bridge,
+  multiTx = false,
 }: {
-  provider: ethers.providers.JsonRpcProvider;
   fromAmount: string;
   fromChainId: number;
   toChainId: number;
   fromTokenAddress: string;
   toTokenAddress: string;
-  getFeeData?: () => Promise<{
-    maxPriorityFeePerGas: ethers.BigNumber;
-    maxFeePerGas: ethers.BigNumber;
-  }>;
   bridge?: BridgeName;
+  multiTx?: boolean;
 }) {
+  const socket = new Socket(API_KEY, {
+    singleTxOnly: !multiTx,
+  });
+
   const userAddress = await wallet.getAddress();
 
   const tokenList = await socket.getTokenList({
@@ -42,8 +62,12 @@ export async function runRoute({
     toChainId: toChainId,
   });
 
-  const fromToken = tokenList.from.find((token) => token.address === fromTokenAddress);
-  const toToken = tokenList.to.find((token) => token.address === toTokenAddress);
+  const fromToken = tokenList.from.find(
+    (token) => token.address.toLowerCase() === fromTokenAddress.toLowerCase()
+  )!;
+  const toToken = tokenList.to.find(
+    (token) => token.address.toLowerCase() === toTokenAddress.toLowerCase()
+  )!;
 
   const path = new Path({ fromToken, toToken });
   if (!fromToken.decimals) {
@@ -64,14 +88,18 @@ export async function runRoute({
     ? quotes.find((quote) => quote.route.usedBridgeNames.includes(bridge))
     : quotes[0];
 
+  console.log("Running Quote", JSON.stringify(quote, null, 2));
+
   if (!quote) {
     throw new Error("no routes");
   }
 
   for await (const tx of socket.start(quote)) {
+    console.log(`Executing step ${tx.userTxIndex} "${tx.userTxType}" on chain ${tx.chainId}`);
+    const provider = chainProviders[tx.chainId];
     const approvalTxData = await tx.getApproveTransaction();
     if (approvalTxData) {
-      const feeData = getFeeData ? await getFeeData() : {};
+      const feeData = tx.chainId === 137 ? await getPolygonFeeData() : {};
       const approvalTx = await wallet.connect(provider).sendTransaction({
         ...approvalTxData,
         ...feeData,
@@ -80,7 +108,7 @@ export async function runRoute({
       await approvalTx.wait();
     }
     const sendTxData = await tx.getSendTransaction();
-    const feeData = getFeeData ? await getFeeData() : {};
+    const feeData = tx.chainId === 137 ? await getPolygonFeeData() : {};
     const sendTx = await wallet.connect(provider).sendTransaction({
       ...sendTxData,
       ...feeData,

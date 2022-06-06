@@ -5,5 +5,8 @@ export type ActiveRoutesOutputDTO = {
    * Status of API response.
    */
   success: boolean;
-  result: Array<ActiveRouteResponse>;
+  result: {
+    activeRoutes: Array<ActiveRouteResponse>;
+    pagination: { offset: number; limit: number; totalRecords: number };
+  };
 };

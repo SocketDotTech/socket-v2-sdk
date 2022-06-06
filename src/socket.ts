@@ -112,8 +112,9 @@ export class Socket {
     } while (nextTx.userTxIndex + 1 < nextTx.totalUserTx);
   }
 
-  async getActiveQuotes(options: ActiveRoutesRequest): Promise<SocketActiveQuote[]> {
-    const routes = (await Routes.getActiveRoutesForUser(options)).result;
+  async getActiveRoutes(options: ActiveRoutesRequest): Promise<SocketActiveQuote[]> {
+    // TODO: pagination
+    const routes = (await Routes.getActiveRoutesForUser(options)).result.activeRoutes;
     const quotes = routes.map((route) => ({
       route,
       path: new Path({ fromToken: route.fromAsset, toToken: route.toAsset }),
