@@ -98,10 +98,10 @@ export class Routes {
   }
 
   /**
-   * @returns RouteStatusOutputDTO Get status of an active route
+   * @returns RouteStatusOutputDTO Get status of an active route while submitting transaction
    * @throws ApiError
    */
-  public static getActiveRouteStatus({
+  public static updateActiveRoute({
     activeRouteId,
     userTxIndex,
     txHash,

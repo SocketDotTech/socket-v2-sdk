@@ -74,8 +74,8 @@ export class SocketTx {
     };
   }
 
-  async getStatus(hash: string) {
-    const status = await Routes.getActiveRouteStatus({
+  async updateActiveRoute(hash: string) {
+    const status = await Routes.updateActiveRoute({
       activeRouteId: this.activeRouteId,
       userTxIndex: this.userTxIndex,
       txHash: hash,
@@ -86,7 +86,7 @@ export class SocketTx {
 
   async done(hash: string) {
     for (;;) {
-      const currentStatus = await this.getStatus(hash);
+      const currentStatus = await this.updateActiveRoute(hash);
       const pending = currentStatus === PrepareActiveRouteStatus.PENDING;
       if (pending) {
         await sleep(STATUS_CHECK_INTERVAL);
