@@ -54,6 +54,15 @@ In summary:
   }
   ```
 
+### Direct api communication
+
+All api functions are available through the typescript client
+
+```ts
+const socket = new Socket(API_KEY);
+const activeRoute = await socket.client.routes.getActiveRoute({ activeRouteId: 1234 });
+```
+
 ## Test
 
 - USDC Polygon to BSC
