@@ -5,6 +5,55 @@
 - `yarn`
 - `yarn build`
 
+## Usage
+
+In summary:
+
+- Initialise the sdk:
+  ```
+  const socket = new Socket(API_KEY, {
+    singleTxOnly: false,
+  });
+  ```
+- Retrieve the token lists
+
+  ```
+  const tokenList = await socket.getTokenList({
+    fromChainId: 1,
+    toChainId: 137,
+  });
+
+  // tokenList.from has list of from tokens
+  // tokenList.to has list of to tokens
+  ```
+
+- Create a path
+  ```
+  const path = new Path({ fromToken, toToken });
+  ```
+- Get quote
+  ```
+  const quotes = await socket.getBestQuote({
+    path,
+    amount,
+    address,
+  }, { ... Any quote preferences here })
+  ```
+- Start executing the quote
+
+  ```
+  for await (const tx of socket.start(quote)) {
+    const approvalTxData = await tx.getApproveTransaction();
+    // ... if there is approval send the approve and wait
+
+    const sendTxData = await tx.getSendTransaction();
+    // ... send the tx and wait
+
+    // Notify the api about the completion of the transaction
+    await tx.done(sendTx.hash);
+  }
+  ```
+
 ## Test
 
 - USDC Polygon to BSC
