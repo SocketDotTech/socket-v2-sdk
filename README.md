@@ -10,14 +10,14 @@
 In summary:
 
 - Initialise the sdk:
-  ```
+  ```ts
   const socket = new Socket(API_KEY, {
     singleTxOnly: false,
   });
   ```
 - Retrieve the token lists
 
-  ```
+  ```ts
   const tokenList = await socket.getTokenList({
     fromChainId: 1,
     toChainId: 137,
@@ -28,11 +28,11 @@ In summary:
   ```
 
 - Create a path
-  ```
+  ```ts
   const path = new Path({ fromToken, toToken });
   ```
 - Get quote
-  ```
+  ```ts
   const quotes = await socket.getBestQuote({
     path,
     amount,
@@ -41,7 +41,7 @@ In summary:
   ```
 - Start executing the quote
 
-  ```
+  ```ts
   for await (const tx of socket.start(quote)) {
     const approvalTxData = await tx.getApproveTransaction();
     // ... if there is approval send the approve and wait
