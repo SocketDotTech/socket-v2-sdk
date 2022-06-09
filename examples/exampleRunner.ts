@@ -51,8 +51,11 @@ export async function runRoute({
   bridge?: BridgeName;
   multiTx?: boolean;
 }) {
-  const socket = new Socket(API_KEY, {
-    singleTxOnly: !multiTx,
+  const socket = new Socket({
+    apiKey: API_KEY,
+    defaultQuotePreferences: {
+      singleTxOnly: !multiTx,
+    },
   });
 
   const userAddress = await wallet.getAddress();
@@ -94,7 +97,11 @@ export async function runRoute({
     throw new Error("no routes");
   }
 
-  for await (const tx of socket.start(quote)) {
+  const execute = await socket.start(quote);
+  let next = await execute.next();
+
+  while (!next.done && next.value) {
+    const tx = next.value;
     console.log(`Executing step ${tx.userTxIndex} "${tx.userTxType}" on chain ${tx.chainId}`);
     const provider = chainProviders[tx.chainId];
     const approvalTxData = await tx.getApproveTransaction();
@@ -115,7 +122,6 @@ export async function runRoute({
     });
     console.log(`Sending: ${sendTx.hash}`);
     await sendTx.wait();
-
-    await tx.done(sendTx.hash);
+    next = await execute.next(sendTx.hash);
   }
 }

@@ -12,11 +12,10 @@ import {
 import { ActiveRouteStatus } from "./client/models/ActiveRouteResponse";
 import { QuotePreferences } from "./client/models/QuoteRequest";
 import { SocketTx } from "./socketTx";
-import { QuoteParams, SocketQuote } from "./types";
+import { QuoteParams, SocketOptions, SocketQuote } from "./types";
 
 export class Socket {
-  apiKey: string;
-  defaultQuotePreferences?: QuotePreferences;
+  options: SocketOptions;
 
   client = {
     routes: Routes,
@@ -28,10 +27,9 @@ export class Socket {
     tokenLists: TokenLists,
   };
 
-  constructor(apiKey: string, defaultQuotePreferences?: QuotePreferences) {
-    this.apiKey = apiKey;
-    OpenAPI.API_KEY = this.apiKey;
-    this.defaultQuotePreferences = defaultQuotePreferences;
+  constructor(options: SocketOptions) {
+    this.options = options;
+    OpenAPI.API_KEY = this.options.apiKey;
   }
 
   async getTokenList({ fromChainId, toChainId }: { fromChainId: number; toChainId: number }) {
@@ -69,7 +67,7 @@ export class Socket {
       fromAmount: amount.toString(),
       userAddress: address,
       recipient: address,
-      ...(this.defaultQuotePreferences || {}),
+      ...(this.options.defaultQuotePreferences || {}),
       ...(preferences || {}),
     };
 
@@ -85,7 +83,35 @@ export class Socket {
     );
   }
 
-  async *start(quote: SocketQuote): AsyncGenerator<SocketTx> {
+  public assertTxDone(socketTx?: SocketTx) {
+    if (socketTx && !socketTx.done) {
+      throw new Error(
+        `Previous transaction ${socketTx.userTxIndex}: ${socketTx.userTxType} has not been submitted.`
+      );
+    }
+  }
+
+  async *executor(initialTx: NextTxResponse): AsyncGenerator<SocketTx, void, string> {
+    let nextTx: NextTxResponse = initialTx;
+    let prevSocketTx: SocketTx | undefined;
+
+    do {
+      if (prevSocketTx) {
+        this.assertTxDone(prevSocketTx);
+        nextTx = (await Routes.nextTx({ activeRouteId: initialTx.activeRouteId })).result;
+      }
+      const currentSocketTx = new SocketTx(nextTx, this.options.statusCheckInterval);
+      // TODO: if `sourceTransactionHash` exists for current step, don't yield, instead submit directly that hash
+      const hash = yield currentSocketTx;
+      if (!hash) {
+        throw new Error(`A hash must be provided to \`next\``);
+      }
+      await currentSocketTx.submit(hash);
+      prevSocketTx = currentSocketTx;
+    } while (nextTx.userTxIndex + 1 < nextTx.totalUserTx);
+  }
+
+  async start(quote: SocketQuote) {
     const routeStart = (
       await Routes.startActiveRoute({
         startRequest: {
@@ -99,29 +125,16 @@ export class Socket {
       })
     ).result;
 
-    let nextTx: NextTxResponse | undefined;
-
-    do {
-      if (!nextTx) {
-        nextTx = routeStart;
-      } else {
-        nextTx = (await Routes.nextTx({ activeRouteId: routeStart.activeRouteId })).result;
-      }
-      yield new SocketTx(nextTx);
-    } while (nextTx.userTxIndex + 1 < nextTx.totalUserTx);
+    return this.executor(routeStart);
   }
 
-  async *continue(activeRouteId: number): AsyncGenerator<SocketTx> {
+  async continue(activeRouteId: number) {
     const activeRoute = (await Routes.getActiveRoute({ activeRouteId: activeRouteId })).result;
     if (activeRoute.routeStatus === ActiveRouteStatus.COMPLETED) {
       throw new Error(`Route ${activeRoute.activeRouteId} is already complete`);
     }
 
-    let nextTx: NextTxResponse;
-
-    do {
-      nextTx = (await Routes.nextTx({ activeRouteId: activeRoute.activeRouteId })).result;
-      yield new SocketTx(nextTx);
-    } while (nextTx.userTxIndex + 1 < nextTx.totalUserTx);
+    const tx = (await Routes.nextTx({ activeRouteId: activeRoute.activeRouteId })).result;
+    return this.executor(tx);
   }
 }

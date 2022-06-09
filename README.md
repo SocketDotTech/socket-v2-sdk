@@ -42,15 +42,18 @@ In summary:
 - Start executing the quote
 
   ```ts
-  for await (const tx of socket.start(quote)) {
+  const execute = await socket.start(quote);
+  let next = await execute.next();
+
+  while (!next.done && next.value) {
+    const tx = next.value;
     const approvalTxData = await tx.getApproveTransaction();
     // ... if there is approval send the approve and wait
 
     const sendTxData = await tx.getSendTransaction();
-    // ... send the tx and wait
+    // ... send the tx and execute next
 
-    // Notify the api about the completion of the transaction
-    await tx.done(sendTx.hash);
+    next = await execute.next(sendTx.hash);
   }
   ```
 

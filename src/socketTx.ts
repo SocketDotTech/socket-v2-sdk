@@ -3,15 +3,18 @@ import { Approvals, NextTxResponse, Routes } from "./client";
 import { PrepareActiveRouteStatus } from "./client/models/RouteStatusOutputDTO";
 import { sleep } from "./utils";
 
-const STATUS_CHECK_INTERVAL = 10000;
-
 export interface SocketTx extends NextTxResponse {}
 
 export class SocketTx {
+  statusCheckInterval: number;
   approvalChecked = false;
+  done = false;
+  // Hash associated with this socket transaction step
+  hash: string | undefined;
 
-  constructor(nextTx: NextTxResponse) {
+  constructor(nextTx: NextTxResponse, statusCheckInterval = 10000) {
     Object.assign(this, nextTx);
+    this.statusCheckInterval = statusCheckInterval;
   }
 
   async approvalRequired() {
@@ -84,13 +87,20 @@ export class SocketTx {
     return status.result;
   }
 
-  async done(hash: string) {
+  async submit(hash: string) {
+    if (this.hash) {
+      throw new Error(
+        `The transaction step ${this.userTxIndex}: ${this.userTxType} has hash already set to ${this.hash}`
+      );
+    }
+    this.hash = hash;
     for (;;) {
       const currentStatus = await this.updateActiveRoute(hash);
       const pending = currentStatus === PrepareActiveRouteStatus.PENDING;
       if (pending) {
-        await sleep(STATUS_CHECK_INTERVAL);
+        await sleep(this.statusCheckInterval);
       } else {
+        this.done = true;
         return currentStatus;
       }
     }

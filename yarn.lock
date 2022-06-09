@@ -934,6 +934,11 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
+"@socket.tech/ll-core@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@socket.tech/ll-core/-/ll-core-0.1.3.tgz#5269905a1879d3a5b54248dc359e085e7c15461e"
+  integrity sha512-cUv8L3ayRwR4381a0tu7AAQBm9D0kbYGxPTyFJV4ProjiswVa5EDu+D1YnKl0i8Cug6mYJhtazP2XP+QFCfB/Q==
+
 "@types/babel__core@^7.1.14":
   version "7.1.19"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.1.19.tgz#7b497495b7d1b4812bdb9d02804d0576f43ee460"
