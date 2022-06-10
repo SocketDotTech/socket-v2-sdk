@@ -9,7 +9,7 @@ import {
   Supported,
   TokenLists,
 } from "./client";
-import { ActiveRouteStatus } from "./client/models/ActiveRouteResponse";
+import { ActiveRouteStatus, ActiveRouteResponse } from "./client/models/ActiveRouteResponse";
 import { QuotePreferences } from "./client/models/QuoteRequest";
 import { SocketTx } from "./socketTx";
 import { QuoteParams, SocketOptions, SocketQuote } from "./types";
@@ -91,7 +91,10 @@ export class Socket {
     }
   }
 
-  async *executor(initialTx: NextTxResponse): AsyncGenerator<SocketTx, void, string> {
+  async *executor(
+    initialTx: NextTxResponse,
+    activeRoute?: ActiveRouteResponse
+  ): AsyncGenerator<SocketTx, void, string> {
     let nextTx: NextTxResponse = initialTx;
     let prevSocketTx: SocketTx | undefined;
 
@@ -101,10 +104,12 @@ export class Socket {
         nextTx = (await Routes.nextTx({ activeRouteId: initialTx.activeRouteId })).result;
       }
       const currentSocketTx = new SocketTx(nextTx, this.options.statusCheckInterval);
-      // TODO: if `sourceTransactionHash` exists for current step, don't yield, instead submit directly that hash
-      const hash = yield currentSocketTx;
+      let hash = activeRoute?.userTxs[currentSocketTx.userTxIndex].sourceTransactionHash;
       if (!hash) {
-        throw new Error(`A hash must be provided to \`next\``);
+        hash = yield currentSocketTx;
+        if (!hash) {
+          throw new Error(`A hash must be provided to \`next\``);
+        }
       }
       await currentSocketTx.submit(hash);
       prevSocketTx = currentSocketTx;
@@ -135,6 +140,6 @@ export class Socket {
     }
 
     const tx = (await Routes.nextTx({ activeRouteId: activeRoute.activeRouteId })).result;
-    return this.executor(tx);
+    return this.executor(tx, activeRoute);
   }
 }
