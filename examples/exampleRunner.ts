@@ -3,6 +3,7 @@ import { Socket } from "../src";
 import * as ethers from "ethers";
 import { Path } from "../src/path";
 import { BridgeName } from "../src/client/models/BridgeDetails";
+import { SocketTx } from "../src/socketTx";
 
 const API_KEY = "645b2c8c-5825-4930-baf3-d9b997fcd88c"; // Testing key
 
@@ -98,6 +99,10 @@ export async function runRoute({
   }
 
   const execute = await socket.start(quote);
+  await executeRoute(execute);
+}
+
+export async function executeRoute(execute: AsyncGenerator<SocketTx, void, string>) {
   let next = await execute.next();
 
   while (!next.done && next.value) {
