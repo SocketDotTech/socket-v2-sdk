@@ -32,5 +32,5 @@ export type SingleTxResponse = {
    * Total number of transactions in Active Route.
    */
   totalUserTx: number;
-  approvalData: ApprovalData;
+  approvalData: ApprovalData | null;
 };

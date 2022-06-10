@@ -1,5 +1,5 @@
 import type { ApprovalData } from "./ApprovalData";
-import { ChainId } from "./ChainId";
+import { TxType } from "./TxType";
 import { UserTxType } from "./UserTxType";
 
 export interface NextTxResponse {
@@ -26,7 +26,7 @@ export interface NextTxResponse {
   /**
    * Type of transaction.
    */
-  txType: ChainId;
+  txType: TxType;
 
   /**
    * Native token amount to be sent with transaction.
@@ -40,5 +40,5 @@ export interface NextTxResponse {
    * Total number of transactions in Active Route.
    */
   totalUserTx: number;
-  approvalData: ApprovalData;
+  approvalData: ApprovalData | null;
 }
