@@ -16,6 +16,8 @@
     "plugin:jest/recommended",
     "prettier"
   ],
-  "ignorePatterns": ["lib/"],
-  "rules": {}
+  "ignorePatterns": ["lib/", "examples/"],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off"
+  }
 }

@@ -112,7 +112,7 @@ const getFormData = (options: ApiRequestOptions): FormData | undefined => {
     };
 
     Object.entries(options.formData)
-      .filter(([_, value]) => isDefined(value))
+      .filter(([, value]) => isDefined(value))
       .forEach(([key, value]) => {
         if (Array.isArray(value)) {
           value.forEach((v) => process(key, v));
@@ -155,7 +155,7 @@ const getHeaders = async (
     ...options.headers,
     ...formHeaders,
   })
-    .filter(([_, value]) => isDefined(value))
+    .filter(([, value]) => isDefined(value))
     .reduce(
       (headers, [key, value]) => ({
         ...headers,

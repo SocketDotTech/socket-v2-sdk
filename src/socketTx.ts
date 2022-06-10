@@ -3,6 +3,7 @@ import { Approvals, NextTxResponse, Routes } from "./client";
 import { PrepareActiveRouteStatus } from "./client/models/RouteStatusOutputDTO";
 import { sleep } from "./utils";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SocketTx extends NextTxResponse {}
 
 export class SocketTx {
@@ -44,11 +45,6 @@ export class SocketTx {
     if (!this.approvalData) {
       return null;
     }
-
-    // TODO: User check
-    // if (this.userAddress !== this.approvalData.owner) {
-    //   throw new Error("Wrong address");
-    // }
 
     const buildApproval = (
       await Approvals.fetchApprovalsCalldata({
