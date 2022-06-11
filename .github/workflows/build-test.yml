@@ -1,11 +1,14 @@
+name: Build Test
 on: push
 
-steps:
-  - uses: actions/checkout@v3
-  - uses: actions/setup-node@v3
-    with:
-      node-version: 14
-  - run: yarn
-  - run: yarn lint
-  - run: yarn build
-  - run: yarn test
+jobs:
+  build_test:
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 14
+      - run: yarn
+      - run: yarn lint
+      - run: yarn build
+      - run: yarn test
