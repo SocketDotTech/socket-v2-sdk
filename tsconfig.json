@@ -11,6 +11,8 @@
     "noUnusedParameters": true,
     "importHelpers": true,
     "sourceMap": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "rootDir": ".",
     "outDir": "lib"
   },

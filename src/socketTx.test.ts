@@ -12,7 +12,7 @@ const mockedApprovals = jest.mocked(Approvals, true);
 jest.mock("./client/services/Routes");
 const mockedRoutes = jest.mocked(Routes, true);
 
-const SAMPLE_TX: NextTxResponse = {
+const MOCK_TX: NextTxResponse = {
   activeRouteId: 123,
   approvalData: {
     allowanceTarget: "0x0",
@@ -32,7 +32,7 @@ const SAMPLE_TX: NextTxResponse = {
 
 describe("Socket Tx - Creation", () => {
   it("initialises checks correctly", async () => {
-    const tx = new SocketTx(SAMPLE_TX);
+    const tx = new SocketTx(MOCK_TX);
     expect(tx.done).toBe(false);
     expect(tx.approvalChecked).toBe(false);
   });
@@ -41,7 +41,7 @@ describe("Socket Tx - Creation", () => {
 describe("Socket Tx - Approval Required", () => {
   it("returns false if no approval data", async () => {
     const tx = new SocketTx({
-      ...SAMPLE_TX,
+      ...MOCK_TX,
       approvalData: null,
     });
     const required = await tx.approvalRequired();
@@ -50,7 +50,7 @@ describe("Socket Tx - Approval Required", () => {
 
   it("flags checked when approval checked", async () => {
     const tx = new SocketTx({
-      ...SAMPLE_TX,
+      ...MOCK_TX,
       approvalData: null,
     });
     await tx.approvalRequired();
@@ -63,7 +63,7 @@ describe("Socket Tx - Approval Required", () => {
     { test: "equals", allowance: "500", expected: false },
   ])("return $expected if approval $test required", async ({ allowance, expected }) => {
     const tx = new SocketTx({
-      ...SAMPLE_TX,
+      ...MOCK_TX,
     });
 
     mockedApprovals.fetchApprovals.mockResolvedValue({
@@ -81,13 +81,13 @@ describe("Socket Tx - Approval Required", () => {
 
 describe("Socket Tx - Get Send Transaction", () => {
   it("throws error if approval not checked", async () => {
-    const tx = new SocketTx(SAMPLE_TX);
+    const tx = new SocketTx(MOCK_TX);
     expect(tx.approvalChecked).toBe(false);
     await expect(tx.getSendTransaction()).rejects.toThrow();
   });
 
   it("provides transaction data if approval checked", async () => {
-    const tx = new SocketTx(SAMPLE_TX);
+    const tx = new SocketTx(MOCK_TX);
     mockedApprovals.fetchApprovals.mockResolvedValue({
       success: true,
       result: {
@@ -107,7 +107,7 @@ describe("Socket Tx - Get Send Transaction", () => {
 
 describe("Socket Tx - Submit", () => {
   it("resolves when update is completed", async () => {
-    const tx = new SocketTx(SAMPLE_TX, 50);
+    const tx = new SocketTx(MOCK_TX, 50);
     mockedRoutes.updateActiveRoute.mockResolvedValue({
       status: true,
       result: PrepareActiveRouteStatus.PENDING,
@@ -123,7 +123,7 @@ describe("Socket Tx - Submit", () => {
   });
 
   it("does not allow multiple hash to be submitted", async () => {
-    const tx = new SocketTx(SAMPLE_TX, 50);
+    const tx = new SocketTx(MOCK_TX, 50);
     tx.submit("0x123");
     await expect(tx.submit("0x456")).rejects.toThrow();
   });

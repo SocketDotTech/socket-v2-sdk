@@ -38,7 +38,7 @@ export type UserTx = {
   serviceTime: number;
   recipient: string;
   userTxIndex: number;
-  userTxStatus: PrepareActiveRouteStatus;
+  userTxStatus?: PrepareActiveRouteStatus;
   sourceTransactionHash?: string;
   sourceTransactionReceipt?: TransactionReceipt;
   destinationTxHash?: string;
