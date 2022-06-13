@@ -1,0 +1,239 @@
+{
+  "routeId": "670eaa9b-cc47-47fd-a551-f7bfb702cdaa",
+  "fromAmount": "20000000000000000000",
+  "toAmount": "38514450278702297",
+  "usedBridgeNames": ["celer"],
+  "minimumGasBalances": {
+    "56": "2800000000000000",
+    "137": "60000000000000000"
+  },
+  "chainGasBalances": {
+    "56": {
+      "minGasBalance": "2800000000000000",
+      "hasGasBalance": false
+    },
+    "137": {
+      "minGasBalance": "60000000000000000",
+      "hasGasBalance": false
+    }
+  },
+  "totalUserTx": 3,
+  "sender": "0xEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+  "recipient": "0xEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+  "totalGasFeesInUsd": 0.40975913566139993,
+  "userTxs": [
+    {
+      "userTxType": "dex-swap",
+      "txType": "eth_sendTransaction",
+      "chainId": 137,
+      "protocol": {
+        "name": "oneinch",
+        "displayName": "1Inch",
+        "icon": "https://bridgelogos.s3.ap-south-1.amazonaws.com/1inch.png"
+      },
+      "fromAsset": {
+        "chainId": 137,
+        "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "symbol": "MATIC",
+        "name": "MATIC",
+        "decimals": 18,
+        "icon": "https://maticnetwork.github.io/polygon-token-assets/assets/matic.svg",
+        "logoURI": "https://maticnetwork.github.io/polygon-token-assets/assets/matic.svg",
+        "chainAgnosticId": null
+      },
+      "approvalData": null,
+      "fromAmount": "20000000000000000000",
+      "toAsset": {
+        "chainId": 137,
+        "address": "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619",
+        "symbol": "WETH",
+        "name": "Wrapped Ether",
+        "decimals": 18,
+        "icon": "https://maticnetwork.github.io/polygon-token-assets/assets/weth.svg",
+        "logoURI": "https://maticnetwork.github.io/polygon-token-assets/assets/weth.svg",
+        "chainAgnosticId": "ETH"
+      },
+      "toAmount": "7141717909854740",
+      "gasFees": {
+        "gasLimit": 690262,
+        "asset": {
+          "chainId": 137,
+          "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "symbol": "MATIC",
+          "name": "MATIC",
+          "decimals": 18,
+          "icon": "https://maticnetwork.github.io/polygon-token-assets/assets/matic.svg",
+          "logoURI": "https://maticnetwork.github.io/polygon-token-assets/assets/matic.svg",
+          "chainAgnosticId": null
+        },
+        "feesInUsd": 0.0227825804934
+      },
+      "sender": "0xEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+      "recipient": "0xEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+      "userTxIndex": 0
+    },
+    {
+      "userTxType": "fund-movr",
+      "txType": "eth_sendTransaction",
+      "chainId": 137,
+      "toAmount": "6766014423161256",
+      "toAsset": {
+        "chainId": 56,
+        "address": "0x2170Ed0880ac9A755fd29B2688956BD959F933F8",
+        "symbol": "ETH",
+        "name": "Ethereum Token",
+        "decimals": 18,
+        "icon": "https://maticnetwork.github.io/polygon-token-assets/assets/eth.svg",
+        "logoURI": "https://maticnetwork.github.io/polygon-token-assets/assets/eth.svg",
+        "chainAgnosticId": "ETH"
+      },
+      "stepCount": 1,
+      "routePath": "0-999",
+      "sender": "0xEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+      "approvalData": {
+        "minimumApprovalAmount": "7141717909854740",
+        "approvalTokenAddress": "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619",
+        "allowanceTarget": "0x88DCDC47D2f83a99CF0000FDF667A468bB958a78",
+        "owner": "0xEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
+      },
+      "steps": [
+        {
+          "type": "bridge",
+          "protocol": {
+            "name": "celer",
+            "displayName": "Celer",
+            "icon": "https://cbridge.celer.network/static/media/favicon.e3350473.png",
+            "securityScore": 3,
+            "robustnessScore": 3
+          },
+          "fromChainId": 137,
+          "fromAsset": {
+            "chainId": 137,
+            "address": "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619",
+            "symbol": "WETH",
+            "name": "Wrapped Ether",
+            "decimals": 18,
+            "icon": "https://maticnetwork.github.io/polygon-token-assets/assets/weth.svg",
+            "logoURI": "https://maticnetwork.github.io/polygon-token-assets/assets/weth.svg",
+            "chainAgnosticId": "ETH"
+          },
+          "fromAmount": "7141717909854740",
+          "toChainId": 56,
+          "toAsset": {
+            "chainId": 56,
+            "address": "0x2170Ed0880ac9A755fd29B2688956BD959F933F8",
+            "symbol": "ETH",
+            "name": "Ethereum Token",
+            "decimals": 18,
+            "icon": "https://maticnetwork.github.io/polygon-token-assets/assets/eth.svg",
+            "logoURI": "https://maticnetwork.github.io/polygon-token-assets/assets/eth.svg",
+            "chainAgnosticId": "ETH"
+          },
+          "toAmount": "6766014423161256",
+          "gasFees": {
+            "gasLimit": 120000,
+            "asset": {
+              "chainId": 137,
+              "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "symbol": "MATIC",
+              "name": "MATIC",
+              "decimals": 18,
+              "icon": "https://maticnetwork.github.io/polygon-token-assets/assets/matic.svg",
+              "logoURI": "https://maticnetwork.github.io/polygon-token-assets/assets/matic.svg",
+              "chainAgnosticId": null
+            },
+            "feesInUsd": 0.003960684
+          },
+          "protocolFees": {
+            "asset": {
+              "chainId": 56,
+              "address": "0x2170Ed0880ac9A755fd29B2688956BD959F933F8",
+              "symbol": "ETH",
+              "name": "Ethereum Token",
+              "decimals": 18,
+              "icon": "https://maticnetwork.github.io/polygon-token-assets/assets/eth.svg",
+              "logoURI": "https://maticnetwork.github.io/polygon-token-assets/assets/eth.svg",
+              "chainAgnosticId": "ETH"
+            },
+            "feesInUsd": 0,
+            "amount": "375449653378449"
+          },
+          "serviceTime": 1200
+        }
+      ],
+      "gasFees": {
+        "feesInUsd": 0.003960684,
+        "asset": {
+          "chainId": 137,
+          "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "symbol": "MATIC",
+          "name": "MATIC",
+          "decimals": 18,
+          "icon": "https://maticnetwork.github.io/polygon-token-assets/assets/matic.svg",
+          "logoURI": "https://maticnetwork.github.io/polygon-token-assets/assets/matic.svg",
+          "chainAgnosticId": null
+        },
+        "gasLimit": 120000
+      },
+      "serviceTime": 1200,
+      "recipient": "0xEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+      "userTxIndex": 1
+    },
+    {
+      "userTxType": "dex-swap",
+      "txType": "eth_sendTransaction",
+      "chainId": 56,
+      "protocol": {
+        "name": "oneinch",
+        "displayName": "1Inch",
+        "icon": "https://bridgelogos.s3.ap-south-1.amazonaws.com/1inch.png"
+      },
+      "fromAsset": {
+        "chainId": 56,
+        "address": "0x2170Ed0880ac9A755fd29B2688956BD959F933F8",
+        "symbol": "ETH",
+        "name": "Ethereum Token",
+        "decimals": 18,
+        "icon": "https://maticnetwork.github.io/polygon-token-assets/assets/eth.svg",
+        "logoURI": "https://maticnetwork.github.io/polygon-token-assets/assets/eth.svg",
+        "chainAgnosticId": "ETH"
+      },
+      "approvalData": {
+        "minimumApprovalAmount": "6766014423161256",
+        "approvalTokenAddress": "0x2170ed0880ac9a755fd29b2688956bd959f933f8",
+        "allowanceTarget": "0xd286595d2e3D879596FAB51f83A702D10a6db27b",
+        "owner": "0xEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
+      },
+      "fromAmount": "6766014423161256",
+      "toAsset": {
+        "chainId": 56,
+        "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "symbol": "BNB",
+        "name": "BNB",
+        "decimals": 18,
+        "icon": "https://maticnetwork.github.io/polygon-token-assets/assets/bnb.svg",
+        "logoURI": "https://maticnetwork.github.io/polygon-token-assets/assets/bnb.svg",
+        "chainAgnosticId": null
+      },
+      "toAmount": "38514450278702297",
+      "gasFees": {
+        "gasLimit": 252364,
+        "asset": {
+          "chainId": 56,
+          "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "symbol": "BNB",
+          "name": "BNB",
+          "decimals": 18,
+          "icon": "https://maticnetwork.github.io/polygon-token-assets/assets/bnb.svg",
+          "logoURI": "https://maticnetwork.github.io/polygon-token-assets/assets/bnb.svg",
+          "chainAgnosticId": null
+        },
+        "feesInUsd": 0.38301587116799996
+      },
+      "sender": "0xEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+      "recipient": "0xEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+      "userTxIndex": 2
+    }
+  ],
+  "serviceTime": 1200
+}
