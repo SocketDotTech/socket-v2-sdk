@@ -64,7 +64,7 @@ export class Socket {
       toChainId: path.toToken.chainId,
       fromTokenAddress: path.fromToken.address,
       toTokenAddress: path.toToken.address,
-      fromAmount: amount.toString(),
+      fromAmount: amount,
       userAddress: address,
       recipient: address,
       ...(this.options.defaultQuotePreferences || {}),

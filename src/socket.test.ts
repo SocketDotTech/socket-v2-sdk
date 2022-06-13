@@ -1,4 +1,3 @@
-import { BigNumber } from "ethers";
 import { Socket } from ".";
 import { NextTxResponse, OpenAPI } from "./client";
 import { Routes } from "./client/services/Routes";
@@ -43,7 +42,7 @@ describe("Socket - Execute", () => {
     const toToken = { address: "0x1", chainId: 2, symbol: "B" };
     const quote: SocketQuote = {
       address: "0x0",
-      amount: BigNumber.from("10000"),
+      amount: "10000",
       path: new Path({ fromToken, toToken }),
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore

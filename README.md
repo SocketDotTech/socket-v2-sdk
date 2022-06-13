@@ -11,9 +11,7 @@ In summary:
 
 - Initialise the sdk:
   ```ts
-  const socket = new Socket(API_KEY, {
-    singleTxOnly: false,
-  });
+  const socket = new Socket({ apiKey: API_KEY });
   ```
 - Retrieve the token lists
 
@@ -33,7 +31,7 @@ In summary:
   ```
 - Get quote
   ```ts
-  const quotes = await socket.getBestQuote({
+  const quote = await socket.getBestQuote({
     path,
     amount,
     address,

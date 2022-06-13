@@ -1,11 +1,10 @@
-import { BigNumber } from "ethers";
 import { Route } from "./client";
 import { QuotePreferences } from "./client/models/QuoteRequest";
 import { Path } from "./path";
 
 export interface QuoteParams {
   path: Path;
-  amount: BigNumber;
+  amount: string;
   address: string;
 }
 
