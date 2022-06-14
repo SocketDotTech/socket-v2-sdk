@@ -14,9 +14,21 @@ import { QuotePreferences } from "./client/models/QuoteRequest";
 import { SocketTx } from "./socketTx";
 import { QuoteParams, SocketOptions, SocketQuote } from "./types";
 
+/**
+ * The Socket represents the socket sdk. This is the starting point for interacting
+ * with the socket SDK. It allows you to retrieve routes and start the execution of trades based on quotes
+ *
+ * It includes direct access to the socket api.
+ */
 export class Socket {
+  /**
+   * The api options
+   */
   options: SocketOptions;
 
+  /**
+   * API client for accessing the socket api directly
+   */
   client = {
     routes: Routes,
     balances: Balances,
@@ -27,11 +39,23 @@ export class Socket {
     tokenLists: TokenLists,
   };
 
+  /**
+   *
+   * @param options Socket sdk options
+   */
   constructor(options: SocketOptions) {
     this.options = options;
     OpenAPI.API_KEY = this.options.apiKey;
   }
 
+  /**
+   *
+   * @param options
+   * @param options.fromChainId The source chain id e.g. 0x1
+   * @param options.toChainId The destination chain id e.g. 0x56
+   *
+   * @returns The `from` and `to` token lists
+   */
   async getTokenList({ fromChainId, toChainId }: { fromChainId: number; toChainId: number }) {
     const fromTokenList = await TokenLists.getFromTokenList({
       fromChainId,
@@ -50,11 +74,23 @@ export class Socket {
     };
   }
 
+  /**
+   *
+   * @param params The parameters of the quote
+   * @param preferences Additional route preferences for retrieving the quote from the api
+   * @returns The best quote if found or null
+   */
   async getBestQuote(params: QuoteParams, preferences?: QuotePreferences) {
     const allRoutes = await this.getAllQuotes(params, preferences);
     return allRoutes ? allRoutes[0] : null;
   }
 
+  /**
+   *
+   * @param params The parameters of the quote
+   * @param preferences Additional route preferences for retrieving the quote from the api
+   * @returns All quotes found
+   */
   async getAllQuotes(
     { path, address, amount }: QuoteParams,
     preferences?: QuotePreferences
@@ -83,7 +119,11 @@ export class Socket {
     );
   }
 
-  public assertTxDone(socketTx?: SocketTx) {
+  /**
+   * Asserts that the transaction object has been marked done
+   * @param socketTx The socket transaction
+   */
+  private assertTxDone(socketTx?: SocketTx) {
     if (socketTx && !socketTx.done) {
       throw new Error(
         `Previous transaction ${socketTx.userTxIndex}: ${socketTx.userTxType} has not been submitted.`
@@ -91,7 +131,12 @@ export class Socket {
     }
   }
 
-  async *executor(
+  /**
+   * Returns a generator that yields each transaction for a route in sequence
+   * @param initialTx The first transaction to execute
+   * @param activeRoute The active route object if this executor is for an active route
+   */
+  private async *executor(
     initialTx: NextTxResponse,
     activeRoute?: ActiveRouteResponse
   ): AsyncGenerator<SocketTx, void, string> {
@@ -116,6 +161,11 @@ export class Socket {
     } while (nextTx.userTxIndex + 1 < nextTx.totalUserTx);
   }
 
+  /**
+   * Start executing a socket quote/route.
+   * @param quote
+   * @returns An iterator that will yield each transaction required in the route
+   */
   async start(quote: SocketQuote) {
     const routeStart = (
       await Routes.startActiveRoute({
@@ -133,6 +183,11 @@ export class Socket {
     return this.executor(routeStart);
   }
 
+  /**
+   * Continue an active route
+   * @param activeRouteId The active route id of the desired route to continue
+   * @returns An iterator that will yield each transaction required in the route
+   */
   async continue(activeRouteId: number) {
     const activeRoute = (await Routes.getActiveRoute({ activeRouteId: activeRouteId })).result;
     if (activeRoute.routeStatus === ActiveRouteStatus.COMPLETED) {

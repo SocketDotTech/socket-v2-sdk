@@ -2,15 +2,14 @@ import { Socket } from ".";
 import { NextTxResponse, OpenAPI } from "./client";
 import { Routes } from "./client/services/Routes";
 import { Path } from "./path";
-
-jest.mock("./client/services/Routes");
-const mockedRoutes = jest.mocked(Routes, true);
-
 import mockRoute from "./mocks/mockRoute.json";
 import { SocketQuote } from "./types";
 import { UserTxType } from "./client/models/UserTxType";
 import { TxType } from "./client/models/TxType";
 import { PrepareActiveRouteStatus } from "./client/models/RouteStatusOutputDTO";
+
+jest.mock("./client/services/Routes");
+const mockedRoutes = jest.mocked(Routes, true);
 
 const MOCK_ROUTE = mockRoute;
 const MOCK_ROUTE_TX0 = MOCK_ROUTE.userTxs[0];

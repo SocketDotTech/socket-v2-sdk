@@ -6,18 +6,40 @@ import { sleep } from "./utils";
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SocketTx extends NextTxResponse {}
 
+/**
+ * An entity representing the transaction prompted by the socket api
+ */
 export class SocketTx {
+  /**
+   * How often in ms to poll for status updates when checking the transaction
+   */
   statusCheckInterval: number;
+  /**
+   * If the approval has been checked
+   */
   approvalChecked = false;
+  /**
+   * If the transaction is done
+   */
   done = false;
-  // Hash associated with this socket transaction step
+  /**
+   *  Hash associated with this socket transaction step
+   */
   hash: string | undefined;
 
+  /**
+   * @param nextTx The api object for the next transaction
+   * @param statusCheckInterval How often in ms to poll for status updates when checking the transaction
+   */
   constructor(nextTx: NextTxResponse, statusCheckInterval = 10000) {
     Object.assign(this, nextTx);
     this.statusCheckInterval = statusCheckInterval;
   }
 
+  /**
+   * Whether an approval transaction is required.
+   * @returns True if required, otherwise false.
+   */
   async approvalRequired() {
     this.approvalChecked = true;
     if (!this.approvalData) return false;
@@ -36,6 +58,10 @@ export class SocketTx {
     return allowanceValue.lt(minimumApprovalAmount);
   }
 
+  /**
+   * Get the apporval transaction data if it is required
+   * @returns Apporval data to be sent if required, otherwise null
+   */
   async getApproveTransaction() {
     const approvalRequired = await this.approvalRequired();
     if (!approvalRequired) {
@@ -59,6 +85,10 @@ export class SocketTx {
     return buildApproval;
   }
 
+  /**
+   * Get the transaction data
+   * @returns Send transaction data
+   */
   async getSendTransaction() {
     if (!this.approvalChecked) {
       throw new Error(
@@ -73,7 +103,12 @@ export class SocketTx {
     };
   }
 
-  async updateActiveRoute(hash: string) {
+  /**
+   * Get the latest status for the transaction
+   * @param hash The hash for this transaction on the network
+   * @returns The current status
+   */
+  private async updateActiveRoute(hash: string) {
     const status = await Routes.updateActiveRoute({
       activeRouteId: this.activeRouteId,
       userTxIndex: this.userTxIndex,
@@ -83,6 +118,11 @@ export class SocketTx {
     return status.result;
   }
 
+  /**
+   * Submit the hash for this transaction and wait until it is marked as complete
+   * @param hash The hash for this transaction on the network
+   * @returns Returns the final status "COMPLETED" once the transaction is complete
+   */
   async submit(hash: string) {
     if (this.hash) {
       throw new Error(
