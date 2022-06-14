@@ -77,7 +77,7 @@ export async function runRoute({
   if (!fromToken.decimals) {
     throw new Error("danger! from token has no decimals!");
   }
-  const amount = ethers.utils.parseUnits(fromAmount, fromToken.decimals);
+  const amount = ethers.utils.parseUnits(fromAmount, fromToken.decimals).toString();
   const prefs = bridge ? { includeBridges: [bridge] } : undefined;
   const quotes = await socket.getAllQuotes(
     {
