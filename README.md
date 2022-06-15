@@ -1,9 +1,12 @@
 # Socket v2 SDK
 
-## Setup
+## Install
 
-- `yarn`
-- `yarn build`
+- `yarn add socket-v2-sdk`
+
+  or
+
+- `npm i socket-v2-sdk`
 
 ## Usage
 
