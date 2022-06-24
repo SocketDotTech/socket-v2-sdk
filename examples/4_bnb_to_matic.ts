@@ -1,3 +1,4 @@
+import { NATIVE_TOKEN_ADDRESS } from "../src/constants";
 import { runRoute } from "./exampleRunner";
 
 (async () => {
@@ -5,8 +6,8 @@ import { runRoute } from "./exampleRunner";
     fromAmount: "0.04",
     fromChainId: 56,
     toChainId: 137,
-    fromTokenAddress: "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
-    toTokenAddress: "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    fromTokenAddress: NATIVE_TOKEN_ADDRESS,
+    toTokenAddress: NATIVE_TOKEN_ADDRESS,
     multiTx: true,
   });
 })();

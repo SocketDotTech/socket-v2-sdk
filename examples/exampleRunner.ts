@@ -66,12 +66,8 @@ export async function runRoute({
     toChainId: toChainId,
   });
 
-  const fromToken = tokenList.from.find(
-    (token) => token.address.toLowerCase() === fromTokenAddress.toLowerCase()
-  )!;
-  const toToken = tokenList.to.find(
-    (token) => token.address.toLowerCase() === toTokenAddress.toLowerCase()
-  )!;
+  const fromToken = tokenList.from.tokenByAddress(fromTokenAddress);
+  const toToken = tokenList.to.tokenByAddress(toTokenAddress);
 
   const path = new Path({ fromToken, toToken });
   if (!fromToken.decimals) {

@@ -12,6 +12,7 @@ import {
 import { ActiveRouteStatus, ActiveRouteResponse } from "./client/models/ActiveRouteResponse";
 import { QuotePreferences } from "./client/models/QuoteRequest";
 import { SocketTx } from "./socketTx";
+import { TokenList } from "./tokenList";
 import { QuoteParams, SocketOptions, SocketQuote } from "./types";
 
 /**
@@ -57,21 +58,25 @@ export class Socket {
    * @returns The `from` and `to` token lists
    */
   async getTokenList({ fromChainId, toChainId }: { fromChainId: number; toChainId: number }) {
-    const fromTokenList = await TokenLists.getFromTokenList({
-      fromChainId,
-      toChainId,
-      isShortList: true,
-    });
-    const toTokenList = await TokenLists.getToTokenList({
-      fromChainId,
-      toChainId,
-      isShortList: true,
-    });
+    const fromTokenListData = (
+      await TokenLists.getFromTokenList({
+        fromChainId,
+        toChainId,
+        isShortList: true,
+      })
+    ).result;
+    const toTokenListData = (
+      await TokenLists.getToTokenList({
+        fromChainId,
+        toChainId,
+        isShortList: true,
+      })
+    ).result;
 
-    return {
-      from: fromTokenList.result,
-      to: toTokenList.result,
-    };
+    const from = new TokenList(fromChainId, fromTokenListData);
+    const to = new TokenList(toChainId, toTokenListData);
+
+    return { from, to };
   }
 
   /**
