@@ -1,11 +1,12 @@
 import { TransactionReceipt } from "@ethersproject/abstract-provider";
-import { ApprovalData, BridgeDetails, TokenAsset } from "..";
+import { CancelTokenStatic } from "axios";
+import { ApprovalData, BridgeDetails, Token } from "..";
 import { PrepareActiveRouteStatus } from "./RouteStatusOutputDTO";
 import { TxType } from "./TxType";
 import { UserTxType } from "./UserTxType";
 
 export type GasFees = {
-  asset: TokenAsset;
+  asset: CancelTokenStatic;
   gasLimit: number;
   feesInUsd: number;
 };
@@ -14,10 +15,10 @@ export type Step = {
   type: string;
   protocol: BridgeDetails;
   fromChainId: number;
-  fromAsset: TokenAsset;
+  fromAsset: Token;
   fromAmount: string;
   toChainId: number;
-  toAsset: TokenAsset;
+  toAsset: Token;
   toAmount: string;
   gasFees: GasFees;
   serviceTime: number;
@@ -28,7 +29,7 @@ export type UserTx = {
   txType: TxType;
   chainId: number;
   toAmount: string;
-  toAsset: TokenAsset;
+  toAsset: Token;
   stepCount: number;
   routePath: string;
   sender: string;

@@ -1,4 +1,4 @@
-export type TokenAsset = {
+export type Token = {
   /**
    * Name of token.
    */

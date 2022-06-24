@@ -1,4 +1,4 @@
-import type { TokenAsset } from "./TokenAsset";
+import type { Token } from "./Token";
 import { UserTx } from "./UserTx";
 
 export enum ActiveRouteStatus {
@@ -63,6 +63,6 @@ export type ActiveRouteResponse = {
    * Index of current tx in userTxs array.
    */
   currentUserTxIndex: number;
-  fromAsset: TokenAsset;
-  toAsset: TokenAsset;
+  fromAsset: Token;
+  toAsset: Token;
 };

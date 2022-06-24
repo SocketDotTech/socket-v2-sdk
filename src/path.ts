@@ -1,4 +1,4 @@
-import { TokenAsset } from "./client";
+import { Token } from "./client";
 
 /**
  * The Path object represents a trade from a source token to a destination token.
@@ -7,11 +7,11 @@ export class Path {
   /**
    * The source token
    */
-  fromToken: TokenAsset;
+  fromToken: Token;
   /**
    * The destination token
    */
-  toToken: TokenAsset;
+  toToken: Token;
 
   /**
    *
@@ -19,7 +19,7 @@ export class Path {
    * @param options.fromToken The source token
    * @param options.toToken The destination token
    */
-  constructor({ fromToken, toToken }: { fromToken: TokenAsset; toToken: TokenAsset }) {
+  constructor({ fromToken, toToken }: { fromToken: Token; toToken: Token }) {
     this.fromToken = fromToken;
     this.toToken = toToken;
   }

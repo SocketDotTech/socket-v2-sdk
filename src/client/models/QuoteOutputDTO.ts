@@ -1,12 +1,12 @@
 import type { Route } from "./Route";
-import type { TokenAsset } from "./TokenAsset";
+import type { Token } from "./Token";
 
 export type Quote = {
   routes?: Array<Route>;
   fromChainId?: number;
-  fromAsset?: TokenAsset;
+  fromAsset?: Token;
   toChainId?: number;
-  toAsset?: TokenAsset;
+  toAsset?: Token;
 };
 
 export type QuoteOutputDTO = {

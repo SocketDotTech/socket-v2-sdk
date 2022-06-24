@@ -1,9 +1,9 @@
-import type { TokenAsset } from "./TokenAsset";
+import type { Token } from "./Token";
 
 export type TokenListOutputDTO = {
   /**
    * Status of API.
    */
   success: boolean;
-  result: Array<TokenAsset>;
+  result: Array<Token>;
 };
