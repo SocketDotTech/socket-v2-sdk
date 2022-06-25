@@ -21,7 +21,7 @@ export class Supported {
    * @returns SupportedChainsOutputDTO All Supported Chains by Movr
    * @throws ApiError
    */
-  public static getAllSupportedRoutes(): CancelablePromise<SupportedChainsOutputDTO> {
+  public static getAllSupportedChains(): CancelablePromise<SupportedChainsOutputDTO> {
     return __request(OpenAPI, {
       method: "GET",
       url: "/v2/supported/chains",

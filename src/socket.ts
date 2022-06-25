@@ -1,3 +1,4 @@
+import { Chain } from "./chain";
 import {
   Approvals,
   Balances,
@@ -47,6 +48,12 @@ export class Socket {
   constructor(options: SocketOptions) {
     this.options = options;
     OpenAPI.API_KEY = this.options.apiKey;
+  }
+
+  async getChains() {
+    const supportedChains = await Supported.getAllSupportedChains();
+
+    return supportedChains.result.map((chain) => new Chain(chain));
   }
 
   /**
