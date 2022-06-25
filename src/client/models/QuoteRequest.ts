@@ -1,10 +1,16 @@
 import { BridgeName } from "./BridgeDetails";
 
+export enum SortOptions {
+  Output = "output",
+  Gas = "gas",
+  Time = "time",
+}
+
 export interface QuotePreferences {
   /** Flag to return only best route per bridge using the sort criteria **/
   uniqueRoutesPerBridge?: boolean;
   /** Param to sort routes based on. **/
-  sort?: "output" | "gas" | "time";
+  sort?: SortOptions;
   /** Flag to specify if routes that have dex swap should be ignored. **/
   disableSwapping?: boolean;
   /** Specify Dexes that should be included in routes. **/
