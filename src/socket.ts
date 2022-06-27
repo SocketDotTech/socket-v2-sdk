@@ -57,7 +57,7 @@ export class Socket {
   }
 
   /**
-   *
+   * Get the list of tokens available for each chain for a given path
    * @param options
    * @param options.fromChainId The source chain id e.g. 0x1
    * @param options.toChainId The destination chain id e.g. 0x56
@@ -87,7 +87,18 @@ export class Socket {
   }
 
   /**
-   *
+   * Checks that the preferences desired are valid
+   * // TODO: test
+   * @param preferences The quote preferences
+   */
+  validatePreferences(preferences: QuotePreferences) {
+    if (preferences.includeBridges && preferences.excludeBridges) {
+      throw new Error("Only one of `includeBridges` or `excludeBridges` can be specified.");
+    }
+  }
+
+  /**
+   * Get the best quote
    * @param params The parameters of the quote
    * @param preferences Additional route preferences for retrieving the quote from the api
    * @returns The best quote if found or null
@@ -98,7 +109,7 @@ export class Socket {
   }
 
   /**
-   *
+   * Get All quotes
    * @param params The parameters of the quote
    * @param preferences Additional route preferences for retrieving the quote from the api
    * @returns All quotes found
@@ -107,6 +118,12 @@ export class Socket {
     { path, address, amount }: QuoteParams,
     preferences?: QuotePreferences
   ): Promise<SocketQuote[]> {
+    const finalPreferences = {
+      ...(this.options.defaultQuotePreferences || {}),
+      ...(preferences || {}),
+    };
+    this.validatePreferences(finalPreferences);
+
     const request = {
       fromChainId: path.fromToken.chainId,
       toChainId: path.toToken.chainId,
@@ -115,8 +132,7 @@ export class Socket {
       fromAmount: amount,
       userAddress: address,
       recipient: address,
-      ...(this.options.defaultQuotePreferences || {}),
-      ...(preferences || {}),
+      ...finalPreferences,
     };
 
     const quote = (await Quote.getQuote(request)).result;

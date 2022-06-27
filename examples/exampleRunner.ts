@@ -75,7 +75,7 @@ export async function runRoute({
   }
   const amount = ethers.utils.parseUnits(fromAmount, fromToken.decimals).toString();
   const prefs = bridge ? { includeBridges: [bridge] } : undefined;
-  const quotes = await socket.getAllQuotes(
+  const quote = await socket.getBestQuote(
     {
       path: path,
       amount,
@@ -84,15 +84,11 @@ export async function runRoute({
     prefs
   );
 
-  const quote = bridge
-    ? quotes.find((quote) => quote.route.usedBridgeNames.includes(bridge))
-    : quotes[0];
+  if (!quote) {
+    throw new Error("no quote available");
+  }
 
   console.log("Running Quote", JSON.stringify(quote, null, 2));
-
-  if (!quote) {
-    throw new Error("no routes");
-  }
 
   const execute = await socket.start(quote);
   await executeRoute(execute);
