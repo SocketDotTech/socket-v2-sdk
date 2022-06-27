@@ -29,7 +29,7 @@ const MOCK_NEXT_TX: NextTxResponse = {
 describe("Socket", () => {
   it("assigns apikey", async () => {
     const socket = new Socket({ apiKey: "abc" });
-    expect(socket.options.apiKey).toBe("abc");
+    expect(socket._options.apiKey).toBe("abc");
     expect(OpenAPI.API_KEY).toBe("abc");
   });
 });

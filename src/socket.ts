@@ -15,6 +15,8 @@ import { QuotePreferences } from "./client/models/QuoteRequest";
 import { SocketTx } from "./socketTx";
 import { TokenList } from "./tokenList";
 import { QuoteParams, SocketOptions, SocketQuote } from "./types";
+import { Web3Provider } from "@ethersproject/providers";
+import { ConnectedSocket } from "./connectedSocket";
 
 /**
  * The Socket represents the socket sdk. This is the starting point for interacting
@@ -26,7 +28,17 @@ export class Socket {
   /**
    * The api options
    */
-  options: SocketOptions;
+  _options: SocketOptions;
+
+  /**
+   * Cached instance of all chain details
+   */
+  _chainsCache: Chain[] | undefined;
+
+  /**
+   * The provider to use for executing routes
+   */
+  _provider: Web3Provider | undefined;
 
   /**
    * API client for accessing the socket api directly
@@ -46,14 +58,36 @@ export class Socket {
    * @param options Socket sdk options
    */
   constructor(options: SocketOptions) {
-    this.options = options;
-    OpenAPI.API_KEY = this.options.apiKey;
+    this._options = options;
+    OpenAPI.API_KEY = this._options.apiKey;
+  }
+
+  /**
+   * Connect Socket to a provider that will be used to execute routes
+   * @param provider The web3 provider to use as user wallet
+   */
+  connect(provider: Web3Provider) {
+    return new ConnectedSocket(this, provider);
   }
 
   async getChains() {
+    if (this._chainsCache) return this._chainsCache;
+
     const supportedChains = await Supported.getAllSupportedChains();
 
-    return supportedChains.result.map((chain) => new Chain(chain));
+    this._chainsCache = supportedChains.result.map((chain) => new Chain(chain));
+
+    return this._chainsCache;
+  }
+
+  async getChain(chainId: number) {
+    const chains = await this.getChains();
+    const chain = chains.find((c) => c.chainId === chainId);
+    if (!chain) {
+      throw new Error("Chain not supported");
+    }
+
+    return chain;
   }
 
   /**
@@ -119,7 +153,7 @@ export class Socket {
     preferences?: QuotePreferences
   ): Promise<SocketQuote[]> {
     const finalPreferences = {
-      ...(this.options.defaultQuotePreferences || {}),
+      ...(this._options.defaultQuotePreferences || {}),
       ...(preferences || {}),
     };
     this.validatePreferences(finalPreferences);
@@ -176,7 +210,7 @@ export class Socket {
         this.assertTxDone(prevSocketTx);
         nextTx = (await Routes.nextTx({ activeRouteId: initialTx.activeRouteId })).result;
       }
-      const currentSocketTx = new SocketTx(nextTx, this.options.statusCheckInterval);
+      const currentSocketTx = new SocketTx(nextTx, this._options.statusCheckInterval);
       let hash = activeRoute?.userTxs[currentSocketTx.userTxIndex].sourceTransactionHash;
       if (!hash) {
         hash = yield currentSocketTx;
