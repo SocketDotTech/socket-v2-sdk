@@ -16,7 +16,7 @@ import { SocketTx } from "./socketTx";
 import { TokenList } from "./tokenList";
 import { QuoteParams, SocketOptions, SocketQuote } from "./types";
 import { Web3Provider } from "@ethersproject/providers";
-import { ConnectedSocket } from "./connectedSocket";
+import { ConnectedSocket } from ".";
 import { ChainId } from "@socket.tech/ll-core/constants/types";
 
 /**
@@ -68,7 +68,7 @@ export class Socket {
    * @param provider The web3 provider to use as user wallet
    */
   connect(provider: Web3Provider) {
-    return new ConnectedSocket(this, provider);
+    return new ConnectedSocket(this._options, provider);
   }
 
   async getChains() {

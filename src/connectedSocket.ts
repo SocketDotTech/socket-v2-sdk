@@ -1,7 +1,8 @@
 import { Web3Provider } from "@ethersproject/providers";
 import { ChainId } from "@socket.tech/ll-core/constants/types";
 import { ethers } from "ethers";
-import { Socket, SocketQuote } from ".";
+import { SocketOptions, SocketQuote } from "./types";
+import { Socket } from '.'
 
 export interface AddEthereumChainParameters {
   chainId: string; // A 0x-prefixed hexadecimal string
@@ -16,17 +17,16 @@ export interface AddEthereumChainParameters {
   iconUrls?: string[]; // Currently ignored.
 }
 
-export class ConnectedSocket {
-  _socket: Socket;
-  _provider: Web3Provider;
+export class ConnectedSocket extends Socket {
+  readonly _provider: Web3Provider;
 
-  constructor(socket: Socket, provider: Web3Provider) {
-    this._socket = socket;
+  constructor(options: SocketOptions, provider: Web3Provider) {
+    super(options)
     this._provider = provider;
   }
 
-  async switchNetwork(chainId: ChainId) {
-    const chain = await this._socket.getChain(chainId);
+  private async _switchNetwork(chainId: ChainId) {
+    const chain = await this.getChain(chainId);
     try {
       await this._provider.send("wallet_switchEthereumChain", [
         { chainId: ethers.utils.hexlify(chainId) },
@@ -55,15 +55,15 @@ export class ConnectedSocket {
     }
   }
 
-  async ensureChain(chainId: ChainId) {
+  private async _ensureChain(chainId: ChainId) {
     const network = await this._provider.getNetwork();
     if (network.chainId !== chainId) {
-      await this.switchNetwork(chainId);
+      await this._switchNetwork(chainId);
     }
   }
 
-  async start(quote: SocketQuote) {
-    const execute = await this._socket.start(quote);
+  async walletStart(quote: SocketQuote) {
+    const execute = await this.start(quote);
     let next = await execute.next();
 
     while (!next.done && next.value) {
@@ -72,14 +72,14 @@ export class ConnectedSocket {
       console.log(`Executing step ${tx.userTxIndex} "${tx.userTxType}" on chain ${tx.chainId}`);
       const approvalTxData = await tx.getApproveTransaction();
       if (approvalTxData) {
-        await this.ensureChain(tx.chainId);
+        await this._ensureChain(tx.chainId);
         const approvalTx = await this._provider.getSigner().sendTransaction(approvalTxData);
         // Callback hook
         console.log(`Approving: ${approvalTx.hash}`);
         await approvalTx.wait();
       }
       const sendTxData = await tx.getSendTransaction();
-      await this.ensureChain(tx.chainId);
+      await this._ensureChain(tx.chainId);
       const sendTx = await this._provider.getSigner().sendTransaction(sendTxData);
       // Callback hook
       console.log(`Sending: ${sendTx.hash}`);
