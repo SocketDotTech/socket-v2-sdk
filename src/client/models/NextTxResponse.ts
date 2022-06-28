@@ -1,4 +1,5 @@
 import type { ApprovalData } from "./ApprovalData";
+import { ChainId } from "./ChainId";
 import { TxType } from "./TxType";
 import { UserTxType } from "./UserTxType";
 
@@ -18,7 +19,7 @@ export interface NextTxResponse {
   /**
    * Id of chain where transaction has to be sent.
    */
-  chainId: number;
+  chainId: ChainId;
   /**
    * Calldata for transaction.
    */

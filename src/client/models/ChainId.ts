@@ -1,11 +1,3 @@
-export enum ChainId {
-  ETHEREUM = "ETHEREUM",
-  OPTIMISM = "OPTIMISM",
-  BSC = "BSC",
-  XDAI = "XDAI",
-  POLYGON = "POLYGON",
-  FANTOM = "FANTOM",
-  ARBITRUM = "ARBITRUM",
-  AVALANCHE = "AVALANCHE",
-  AURORA = "AURORA",
-}
+import { ChainId } from "@socket.tech/ll-core/constants/types";
+
+export import ChainId = ChainId;

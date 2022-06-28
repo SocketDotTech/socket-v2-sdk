@@ -4,6 +4,7 @@ import type { TokenBalanceReponseDTO } from "../models/TokenBalanceReponseDTO";
 import type { CancelablePromise } from "../core/CancelablePromise";
 import { OpenAPI } from "../core/OpenAPI";
 import { request as __request } from "../core/request";
+import { ChainId } from "../models/ChainId";
 
 export class Balances {
   /**
@@ -35,7 +36,7 @@ export class Balances {
     /** Token contract address on network, e.g USDC on Ethereum Mainnet **/
     tokenAddress: string;
     /** ID of chain, e.g Ethereum Mainnet = 1 **/
-    chainId: string;
+    chainId: ChainId;
     /** Address of the user **/
     userAddress: string;
   }): CancelablePromise<TokenBalanceReponseDTO> {

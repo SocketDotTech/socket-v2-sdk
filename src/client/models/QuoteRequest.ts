@@ -1,4 +1,5 @@
 import { BridgeName } from "./BridgeDetails";
+import { Dexes } from "./Dexes";
 
 export enum SortOptions {
   Output = "output",
@@ -14,10 +15,10 @@ export interface QuotePreferences {
   /** Flag to specify if routes that have dex swap should be ignored. **/
   disableSwapping?: boolean;
   /** Specify Dexes that should be included in routes. **/
-  includeDexes?: Array<"oneinch" | "zerox">;
+  includeDexes?: Array<Dexes>;
   /** Specify Dexes that should be excluded in routes.
    * This option will be ignored if includeDexes is specified. **/
-  excludeDexes?: Array<"oneinch" | "zerox">;
+  excludeDexes?: Array<Dexes>;
   /** Specify Bridges that should be included in routes. **/
   includeBridges?: Array<BridgeName>;
   /** Specify Bridges that should be excluded in routes.

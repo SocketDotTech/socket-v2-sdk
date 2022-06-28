@@ -1,7 +1,9 @@
+import { ChainId } from "./ChainId";
+
 export type GasPriceResponseDTO = {
   success: boolean;
   result: {
-    chainId?: number;
+    chainId?: ChainId;
     txType?: number;
     fast?: {
       gasPrice?: number;

@@ -10,6 +10,7 @@ import type { CancelablePromise } from "../core/CancelablePromise";
 import { OpenAPI } from "../core/OpenAPI";
 import { request as __request } from "../core/request";
 import { BridgeName } from "../models/BridgeDetails";
+import { ChainId } from "../models/ChainId";
 
 export class Server {
   /**
@@ -42,7 +43,7 @@ export class Server {
     chainId,
   }: {
     /** ID of chain, e.g Ethereum Mainnet = 1 **/
-    chainId: string;
+    chainId: ChainId;
   }): CancelablePromise<GasPriceResponseDTO> {
     return __request(OpenAPI, {
       method: "GET",
@@ -64,7 +65,7 @@ export class Server {
     /** Token contract address on network, e.g USDC on Ethereum Mainnet **/
     tokenAddress: string;
     /** ID of chain, e.g Ethereum Mainnet = 1 **/
-    chainId: string;
+    chainId: ChainId;
   }): CancelablePromise<TokenPriceResponseDTO> {
     return __request(OpenAPI, {
       method: "GET",
@@ -142,7 +143,7 @@ export class Server {
     /** Transaction hash originating from the source chain while bridging assets. **/
     transactionHash: string;
     /** ID of source chain, e.g Ethereum Mainnet = 1 **/
-    chainId: string;
+    chainId: ChainId;
   }): CancelablePromise<TransactionReceiptResponseDTO> {
     return __request(OpenAPI, {
       method: "GET",

@@ -17,6 +17,7 @@ import { TokenList } from "./tokenList";
 import { QuoteParams, SocketOptions, SocketQuote } from "./types";
 import { Web3Provider } from "@ethersproject/providers";
 import { ConnectedSocket } from "./connectedSocket";
+import { ChainId } from "@socket.tech/ll-core/constants/types";
 
 /**
  * The Socket represents the socket sdk. This is the starting point for interacting
@@ -80,7 +81,7 @@ export class Socket {
     return this._chainsCache;
   }
 
-  async getChain(chainId: number) {
+  async getChain(chainId: ChainId) {
     const chains = await this.getChains();
     const chain = chains.find((c) => c.chainId === chainId);
     if (!chain) {
@@ -98,7 +99,7 @@ export class Socket {
    *
    * @returns The `from` and `to` token lists
    */
-  async getTokenList({ fromChainId, toChainId }: { fromChainId: number; toChainId: number }) {
+  async getTokenList({ fromChainId, toChainId }: { fromChainId: ChainId; toChainId: ChainId }) {
     const fromTokenListData = (
       await TokenLists.getFromTokenList({
         fromChainId,

@@ -1,7 +1,9 @@
+import { ChainId } from "./ChainId";
+
 export type TokenPriceResponseDTO = {
   success: boolean;
   result: {
-    chainId?: number;
+    chainId?: ChainId;
     tokenAddress?: string;
     tokenPrice?: number;
     currency?: string;

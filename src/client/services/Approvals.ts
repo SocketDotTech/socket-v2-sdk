@@ -4,6 +4,7 @@ import type { ApprovalTxOutputDTO } from "../models/ApprovalTxOutputDTO";
 import type { CancelablePromise } from "../core/CancelablePromise";
 import { OpenAPI } from "../core/OpenAPI";
 import { request as __request } from "../core/request";
+import { ChainId } from "../models/ChainId";
 
 export class Approvals {
   /**
@@ -17,7 +18,7 @@ export class Approvals {
     tokenAddress,
   }: {
     /** ID of chain, e.g Ethereum Mainnet = 1 **/
-    chainId: number;
+    chainId: ChainId;
     /** Wallet address of token holder **/
     owner: string;
     /** Address whose spending allowance is to be checked **/
@@ -52,7 +53,7 @@ export class Approvals {
     amount,
   }: {
     /** ID of chain, e.g Ethereum Mainnet = 1 **/
-    chainId: number;
+    chainId: ChainId;
     /** Wallet address of token holder **/
     owner: string;
     /** Address whose spending allowance is to be checked **/

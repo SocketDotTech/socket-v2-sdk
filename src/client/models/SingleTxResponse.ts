@@ -1,7 +1,7 @@
 import type { ApprovalData } from "./ApprovalData";
-import { ChainId } from "./ChainId";
 import { TxType } from "./TxType";
 import { UserTxType } from "./UserTxType";
+import { ChainId } from "@socket.tech/ll-core/constants/types";
 
 export type SingleTxResponse = {
   /**

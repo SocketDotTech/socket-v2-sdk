@@ -1,5 +1,7 @@
+import { ChainId } from "@socket.tech/ll-core/constants/types";
+
 export type BalanceResult = {
-  chainId: number;
+  chainId: ChainId;
   address: string;
   name: string;
   symbol: string;

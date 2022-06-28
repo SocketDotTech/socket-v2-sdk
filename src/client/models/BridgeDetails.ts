@@ -1,3 +1,7 @@
+import { Bridge } from "@socket.tech/ll-core/constants/types";
+
+export import BridgeName = Bridge;
+
 export type BridgeDetails = {
   /**
    * Name of bridge.
@@ -16,17 +20,3 @@ export type BridgeDetails = {
    */
   displayName: string;
 };
-
-/**
- * Name of bridge.
- */
-export enum BridgeName {
-  ONE_INCH = "oneinch",
-  POLYGON_BRIDGE = "polygon-bridge",
-  HOP = "hop",
-  ANYSWAP_ROUTER_V4 = "anyswap-router-v4",
-  HYPHEN = "hyphen",
-  ARBITRUM_BRIDGE = "arbitrum-bridge",
-  CONNEXT = "connext",
-  CELER = "celer",
-}

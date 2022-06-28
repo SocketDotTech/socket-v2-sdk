@@ -1,6 +1,20 @@
 import { Web3Provider } from "@ethersproject/providers";
+import { ChainId } from "@socket.tech/ll-core/constants/types";
 import { ethers } from "ethers";
-import { AddEthereumChainParameters, Socket, SocketQuote } from ".";
+import { Socket, SocketQuote } from ".";
+
+export interface AddEthereumChainParameters {
+  chainId: string; // A 0x-prefixed hexadecimal string
+  chainName: string;
+  nativeCurrency: {
+    name: string;
+    symbol: string; // 2-6 characters long
+    decimals: number;
+  };
+  rpcUrls: string[];
+  blockExplorerUrls?: string[];
+  iconUrls?: string[]; // Currently ignored.
+}
 
 export class ConnectedSocket {
   _socket: Socket;
@@ -11,7 +25,7 @@ export class ConnectedSocket {
     this._provider = provider;
   }
 
-  async switchNetwork(chainId: number) {
+  async switchNetwork(chainId: ChainId) {
     const chain = await this._socket.getChain(chainId);
     try {
       await this._provider.send("wallet_switchEthereumChain", [
@@ -41,7 +55,7 @@ export class ConnectedSocket {
     }
   }
 
-  async ensureChain(chainId: number) {
+  async ensureChain(chainId: ChainId) {
     const network = await this._provider.getNetwork();
     if (network.chainId !== chainId) {
       await this.switchNetwork(chainId);

@@ -1,3 +1,5 @@
+import { ChainId } from "./ChainId";
+
 export type Token = {
   /**
    * Name of token.
@@ -22,7 +24,7 @@ export type Token = {
   /**
    * Chain id of the token
    */
-  chainId: number;
+  chainId: ChainId;
   /**
    * URL for icon of token.
    */

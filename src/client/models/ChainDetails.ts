@@ -1,10 +1,11 @@
+import { ChainId } from "./ChainId";
 import type { GasTokenDetails } from "./GasTokenDetails";
 
 export type ChainDetails = {
   /**
    * Id of chain.
    */
-  chainId: number;
+  chainId: ChainId;
   /**
    * Name of chain.
    */

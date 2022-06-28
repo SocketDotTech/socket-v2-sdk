@@ -3,6 +3,7 @@ import { Socket } from "../src";
 import * as ethers from "ethers";
 import { Path } from "../src/path";
 import { BridgeName } from "../src/client/models/BridgeDetails";
+import { ChainId } from "../src/client/models/ChainId";
 import { SocketTx } from "../src/socketTx";
 
 const API_KEY = "645b2c8c-5825-4930-baf3-d9b997fcd88c"; // Testing key
@@ -45,8 +46,8 @@ export async function runRoute({
   multiTx = false,
 }: {
   fromAmount: string;
-  fromChainId: number;
-  toChainId: number;
+  fromChainId: ChainId;
+  toChainId: ChainId;
   fromTokenAddress: string;
   toTokenAddress: string;
   bridge?: BridgeName;

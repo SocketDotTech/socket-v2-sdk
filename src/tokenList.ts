@@ -1,10 +1,11 @@
+import { ChainId } from "@socket.tech/ll-core/constants/types";
 import { Token } from ".";
 import { NATIVE_TOKEN_ADDRESS } from "./constants";
 
 export class TokenList extends Array<Token> {
-  chainId: number;
+  chainId: ChainId;
 
-  constructor(chainId: number, items: Array<Token>) {
+  constructor(chainId: ChainId, items: Array<Token>) {
     super(...items);
     this.chainId = chainId;
   }

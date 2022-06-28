@@ -1,7 +1,9 @@
+import { ChainId } from "./ChainId";
+
 export type TokenBalanceReponseDTO = {
   success: boolean;
   result: {
-    chainId?: number;
+    chainId?: ChainId;
     tokenAddress?: string;
     userAddress?: string;
     balance?: string;

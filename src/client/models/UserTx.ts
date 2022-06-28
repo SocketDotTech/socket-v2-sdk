@@ -1,6 +1,7 @@
 import { TransactionReceipt } from "@ethersproject/abstract-provider";
 import { CancelTokenStatic } from "axios";
 import { ApprovalData, BridgeDetails, Token } from "..";
+import { ChainId } from "./ChainId";
 import { PrepareActiveRouteStatus } from "./RouteStatusOutputDTO";
 import { TxType } from "./TxType";
 import { UserTxType } from "./UserTxType";
@@ -27,7 +28,7 @@ export type Step = {
 export type UserTx = {
   userTxType: UserTxType;
   txType: TxType;
-  chainId: number;
+  chainId: ChainId;
   toAmount: string;
   toAsset: Token;
   stepCount: number;

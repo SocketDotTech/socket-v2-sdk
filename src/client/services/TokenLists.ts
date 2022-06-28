@@ -4,6 +4,7 @@ import type { CancelablePromise } from "../core/CancelablePromise";
 import { OpenAPI } from "../core/OpenAPI";
 import { request as __request } from "../core/request";
 import { BridgeName } from "../models/BridgeDetails";
+import { Dexes } from "../models/Dexes";
 
 export class TokenLists {
   /**
@@ -28,10 +29,10 @@ export class TokenLists {
     /** Flag to specify if tokens that need dex swap should be ignored. **/
     disableSwapping?: boolean;
     /** Specify Dexes that should be included for token support. **/
-    includeDexes?: Array<"oneinch" | "zerox">;
+    includeDexes?: Array<Dexes>;
     /** Specify Dexes that should be excluded for token support.
      * This option will be ignored if includeDexes is specified. **/
-    excludeDexes?: Array<"oneinch" | "zerox">;
+    excludeDexes?: Array<Dexes>;
     /** Specify Bridges that should be included for token support. **/
     includeBridges?: Array<BridgeName>;
     /** Specify Bridges that should be excluded for token support.
@@ -85,10 +86,10 @@ export class TokenLists {
      * This option will be ignored if singleTxOnly is marked true. **/
     disableSwapping?: boolean;
     /** Specify Dexes that should be included for token support. **/
-    includeDexes?: Array<"oneinch" | "zerox">;
+    includeDexes?: Array<Dexes>;
     /** Specify Dexes that should be excluded for token support.
      * This option will be ignored if includeDexes is specified. **/
-    excludeDexes?: Array<"oneinch" | "zerox">;
+    excludeDexes?: Array<Dexes>;
     /** Specify Bridges that should be included for token support. **/
     includeBridges?: Array<BridgeName>;
     /** Specify Bridges that should be excluded for token support.

@@ -4,6 +4,7 @@ import type { SupportedChainsOutputDTO } from "../models/SupportedChainsOutputDT
 import type { CancelablePromise } from "../core/CancelablePromise";
 import { OpenAPI } from "../core/OpenAPI";
 import { request as __request } from "../core/request";
+import { ChainId } from "@socket.tech/ll-core/constants/types";
 
 export class Supported {
   /**
@@ -40,7 +41,7 @@ export class Supported {
     address,
   }: {
     /** Id of chain, e.g Optimism = 10 **/
-    chainId: string;
+    chainId: ChainId;
     /** Contract address of the token **/
     address: string;
   }): CancelablePromise<SupportedChainsOutputDTO> {
@@ -51,7 +52,7 @@ export class Supported {
         "API-KEY": OpenAPI.API_KEY,
       },
       query: {
-        chainId: chainId,
+        chainId,
         address: address,
       },
     });
