@@ -1,6 +1,6 @@
 {
   "name": "socket-v2-sdk",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "module": "lib/src/index.js",
   "main": "lib/src/index.js",
   "types": "lib/src/index.d.ts",
