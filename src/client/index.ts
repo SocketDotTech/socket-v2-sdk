@@ -36,6 +36,10 @@ export type { TokenListOutputDTO } from "./models/TokenListOutputDTO";
 export type { TokenPriceResponseDTO } from "./models/TokenPriceResponseDTO";
 export type { TransactionReceiptResponseDTO } from "./models/TransactionReceiptResponseDTO";
 
+export { ChainId } from "./models/ChainId"
+export { Dexes } from "./models/Dexes"
+export { BridgeName } from "./models/BridgeDetails"
+
 export { Approvals } from "./services/Approvals";
 export { Balances } from "./services/Balances";
 export { Quote } from "./services/Quote";
