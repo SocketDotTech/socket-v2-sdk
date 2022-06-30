@@ -1,5 +1,5 @@
 export { Socket } from "./socket";
-export { ConnectedSocket } from "./connectedSocket";
+export { Web3ConnectedSocket } from "./web3ConnectedSocket";
 export { SocketTx } from "./socketTx";
 export { Path } from "./path";
 export { Token } from "./client/models/Token";

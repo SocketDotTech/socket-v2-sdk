@@ -2,7 +2,7 @@ import type { Web3Provider } from "@ethersproject/providers";
 import { ChainId } from "@socket.tech/ll-core/constants/types";
 import { ethers } from "ethers";
 import { SocketOptions, SocketQuote } from "./types";
-import { Socket } from '.'
+import { Socket, SocketTx } from '.'
 
 export interface AddEthereumChainParameters {
   chainId: string; // A 0x-prefixed hexadecimal string
@@ -17,7 +17,18 @@ export interface AddEthereumChainParameters {
   iconUrls?: string[]; // Currently ignored.
 }
 
-export class ConnectedSocket extends Socket {
+export type SocketTxDoneCallback = (tx: SocketTx) => void
+export type TxDoneCallback = (tx: SocketTx, hash: string) => void
+export type ChainSwitchDoneCallback = (chainId: ChainId) => void
+
+export interface EventCallbacks {
+  onTx?: (tx: SocketTx) => SocketTxDoneCallback | undefined,
+  onApprove?: (tx: SocketTx) => TxDoneCallback | undefined
+  onSend?: (tx: SocketTx) => TxDoneCallback | undefined
+  onChainSwitch?: (fromChainId: ChainId, toChainId: ChainId) => ChainSwitchDoneCallback | undefined,
+}
+
+export class Web3ConnectedSocket extends Socket {
   readonly _provider: Web3Provider;
 
   constructor(options: SocketOptions, provider: Web3Provider) {
@@ -55,36 +66,41 @@ export class ConnectedSocket extends Socket {
     }
   }
 
-  private async _ensureChain(chainId: ChainId) {
+  private async _ensureChain(chainId: ChainId, onChainSwitch: EventCallbacks["onChainSwitch"]) {
     const network = await this._provider.getNetwork();
     if (network.chainId !== chainId) {
+      const doneCallback = onChainSwitch && onChainSwitch(network.chainId, chainId)
       await this._switchNetwork(chainId);
+      if (doneCallback) doneCallback(chainId)
     }
   }
 
-  async walletStart(quote: SocketQuote) {
+  async web3Start(quote: SocketQuote, callbacks: EventCallbacks) {
     const execute = await this.start(quote);
     let next = await execute.next();
 
     while (!next.done && next.value) {
       const tx = next.value;
-      // Callback hook
-      console.log(`Executing step ${tx.userTxIndex} "${tx.userTxType}" on chain ${tx.chainId}`);
+      const txDoneCallback = callbacks.onTx && callbacks.onTx(tx)
+
       const approvalTxData = await tx.getApproveTransaction();
       if (approvalTxData) {
-        await this._ensureChain(tx.chainId);
+        await this._ensureChain(tx.chainId, callbacks.onChainSwitch);
+        const approveCallback = callbacks.onApprove && callbacks.onApprove(tx)
         const approvalTx = await this._provider.getSigner().sendTransaction(approvalTxData);
-        // Callback hook
-        console.log(`Approving: ${approvalTx.hash}`);
+        if (approveCallback) approveCallback(tx, approvalTx.hash)
         await approvalTx.wait();
       }
+
       const sendTxData = await tx.getSendTransaction();
-      await this._ensureChain(tx.chainId);
+      await this._ensureChain(tx.chainId, callbacks.onChainSwitch);
+      const sendCallback = callbacks.onSend && callbacks.onSend(tx)
       const sendTx = await this._provider.getSigner().sendTransaction(sendTxData);
-      // Callback hook
-      console.log(`Sending: ${sendTx.hash}`);
+      if (sendCallback) sendCallback(tx, sendTx.hash)
       await sendTx.wait();
+
       next = await execute.next(sendTx.hash);
+      if (txDoneCallback) txDoneCallback(tx)
     }
   }
 }
