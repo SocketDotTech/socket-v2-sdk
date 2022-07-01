@@ -2,7 +2,7 @@ import type { Web3Provider } from "@ethersproject/providers";
 import { ChainId } from "@socket.tech/ll-core/constants/types";
 import { ethers } from "ethers";
 import { SocketOptions, SocketQuote } from "./types";
-import { Socket, SocketTx } from '.'
+import { Socket, SocketTx } from ".";
 
 export interface AddEthereumChainParameters {
   chainId: string; // A 0x-prefixed hexadecimal string
@@ -17,22 +17,22 @@ export interface AddEthereumChainParameters {
   iconUrls?: string[]; // Currently ignored.
 }
 
-export type SocketTxDoneCallback = (tx: SocketTx) => void
-export type TxDoneCallback = (tx: SocketTx, hash: string) => void
-export type ChainSwitchDoneCallback = (chainId: ChainId) => void
+export type SocketTxDoneCallback = (tx: SocketTx) => void;
+export type TxDoneCallback = (tx: SocketTx, hash: string) => void;
+export type ChainSwitchDoneCallback = (chainId: ChainId) => void;
 
 export interface EventCallbacks {
-  onTx?: (tx: SocketTx) => SocketTxDoneCallback | undefined,
-  onApprove?: (tx: SocketTx) => TxDoneCallback | undefined
-  onSend?: (tx: SocketTx) => TxDoneCallback | undefined
-  onChainSwitch?: (fromChainId: ChainId, toChainId: ChainId) => ChainSwitchDoneCallback | undefined,
+  onTx?: (tx: SocketTx) => SocketTxDoneCallback | void;
+  onApprove?: (tx: SocketTx) => TxDoneCallback | void;
+  onSend?: (tx: SocketTx) => TxDoneCallback | void;
+  onChainSwitch?: (fromChainId: ChainId, toChainId: ChainId) => ChainSwitchDoneCallback | void;
 }
 
 export class Web3ConnectedSocket extends Socket {
   readonly _provider: Web3Provider;
 
   constructor(options: SocketOptions, provider: Web3Provider) {
-    super(options)
+    super(options);
     this._provider = provider;
   }
 
@@ -69,9 +69,9 @@ export class Web3ConnectedSocket extends Socket {
   private async _ensureChain(chainId: ChainId, onChainSwitch: EventCallbacks["onChainSwitch"]) {
     const network = await this._provider.getNetwork();
     if (network.chainId !== chainId) {
-      const doneCallback = onChainSwitch && onChainSwitch(network.chainId, chainId)
+      const doneCallback = onChainSwitch && onChainSwitch(network.chainId, chainId);
       await this._switchNetwork(chainId);
-      if (doneCallback) doneCallback(chainId)
+      if (doneCallback) doneCallback(chainId);
     }
   }
 
@@ -81,26 +81,26 @@ export class Web3ConnectedSocket extends Socket {
 
     while (!next.done && next.value) {
       const tx = next.value;
-      const txDoneCallback = callbacks.onTx && callbacks.onTx(tx)
+      const txDoneCallback = callbacks.onTx && callbacks.onTx(tx);
 
       const approvalTxData = await tx.getApproveTransaction();
       if (approvalTxData) {
         await this._ensureChain(tx.chainId, callbacks.onChainSwitch);
-        const approveCallback = callbacks.onApprove && callbacks.onApprove(tx)
+        const approveCallback = callbacks.onApprove && callbacks.onApprove(tx);
         const approvalTx = await this._provider.getSigner().sendTransaction(approvalTxData);
-        if (approveCallback) approveCallback(tx, approvalTx.hash)
+        if (approveCallback) approveCallback(tx, approvalTx.hash);
         await approvalTx.wait();
       }
 
       const sendTxData = await tx.getSendTransaction();
       await this._ensureChain(tx.chainId, callbacks.onChainSwitch);
-      const sendCallback = callbacks.onSend && callbacks.onSend(tx)
+      const sendCallback = callbacks.onSend && callbacks.onSend(tx);
       const sendTx = await this._provider.getSigner().sendTransaction(sendTxData);
-      if (sendCallback) sendCallback(tx, sendTx.hash)
+      if (sendCallback) sendCallback(tx, sendTx.hash);
       await sendTx.wait();
 
       next = await execute.next(sendTx.hash);
-      if (txDoneCallback) txDoneCallback(tx)
+      if (txDoneCallback) txDoneCallback(tx);
     }
   }
 }
