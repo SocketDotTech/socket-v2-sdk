@@ -2,7 +2,8 @@ import type { Web3Provider } from "@ethersproject/providers";
 import { ChainId } from "@socket.tech/ll-core/constants/types";
 import { ethers } from "ethers";
 import { SocketOptions, SocketQuote } from "./types";
-import { Socket, SocketTx } from ".";
+import { SocketTx } from ".";
+import { BaseSocket } from "./baseSocket";
 
 export interface AddEthereumChainParameters {
   chainId: string; // A 0x-prefixed hexadecimal string
@@ -33,7 +34,7 @@ export interface EventCallbacks {
  *
  * The connected socket sdk interfaces directly with wallets
  */
-export class Web3ConnectedSocket extends Socket {
+export class Web3ConnectedSocket extends BaseSocket {
   readonly _provider: Web3Provider;
 
   constructor(options: SocketOptions, provider: Web3Provider) {
@@ -94,8 +95,8 @@ export class Web3ConnectedSocket extends Socket {
    * @param quote The quote to execute
    * @param callbacks optional callbacks for different states of the execution
    */
-  async web3Start(quote: SocketQuote, callbacks: EventCallbacks) {
-    const execute = await this.start(quote);
+  async start(quote: SocketQuote, callbacks: EventCallbacks) {
+    const execute = await this._startQuote(quote);
     let next = await execute.next();
 
     while (!next.done && next.value) {
@@ -122,6 +123,8 @@ export class Web3ConnectedSocket extends Socket {
       if (txDoneCallback) txDoneCallback(tx);
     }
   }
+
+  /** TODO: continue */
 
   /**
    * TODO: getActiveRoutes
