@@ -17,6 +17,7 @@ import { TokenList } from "./tokenList";
 import { QuoteParams, SocketOptions, SocketQuote } from "./types";
 import { Web3Provider } from "@ethersproject/providers";
 import { ChainId } from "@socket.tech/ll-core/constants/types";
+import { ActiveRoutesRequest } from "./client/models/ActiveRoutesRequest";
 
 /**
  * The Socket represents the socket sdk. This is the starting point for interacting
@@ -183,6 +184,16 @@ export abstract class BaseSocket {
         amount,
       })) || []
     );
+  }
+
+  /**
+   * Retrieve the active routes. Active routes can be used to continue a quote
+   * @param options Criteria for returning active routes. Commonly `address` is most useful
+   * @returns list of active routes
+   */
+  async getActiveRoutes(options: ActiveRoutesRequest) {
+    const routes = await Routes.getActiveRoutesForUser(options);
+    return routes.result;
   }
 
   /**
