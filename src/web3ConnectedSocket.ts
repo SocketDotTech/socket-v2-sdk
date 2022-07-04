@@ -90,14 +90,9 @@ export class Web3ConnectedSocket extends BaseSocket {
     }
   }
 
-  /**
-   * Start executing the quote on the provider
-   * @param quote The quote to execute
-   * @param callbacks optional callbacks for different states of the execution
-   */
-  async start(quote: SocketQuote, callbacks: EventCallbacks) {
-    const execute = await this._startQuote(quote);
-    let next = await execute.next();
+  /** Execute the quote */
+  async _execute(iterator: AsyncGenerator<SocketTx, void, string>, callbacks: EventCallbacks) {
+    let next = await iterator.next();
 
     while (!next.done && next.value) {
       const tx = next.value;
@@ -119,14 +114,28 @@ export class Web3ConnectedSocket extends BaseSocket {
       if (sendCallback) sendCallback(tx, sendTx.hash);
       await sendTx.wait();
 
-      next = await execute.next(sendTx.hash);
+      next = await iterator.next(sendTx.hash);
       if (txDoneCallback) txDoneCallback(tx);
     }
   }
 
-  /** TODO: continue */
+  /**
+   * Start executing the quote on the provider
+   * @param quote The quote to execute
+   * @param callbacks optional callbacks for different states of the execution
+   */
+  async start(quote: SocketQuote, callbacks: EventCallbacks) {
+    const iterator = await this._startQuote(quote);
+    await this._execute(iterator, callbacks);
+  }
 
   /**
-   * TODO: getActiveRoutes
+   * Continue an active route
+   * @param activeRouteId The active route id of the desired route to continue
+   * @param callbacks optional callbacks for different states of the execution
    */
+  async continue(activeRouteId: number, callbacks: EventCallbacks) {
+    const iterator = await this._continueRoute(activeRouteId);
+    await this._execute(iterator, callbacks);
+  }
 }
