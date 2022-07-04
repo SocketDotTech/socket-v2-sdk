@@ -122,4 +122,8 @@ export class Web3ConnectedSocket extends Socket {
       if (txDoneCallback) txDoneCallback(tx);
     }
   }
+
+  /**
+   * TODO: getActiveRoutes
+   */
 }
