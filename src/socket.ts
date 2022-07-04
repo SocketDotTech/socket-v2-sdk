@@ -64,13 +64,17 @@ export class Socket {
   }
 
   /**
-   * Connect Socket to a provider that will be used to execute routes
+   * Connect Socket to a web3 provider that will be used to execute routes
    * @param provider The web3 provider to use as user wallet
    */
   connect(provider: Web3Provider) {
     return new Web3ConnectedSocket(this._options, provider);
   }
 
+  /**
+   * Get all supported chains
+   * @returns List of chains
+   */
   async getChains() {
     if (this._chainsCache) return this._chainsCache;
 
@@ -81,6 +85,11 @@ export class Socket {
     return this._chainsCache;
   }
 
+  /**
+   * Get a chain by id
+   * @param chainId The numeric id of the chain
+   * @returns The requested chain
+   */
   async getChain(chainId: ChainId) {
     const chains = await this.getChains();
     const chain = chains.find((c) => c.chainId === chainId);

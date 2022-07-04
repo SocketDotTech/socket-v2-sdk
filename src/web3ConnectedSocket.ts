@@ -28,6 +28,11 @@ export interface EventCallbacks {
   onChainSwitch?: (fromChainId: ChainId, toChainId: ChainId) => ChainSwitchDoneCallback | void;
 }
 
+/**
+ * @inheritdoc
+ *
+ * The connected socket sdk interfaces directly with wallets
+ */
 export class Web3ConnectedSocket extends Socket {
   readonly _provider: Web3Provider;
 
@@ -36,6 +41,10 @@ export class Web3ConnectedSocket extends Socket {
     this._provider = provider;
   }
 
+  /**
+   * Switch to the desired network
+   * @param chainId chain
+   */
   private async _switchNetwork(chainId: ChainId) {
     const chain = await this.getChain(chainId);
     try {
@@ -66,6 +75,11 @@ export class Web3ConnectedSocket extends Socket {
     }
   }
 
+  /**
+   * Ensure that the provider is on the given chain
+   * @param chainId chain
+   * @param onChainSwitch Callback for chain switching
+   */
   private async _ensureChain(chainId: ChainId, onChainSwitch: EventCallbacks["onChainSwitch"]) {
     const network = await this._provider.getNetwork();
     if (network.chainId !== chainId) {
@@ -75,6 +89,11 @@ export class Web3ConnectedSocket extends Socket {
     }
   }
 
+  /**
+   * Start executing the quote on the provider
+   * @param quote The quote to execute
+   * @param callbacks optional callbacks for different states of the execution
+   */
   async web3Start(quote: SocketQuote, callbacks: EventCallbacks) {
     const execute = await this.start(quote);
     let next = await execute.next();
