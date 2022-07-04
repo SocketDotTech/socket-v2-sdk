@@ -123,12 +123,15 @@ export class Socket {
 
   /**
    * Checks that the preferences desired are valid
-   * // TODO: test
    * @param preferences The quote preferences
    */
   validatePreferences(preferences: QuotePreferences) {
     if (preferences.includeBridges && preferences.excludeBridges) {
       throw new Error("Only one of `includeBridges` or `excludeBridges` can be specified.");
+    }
+
+    if (preferences.includeDexes && preferences.excludeDexes) {
+      throw new Error("Only one of `includeDexes` or `excludeDexes` can be specified.");
     }
   }
 

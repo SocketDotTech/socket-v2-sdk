@@ -6,7 +6,9 @@ import mockRoute from "./mocks/mockRoute.json";
 import { SocketQuote } from "./types";
 import { UserTxType } from "./client/models/UserTxType";
 import { TxType } from "./client/models/TxType";
+import { BridgeName } from "./client/models/BridgeDetails";
 import { PrepareActiveRouteStatus } from "./client/models/RouteStatusOutputDTO";
+import { Middleware } from "@socket.tech/ll-core/constants/types";
 
 jest.mock("./client/services/Routes");
 const mockedRoutes = jest.mocked(Routes, true);
@@ -31,6 +33,26 @@ describe("Socket", () => {
     const socket = new Socket({ apiKey: "abc" });
     expect(socket._options.apiKey).toBe("abc");
     expect(OpenAPI.API_KEY).toBe("abc");
+  });
+
+  it("both include and exclude dex invalid", () => {
+    const socket = new Socket({ apiKey: "abc" });
+    expect(() =>
+      socket.validatePreferences({
+        includeDexes: [Middleware.OneInch],
+        excludeDexes: [Middleware.OneInch],
+      })
+    ).toThrow();
+  });
+
+  it("both include and exclude bridge invalid", () => {
+    const socket = new Socket({ apiKey: "abc" });
+    expect(() =>
+      socket.validatePreferences({
+        includeBridges: [BridgeName.AnySwap],
+        excludeBridges: [BridgeName.AnySwap],
+      })
+    ).toThrow();
   });
 });
 

@@ -1,0 +1,30 @@
+{
+  "chainId": 100,
+  "name": "Gnosis",
+  "icon": "https://movricons.s3.ap-south-1.amazonaws.com/gnosis.svg",
+  "isL1": false,
+  "sendingEnabled": true,
+  "receivingEnabled": true,
+  "refuel": {
+    "sendingEnabled": true,
+    "receivingEnabled": true
+  },
+  "currency": {
+    "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "icon": "https://maticnetwork.github.io/polygon-token-assets/assets/dai.svg",
+    "name": "XDAI",
+    "symbol": "XDAI",
+    "decimals": 18,
+    "minNativeCurrencyForGas": "2100000000000000"
+  },
+  "rpcs": [
+    "https://rpc.xdaichain.com",
+    "https://xdai.poanetwork.dev",
+    "wss://rpc.xdaichain.com/wss",
+    "wss://xdai.poanetwork.dev/wss",
+    "http://xdai.poanetwork.dev",
+    "https://dai.poa.network",
+    "ws://xdai.poanetwork.dev:8546"
+  ],
+  "explorers": ["https://blockscout.com/xdai/mainnet"]
+}

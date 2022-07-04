@@ -32,5 +32,5 @@ export type Token = {
   /**
    * Unique Id over all chains
    */
-  chainAgnosticId?: string;
+  chainAgnosticId?: string | null;
 };

@@ -1,0 +1,412 @@
+[
+  {
+    "name": "xDAI",
+    "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "icon": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png",
+    "decimals": 18,
+    "symbol": "XDAI",
+    "chainId": 100,
+    "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "Agave",
+    "address": "0x3a97704a1b25f08aa230ae53b352e2e72ef52843",
+    "icon": "https://raw.githubusercontent.com/1Hive/default-token-list/master/src/assets/xdai/0x3a97704a1b25f08aa230ae53b352e2e72ef52843/logo.png",
+    "decimals": 18,
+    "symbol": "AGVE",
+    "chainId": 100,
+    "logoURI": "https://raw.githubusercontent.com/1Hive/default-token-list/master/src/assets/xdai/0x3a97704a1b25f08aa230ae53b352e2e72ef52843/logo.png",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "BaoToken on xDai",
+    "address": "0x82dfe19164729949fd66da1a37bc70dd6c4746ce",
+    "icon": "https://maticnetwork.github.io/polygon-token-assets/assets/bao.svg",
+    "decimals": 18,
+    "symbol": "BAO",
+    "chainId": 100,
+    "logoURI": "https://maticnetwork.github.io/polygon-token-assets/assets/bao.svg",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "Bright from Ethereum",
+    "address": "0x83ff60e2f93f8edd0637ef669c69d5fb4f64ca8e",
+    "icon": "https://assets.coingecko.com/coins/images/18415/small/bright.PNG?1631841211",
+    "decimals": 18,
+    "symbol": "BRIGHT",
+    "chainId": 100,
+    "logoURI": "https://assets.coingecko.com/coins/images/18415/small/bright.PNG?1631841211",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "BUSD Token from BSC",
+    "address": "0xdd96b45877d0e8361a4ddb732da741e97f3191ff",
+    "icon": "https://maticnetwork.github.io/polygon-token-assets/assets/busd.svg",
+    "decimals": 18,
+    "symbol": "BUSD",
+    "chainId": 100,
+    "logoURI": "https://maticnetwork.github.io/polygon-token-assets/assets/busd.svg",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "Dai Stablecoin from Ethereum",
+    "address": "0x44fa8e6f47987339850636f88629646662444217",
+    "icon": "https://maticnetwork.github.io/polygon-token-assets/assets/dai.svg",
+    "decimals": 18,
+    "symbol": "DAI",
+    "chainId": 100,
+    "logoURI": "https://maticnetwork.github.io/polygon-token-assets/assets/dai.svg",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "Streamr DATA on xDai",
+    "address": "0x256eb8a51f382650b2a1e946b8811953640ee47d",
+    "icon": "https://assets.coingecko.com/coins/images/18500/small/data_32.png?1632209427",
+    "decimals": 18,
+    "symbol": "DATA",
+    "chainId": 100,
+    "logoURI": "https://assets.coingecko.com/coins/images/18500/small/data_32.png?1632209427",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "Decentralized Insurance Protocol on xDai",
+    "address": "0x48b1b0d077b4919b65b4e4114806dd803901e1d9",
+    "icon": "https://assets.coingecko.com/coins/images/13186/small/deipool.png?1606085265",
+    "decimals": 18,
+    "symbol": "DIP",
+    "chainId": 100,
+    "logoURI": "https://assets.coingecko.com/coins/images/13186/small/deipool.png?1606085265",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "Donut on xDai",
+    "address": "0x524b969793a64a602342d89bc2789d43a016b13a",
+    "icon": "https://assets.coingecko.com/coins/images/7538/small/Donut.png?1548234345",
+    "decimals": 18,
+    "symbol": "DONUT",
+    "chainId": 100,
+    "logoURI": "https://assets.coingecko.com/coins/images/7538/small/Donut.png?1548234345",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "DefiPulse Index from Ethereum",
+    "address": "0xd3d47d5578e55c880505dc40648f7f9307c3e7a8",
+    "icon": "https://maticnetwork.github.io/polygon-token-assets/assets/dpi.svg",
+    "decimals": 18,
+    "symbol": "DPI",
+    "chainId": 100,
+    "logoURI": "https://maticnetwork.github.io/polygon-token-assets/assets/dpi.svg",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "DXdao from Ethereum",
+    "address": "0xb90d6bec20993be5d72a5ab353343f7a0281f158",
+    "icon": "https://assets.coingecko.com/coins/images/11148/small/dxdao.png?1607999331",
+    "decimals": 18,
+    "symbol": "DXD",
+    "chainId": 100,
+    "logoURI": "https://assets.coingecko.com/coins/images/11148/small/dxdao.png?1607999331",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "FOX from Ethereum",
+    "address": "0x21a42669643f45bc0e086b8fc2ed70c23d67509d",
+    "icon": "https://maticnetwork.github.io/polygon-token-assets/assets/fox.svg",
+    "decimals": 18,
+    "symbol": "FOX",
+    "chainId": 100,
+    "logoURI": "https://maticnetwork.github.io/polygon-token-assets/assets/fox.svg",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "Giveth from Mainnet",
+    "address": "0x4f4f9b8d5b4d0dc10506e5551b0513b61fd59e75",
+    "icon": "https://assets.coingecko.com/coins/images/8996/small/giv.png?1629952637",
+    "decimals": 18,
+    "symbol": "GIV",
+    "chainId": 100,
+    "logoURI": "https://assets.coingecko.com/coins/images/8996/small/giv.png?1629952637",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "Gnosis Token",
+    "address": "0x9c58bacc331c9aa871afd802db6379a98e80cedb",
+    "icon": "https://maticnetwork.github.io/polygon-token-assets/assets/gno.svg",
+    "decimals": 18,
+    "symbol": "GNO",
+    "chainId": 100,
+    "logoURI": "https://maticnetwork.github.io/polygon-token-assets/assets/gno.svg",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "Haus",
+    "address": "0xb0c5f3100a4d9d9532a4cfd68c55f1ae8da987eb",
+    "icon": "https://assets.coingecko.com/coins/images/14551/small/jN3kkqke_400x400.png?1616990048",
+    "decimals": 18,
+    "symbol": "HAUS",
+    "chainId": 100,
+    "logoURI": "https://assets.coingecko.com/coins/images/14551/small/jN3kkqke_400x400.png?1616990048",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "Honey",
+    "address": "0x71850b7e9ee3f13ab46d67167341e4bdc905eef9",
+    "icon": "https://maticnetwork.github.io/polygon-token-assets/assets/hny.svg",
+    "decimals": 18,
+    "symbol": "HNY",
+    "chainId": 100,
+    "logoURI": "https://maticnetwork.github.io/polygon-token-assets/assets/hny.svg",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "ChainLink Token on xDai",
+    "address": "0xe2e73a1c69ecf83f464efce6a5be353a37ca09b2",
+    "icon": "https://maticnetwork.github.io/polygon-token-assets/assets/link.svg",
+    "decimals": 18,
+    "symbol": "LINK",
+    "chainId": 100,
+    "logoURI": "https://maticnetwork.github.io/polygon-token-assets/assets/link.svg",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "Minerva Wallet SuperToken",
+    "address": "0x63e62989d9eb2d37dfdb1f93a22f063635b07d51",
+    "icon": "https://minerva.digital/i/MIVA-Token_200x200.png",
+    "decimals": 18,
+    "symbol": "MIVA",
+    "chainId": 100,
+    "logoURI": "https://minerva.digital/i/MIVA-Token_200x200.png",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "Panvala pan on xDai",
+    "address": "0x981fb9ba94078a2275a8fc906898ea107b9462a8",
+    "icon": "https://maticnetwork.github.io/polygon-token-assets/assets/pan.svg",
+    "decimals": 18,
+    "symbol": "PAN",
+    "chainId": 100,
+    "logoURI": "https://maticnetwork.github.io/polygon-token-assets/assets/pan.svg",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "Pinakion on xDai",
+    "address": "0x37b60f4e9a31a64ccc0024dce7d0fd07eaa0f7b3",
+    "icon": "https://assets.coingecko.com/coins/images/3833/small/kleros.png?1547975322",
+    "decimals": 18,
+    "symbol": "PNK",
+    "chainId": 100,
+    "logoURI": "https://assets.coingecko.com/coins/images/3833/small/kleros.png?1547975322",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "Particle",
+    "address": "0xb5d592f85ab2d955c25720ebe6ff8d4d1e1be300",
+    "icon": "https://raw.githubusercontent.com/ShenaniganDApp/docs/master/static/img/SHELogo.png",
+    "decimals": 18,
+    "symbol": "PRTCLE",
+    "chainId": 100,
+    "logoURI": "https://raw.githubusercontent.com/ShenaniganDApp/docs/master/static/img/SHELogo.png",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "Punk from Mainnet",
+    "address": "0x988d1be68f2c5cde2516a2287c59bd6302b7d20d",
+    "icon": "https://assets.coingecko.com/coins/images/17018/small/Punk.png?1626086346",
+    "decimals": 18,
+    "symbol": "PUNK",
+    "chainId": 100,
+    "logoURI": "https://assets.coingecko.com/coins/images/17018/small/Punk.png?1626086346",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "Raid Guild Token from Ethereum",
+    "address": "0x18e9262e68cc6c6004db93105cc7c001bb103e49",
+    "icon": "https://assets.coingecko.com/coins/images/18133/small/raid_200_oswlvz.png?1630631876",
+    "decimals": 18,
+    "symbol": "RAID",
+    "chainId": 100,
+    "logoURI": "https://assets.coingecko.com/coins/images/18133/small/raid_200_oswlvz.png?1630631876",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "Rare Coin v2",
+    "address": "0x57e93bb58268de818b42e3795c97bad58afcd3fe",
+    "icon": "https://affinityharmonics.s3.ca-central-1.amazonaws.com/Cloud/rare-logo.png",
+    "decimals": 18,
+    "symbol": "RAREV2",
+    "chainId": 100,
+    "logoURI": "https://affinityharmonics.s3.ca-central-1.amazonaws.com/Cloud/rare-logo.png",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "DAOSquare Governance Token from Ethereum",
+    "address": "0x97edc0e345fbbbd8460847fcfa3bc2a13bf8641f",
+    "icon": "https://assets.coingecko.com/coins/images/17204/small/RICE-200x200.png?1626847877",
+    "decimals": 18,
+    "symbol": "RICE",
+    "chainId": 100,
+    "logoURI": "https://assets.coingecko.com/coins/images/17204/small/RICE-200x200.png?1626847877",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "SNAFU",
+    "address": "0x27b9c2bd4baea18abdf49169054c1c1c12af9862",
+    "icon": "https://gateway.ipfs.io/ipfs/QmaEPqRKrJDN8iNKVSFj19rbHzZSyWENdj241oek3EJYn7",
+    "decimals": 18,
+    "symbol": "SNAFU",
+    "chainId": 100,
+    "logoURI": "https://gateway.ipfs.io/ipfs/QmaEPqRKrJDN8iNKVSFj19rbHzZSyWENdj241oek3EJYn7",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "Stake Token on xDai",
+    "address": "0xb7d311e2eb55f2f68a9440da38e7989210b9a05e",
+    "icon": "https://assets.coingecko.com/coins/images/11061/small/xdai.png?1587714165",
+    "decimals": 18,
+    "symbol": "STAKE",
+    "chainId": 100,
+    "logoURI": "https://assets.coingecko.com/coins/images/11061/small/xdai.png?1587714165",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "Symmetric",
+    "address": "0xc45b3c1c24d5f54e7a2cf288ac668c74dd507a84",
+    "icon": "https://assets.coingecko.com/coins/images/18525/small/SYMM-Coin-2.png?1632276841",
+    "decimals": 18,
+    "symbol": "SYMM",
+    "chainId": 100,
+    "logoURI": "https://assets.coingecko.com/coins/images/18525/small/SYMM-Coin-2.png?1632276841",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "Trips on xDai",
+    "address": "0x479e32cdff5f216f93060700c711d1cc8e811a6b",
+    "icon": "https://assets.coingecko.com/coins/images/14648/small/trips_32.png?1617491133",
+    "decimals": 18,
+    "symbol": "TRIPS",
+    "chainId": 100,
+    "logoURI": "https://assets.coingecko.com/coins/images/14648/small/trips_32.png?1617491133",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "UNCL on xDai",
+    "address": "0x703120f2f2011a0d03a03a531ac0e84e81f15989",
+    "icon": "https://assets.coingecko.com/coins/images/13102/small/uncl_logo.png?1605230945",
+    "decimals": 18,
+    "symbol": "UNCL",
+    "chainId": 100,
+    "logoURI": "https://assets.coingecko.com/coins/images/13102/small/uncl_logo.png?1605230945",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "UniCrypt on xDai",
+    "address": "0x0116e28b43a358162b96f70b4de14c98a4465f25",
+    "icon": "https://maticnetwork.github.io/polygon-token-assets/assets/uncx.svg",
+    "decimals": 18,
+    "symbol": "UNCX",
+    "chainId": 100,
+    "logoURI": "https://maticnetwork.github.io/polygon-token-assets/assets/uncx.svg",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "USDC on xDai",
+    "address": "0xddafbb505ad214d7b80b1f830fccc89b60fb7a83",
+    "icon": "https://maticnetwork.github.io/polygon-token-assets/assets/usdc.svg",
+    "decimals": 6,
+    "symbol": "USDC",
+    "chainId": 100,
+    "logoURI": "https://maticnetwork.github.io/polygon-token-assets/assets/usdc.svg",
+    "chainAgnosticId": "USDC"
+  },
+  {
+    "name": "Tether on xDai",
+    "address": "0x4ecaba5870353805a9f068101a40e0f32ed605c6",
+    "icon": "https://maticnetwork.github.io/polygon-token-assets/assets/usdt.svg",
+    "decimals": 6,
+    "symbol": "USDT",
+    "chainId": 100,
+    "logoURI": "https://maticnetwork.github.io/polygon-token-assets/assets/usdt.svg",
+    "chainAgnosticId": "USDT"
+  },
+  {
+    "name": "Wrapped BTC on xDai",
+    "address": "0x8e5bbbb09ed1ebde8674cda39a0c169401db4252",
+    "icon": "https://maticnetwork.github.io/polygon-token-assets/assets/wbtc.svg",
+    "decimals": 8,
+    "symbol": "WBTC",
+    "chainId": 100,
+    "logoURI": "https://maticnetwork.github.io/polygon-token-assets/assets/wbtc.svg",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "Wrapped Ether on xDai",
+    "address": "0x6a023ccd1ff6f2045c3309768ead9e68f978f6e1",
+    "icon": "https://maticnetwork.github.io/polygon-token-assets/assets/weth.svg",
+    "decimals": 18,
+    "symbol": "WETH",
+    "chainId": 100,
+    "logoURI": "https://maticnetwork.github.io/polygon-token-assets/assets/weth.svg",
+    "chainAgnosticId": "ETH"
+  },
+  {
+    "name": "Wrapped xDai",
+    "address": "0xe91d153e0b41518a2ce8dd3d7944fa863463a97d",
+    "icon": "https://raw.githubusercontent.com/sushiswap/logos/main/network/xdai/0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d.jpg",
+    "decimals": 18,
+    "symbol": "WXDAI",
+    "chainId": 100,
+    "logoURI": "https://raw.githubusercontent.com/sushiswap/logos/main/network/xdai/0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d.jpg",
+    "chainAgnosticId": "DAI"
+  },
+  {
+    "name": "xDai Native Comb",
+    "address": "0x38fb649ad3d6ba1113be5f57b927053e97fc5bf7",
+    "icon": "https://raw.githubusercontent.com/1Hive/default-token-list/master/src/assets/xdai/0x38Fb649Ad3d6BA1113Be5F57B927053E97fC5bF7/logo.png",
+    "decimals": 18,
+    "symbol": "XCOMB",
+    "chainId": 100,
+    "logoURI": "https://raw.githubusercontent.com/1Hive/default-token-list/master/src/assets/xdai/0x38Fb649Ad3d6BA1113Be5F57B927053E97fC5bF7/logo.png",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "Xion Global Token",
+    "address": "0xc25af3123d2420054c8fcd144c21113aa2853f39",
+    "icon": "https://xion.finance/images/xgt_icon.png",
+    "decimals": 18,
+    "symbol": "XGTV2",
+    "chainId": 100,
+    "logoURI": "https://xion.finance/images/xgt_icon.png",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "xMOON on xDai",
+    "address": "0x1e16aa4df73d29c029d94ceda3e3114ec191e25a",
+    "icon": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/xdai/assets/0x1e16aa4Df73d29C029d94CeDa3e3114EC191E25A/logo.png",
+    "decimals": 18,
+    "symbol": "XMOON",
+    "chainId": 100,
+    "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/xdai/assets/0x1e16aa4Df73d29C029d94CeDa3e3114EC191E25A/logo.png",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "Elk",
+    "address": "0xeeeeeb57642040be42185f49c52f7e9b38f8eeee",
+    "icon": "https://assets.coingecko.com/coins/images/22780/small/Untitled-design-p-500.png?1642578931",
+    "decimals": 18,
+    "symbol": "ELK",
+    "chainId": 100,
+    "logoURI": "https://assets.coingecko.com/coins/images/22780/small/Untitled-design-p-500.png?1642578931",
+    "chainAgnosticId": null
+  },
+  {
+    "name": "RealT SOON Token",
+    "address": "0xaa2c0cf54cb418eb24e7e09053b82c875c68bb88",
+    "icon": "https://tokens.1inch.io/0xaa2c0cf54cb418eb24e7e09053b82c875c68bb88.png",
+    "decimals": 18,
+    "symbol": "SOON",
+    "chainId": 100,
+    "logoURI": "https://tokens.1inch.io/0xaa2c0cf54cb418eb24e7e09053b82c875c68bb88.png",
+    "chainAgnosticId": null
+  }
+]
