@@ -40,7 +40,23 @@ In summary:
     address,
   }, { ... Any quote preferences here })
   ```
-- Start executing the quote
+- You have 2 options for executing a quote. Managing the steps yourself or connecting a web3 provider.
+
+- Connecting web3 provider:
+  ```ts
+  const provider = new ethers.providers.Web3Provider(window.ethereum); // Or use wallet provider like onboard, web3modal, web3react etc.
+  const connectedSocket = socket.connect(provider);
+  await connectedSocket.start(quote, {
+    onTx: (tx) => {
+      console.log('Executing transaction', tx);
+      return (tx) => {
+        console.log('Done transaction', tx);
+      }
+    }
+    ... // Other callbacks
+  });
+  ```
+- Handle the steps manually
 
   ```ts
   const execute = await socket.start(quote);
