@@ -23,7 +23,7 @@ const MOCK_TX: NextTxResponse = {
   chainId: 1,
   totalUserTx: 2,
   txData: "0x123",
-  txTarget: "0x1",
+  txTarget: "0xc30141B657f4216252dc59Af2e7CdB9D8792e1B0",
   txType: TxType.ETH_SEND_TRANSACTION,
   userTxIndex: 0,
   userTxType: UserTxType.FUND_MOVR,
@@ -126,5 +126,16 @@ describe("Socket Tx - Submit", () => {
     const tx = new SocketTx(MOCK_TX, 50);
     tx.submit("0x123");
     await expect(tx.submit("0x456")).rejects.toThrow();
+  });
+});
+
+describe("Socket Tx - Validate send address", () => {
+  it("invalid when address included in socket addresses", async () => {
+    const tx = new SocketTx({
+      ...MOCK_TX,
+      txTarget: "0xe91d153e0b41518a2ce8dd3d7944fa863463a97d", // not socket address
+    });
+    await tx.approvalRequired();
+    await expect(async () => tx.getSendTransaction()).rejects.toThrow();
   });
 });

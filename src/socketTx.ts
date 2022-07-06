@@ -1,6 +1,8 @@
+import { addresses as socketAddresses } from "@socket.tech/ll-core";
 import { BigNumber } from "ethers";
 import { Approvals, NextTxResponse, Routes } from "./client";
 import { PrepareActiveRouteStatus } from "./client/models/RouteStatusOutputDTO";
+import { UserTxType } from "./client/models/UserTxType";
 import { sleep } from "./utils";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -58,6 +60,19 @@ export class SocketTx {
     return allowanceValue.lt(minimumApprovalAmount);
   }
 
+  _validateSend(send: {
+    data?: string | undefined;
+    to?: string | undefined;
+    from?: string | undefined;
+  }) {
+    if (this.userTxType === UserTxType.FUND_MOVR) {
+      const addresses = Object.values(socketAddresses[this.chainId]);
+      if (!addresses.includes(send.to)) {
+        throw new Error(`${send.to} is not a recognised socket address on chain ${this.chainId}`);
+      }
+    }
+  }
+
   /**
    * Get the apporval transaction data if it is required
    * @returns Apporval data to be sent if required, otherwise null
@@ -96,11 +111,15 @@ export class SocketTx {
       );
     }
 
-    return {
+    const tx = {
       to: this.txTarget,
       data: this.txData,
       value: this.value,
     };
+
+    this._validateSend(tx);
+
+    return tx;
   }
 
   /**
