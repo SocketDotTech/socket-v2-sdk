@@ -17,7 +17,7 @@ export type OpenAPIConfig = {
 };
 
 export const OpenAPI: OpenAPIConfig = {
-  BASE: "https://backend.movr.network",
+  BASE: "https://api.socket.tech",
   VERSION: "1.0",
   WITH_CREDENTIALS: false,
   CREDENTIALS: "include",
