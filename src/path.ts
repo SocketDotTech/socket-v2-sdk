@@ -20,6 +20,9 @@ export class Path {
    * @param options.toToken The destination token
    */
   constructor({ fromToken, toToken }: { fromToken: Token; toToken: Token }) {
+    if (!fromToken || !toToken) {
+      throw new Error("`fromToken` and `toToken` must be defined.");
+    }
     this.fromToken = fromToken;
     this.toToken = toToken;
   }
