@@ -18,6 +18,8 @@ import { QuoteParams, SocketOptions, SocketQuote } from "./types";
 import { Web3Provider } from "@ethersproject/providers";
 import { ChainId } from "@socket.tech/ll-core/constants/types";
 import { ActiveRoutesRequest } from "./client/models/ActiveRoutesRequest";
+import { SocketPreferences } from "./client/models/SocketPreferences";
+import { TokenListRequest } from "./client/models/TokenListRequest";
 
 /**
  * The Socket represents the socket sdk. This is the starting point for interacting
@@ -100,33 +102,31 @@ export abstract class BaseSocket {
    *
    * @returns The `from` and `to` token lists
    */
-  async getTokenList({ fromChainId, toChainId }: { fromChainId: ChainId; toChainId: ChainId }) {
+  async getTokenList(request: TokenListRequest) {
     const fromTokenListData = (
       await TokenLists.getFromTokenList({
-        fromChainId,
-        toChainId,
+        ...request,
         isShortList: true,
       })
     ).result;
     const toTokenListData = (
       await TokenLists.getToTokenList({
-        fromChainId,
-        toChainId,
+        ...request,
         isShortList: true,
       })
     ).result;
 
-    const from = new TokenList(fromChainId, fromTokenListData);
-    const to = new TokenList(toChainId, toTokenListData);
+    const from = new TokenList(request.fromChainId, fromTokenListData);
+    const to = new TokenList(request.toChainId, toTokenListData);
 
     return { from, to };
   }
 
   /**
    * Checks that the preferences desired are valid
-   * @param preferences The quote preferences
+   * @param preferences The socket preferences
    */
-  validatePreferences(preferences: QuotePreferences) {
+  validatePreferences(preferences: SocketPreferences) {
     if (preferences.includeBridges && preferences.excludeBridges) {
       throw new Error("Only one of `includeBridges` or `excludeBridges` can be specified.");
     }

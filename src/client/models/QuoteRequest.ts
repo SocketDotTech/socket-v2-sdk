@@ -1,5 +1,4 @@
-import { BridgeName } from "./BridgeDetails";
-import { Dexes } from "./Dexes";
+import { SocketPreferences } from "./SocketPreferences";
 
 export enum SortOptions {
   Output = "output",
@@ -7,28 +6,14 @@ export enum SortOptions {
   Time = "time",
 }
 
-export interface QuotePreferences {
+export interface QuotePreferences extends SocketPreferences {
   /** Flag to return only best route per bridge using the sort criteria **/
   uniqueRoutesPerBridge?: boolean;
   /** Param to sort routes based on. **/
   sort?: SortOptions;
-  /** Flag to specify if routes that have dex swap should be ignored. **/
-  disableSwapping?: boolean;
-  /** Specify Dexes that should be included in routes. **/
-  includeDexes?: Array<Dexes>;
-  /** Specify Dexes that should be excluded in routes.
-   * This option will be ignored if includeDexes is specified. **/
-  excludeDexes?: Array<Dexes>;
-  /** Specify Bridges that should be included in routes. **/
-  includeBridges?: Array<BridgeName>;
-  /** Specify Bridges that should be excluded in routes.
-   * This option will be ignored if includeBridges is specified. **/
-  excludeBridges?: Array<BridgeName>;
   /** Maximum number of transactions.
    * This option will be ignored if singleTxOnly is marked as true. **/
   maxUserTxs?: string;
-  /** Only get quotes with one user transaction to bridge. **/
-  singleTxOnly?: boolean;
   /** Only get quotes with that are compatible with contracts **/
   isContractCall?: boolean;
 }
