@@ -16,6 +16,8 @@ export interface QuotePreferences extends SocketPreferences {
   maxUserTxs?: string;
   /** Only get quotes with that are compatible with contracts **/
   isContractCall?: boolean;
+  /** include gas transfer with bridging tx **/
+  bridgeWithGas?: boolean;
 }
 
 export interface QuoteRequest extends QuotePreferences {
