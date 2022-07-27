@@ -17,7 +17,7 @@
             }
           }
         },
-        "tags": ["Server"]
+        "tags": ["Health"]
       }
     },
     "/v2/health-rpc": {
@@ -29,7 +29,7 @@
             "description": "Health Check for Fund Movr API RPCS"
           }
         },
-        "tags": ["Server"]
+        "tags": ["Health"]
       }
     },
     "/v2/gas-price": {
@@ -59,7 +59,7 @@
             }
           }
         },
-        "tags": ["Server"]
+        "tags": ["App"]
       }
     },
     "/v2/token-price": {
@@ -85,6 +85,13 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "API-KEY",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -99,7 +106,7 @@
             }
           }
         },
-        "tags": ["Server"]
+        "tags": ["App"]
       }
     },
     "/v2/build-tx": {
@@ -139,7 +146,120 @@
             "description": ""
           }
         },
-        "tags": ["Server"]
+        "tags": ["App"]
+      },
+      "get": {
+        "operationId": "AppController_getSingleTxFromQuery",
+        "parameters": [
+          {
+            "name": "sender",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "recipient",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "routePath",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fromChainId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "toChainId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fromTokenAddress",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "toTokenAddress",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fromAmount",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "toAmount",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "bridgeInputTokenAddress",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "bridgeWithGas",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "API-KEY",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get the tx details for the route.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleTxOutputDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["App"]
       }
     },
     "/v2/bridge-status": {
@@ -206,7 +326,7 @@
             }
           }
         },
-        "tags": ["Server"]
+        "tags": ["App"]
       }
     },
     "/v2/tx-receipt": {
@@ -218,7 +338,7 @@
             "required": true,
             "in": "query",
             "description": "Transaction hash originating from the source chain while bridging assets.",
-            "example": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+            "example": "0xddb77ebf8e52e8dd5931ad82cb482feabdb019862eedde35c3e8f9c6df72a781",
             "schema": {
               "type": "string"
             }
@@ -253,7 +373,7 @@
             }
           }
         },
-        "tags": ["Server"]
+        "tags": ["App"]
       }
     },
     "/v2/quote": {
@@ -391,7 +511,10 @@
                   "hyphen",
                   "arbitrum-bridge",
                   "connext",
-                  "celer"
+                  "celer",
+                  "across",
+                  "optimism-bridge",
+                  "refuel-bridge"
                 ]
               }
             }
@@ -412,7 +535,10 @@
                   "hyphen",
                   "arbitrum-bridge",
                   "connext",
-                  "celer"
+                  "celer",
+                  "across",
+                  "optimism-bridge",
+                  "refuel-bridge"
                 ]
               }
             }
@@ -450,6 +576,15 @@
             "required": false,
             "in": "query",
             "description": "Only get quotes with that are compatible with contracts",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "bridgeWithGas",
+            "required": false,
+            "in": "query",
+            "description": "include gas transfer with bridging tx",
             "schema": {
               "type": "boolean"
             }
@@ -1114,7 +1249,7 @@
           },
           {
             "name": "toChainId",
-            "required": true,
+            "required": false,
             "in": "query",
             "description": "Id of destination chain, e.g xDAI = 100",
             "example": "100",
@@ -1173,7 +1308,10 @@
                   "hyphen",
                   "arbitrum-bridge",
                   "connext",
-                  "celer"
+                  "celer",
+                  "across",
+                  "optimism-bridge",
+                  "refuel-bridge"
                 ]
               }
             }
@@ -1194,7 +1332,10 @@
                   "hyphen",
                   "arbitrum-bridge",
                   "connext",
-                  "celer"
+                  "celer",
+                  "across",
+                  "optimism-bridge",
+                  "refuel-bridge"
                 ]
               }
             }
@@ -1315,7 +1456,10 @@
                   "hyphen",
                   "arbitrum-bridge",
                   "connext",
-                  "celer"
+                  "celer",
+                  "across",
+                  "optimism-bridge",
+                  "refuel-bridge"
                 ]
               }
             }
@@ -1336,7 +1480,10 @@
                   "hyphen",
                   "arbitrum-bridge",
                   "connext",
-                  "celer"
+                  "celer",
+                  "across",
+                  "optimism-bridge",
+                  "refuel-bridge"
                 ]
               }
             }
@@ -1539,7 +1686,10 @@
                 "hyphen",
                 "arbitrum-bridge",
                 "connext",
-                "celer"
+                "celer",
+                "across",
+                "optimism-bridge",
+                "refuel-bridge"
               ]
             }
           },
@@ -1574,6 +1724,11 @@
             "type": "number",
             "description": "Estimate of total time in seconds, excluding the transaction time.",
             "example": 600
+          },
+          "maxServiceTime": {
+            "type": "number",
+            "description": "Estimate of max time to exit from the chain in seconds.",
+            "example": 600
           }
         },
         "required": [
@@ -1588,7 +1743,137 @@
           "recipient",
           "sender",
           "userTxs",
-          "serviceTime"
+          "serviceTime",
+          "maxServiceTime"
+        ]
+      },
+      "TokenAsset": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of token.",
+            "example": "USD Coin"
+          },
+          "address": {
+            "type": "string",
+            "description": "Address of token.",
+            "example": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174"
+          },
+          "icon": {
+            "type": "string",
+            "description": "URL for icon of token.",
+            "example": "https://maticnetwork.github.io/polygon-token-assets/assets/usdc.svg"
+          },
+          "decimals": {
+            "type": "number",
+            "description": "Decimal used for token.",
+            "example": 6
+          },
+          "symbol": {
+            "type": "string",
+            "description": "Symbol of token.",
+            "example": "USDC"
+          },
+          "chainId": {
+            "type": "string",
+            "description": "Chain id of the token",
+            "example": 137,
+            "enum": [
+              "ETHEREUM",
+              "OPTIMISM",
+              "BSC",
+              "XDAI",
+              "POLYGON",
+              "FANTOM",
+              "BOBA",
+              "ARBITRUM",
+              "AVALANCHE",
+              "AURORA"
+            ]
+          },
+          "logoURI": {
+            "type": "string",
+            "description": "URL for icon of token.",
+            "example": "https://maticnetwork.github.io/polygon-token-assets/assets/usdc.svg"
+          },
+          "chainAgnosticId": {
+            "type": "string",
+            "description": "Unique Id over all chains",
+            "example": "DAI"
+          }
+        },
+        "required": ["address", "symbol", "chainId"]
+      },
+      "GasFee": {
+        "type": "object",
+        "properties": {
+          "gasLimit": {
+            "type": "number",
+            "description": "Approx Gas Limit of the transaction.",
+            "example": 250000
+          },
+          "feesInUsd": {
+            "type": "number",
+            "description": "USD value of gas fees at current gas price.",
+            "example": 125.4
+          },
+          "asset": {
+            "description": "Gas token details.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TokenAsset"
+              }
+            ]
+          },
+          "gasAmount": {
+            "type": "string",
+            "description": "Estimated Amount of gas token will be used"
+          }
+        },
+        "required": ["gasLimit", "feesInUsd", "asset", "gasAmount"]
+      },
+      "RefuelData": {
+        "type": "object",
+        "properties": {
+          "fromAmount": {
+            "type": "string"
+          },
+          "toAmount": {
+            "type": "string"
+          },
+          "gasFees": {
+            "$ref": "#/components/schemas/GasFee"
+          },
+          "recipient": {
+            "type": "string"
+          },
+          "serviceTime": {
+            "type": "number"
+          },
+          "fromAsset": {
+            "$ref": "#/components/schemas/TokenAsset"
+          },
+          "toAsset": {
+            "$ref": "#/components/schemas/TokenAsset"
+          },
+          "fromChainId": {
+            "type": "number"
+          },
+          "toChainId": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "fromAmount",
+          "toAmount",
+          "gasFees",
+          "recipient",
+          "serviceTime",
+          "fromAsset",
+          "toAsset",
+          "fromChainId",
+          "toChainId"
         ]
       },
       "SingleTxDTO": {
@@ -1596,9 +1881,12 @@
         "properties": {
           "route": {
             "$ref": "#/components/schemas/Route"
+          },
+          "refuel": {
+            "$ref": "#/components/schemas/RefuelData"
           }
         },
-        "required": ["route"]
+        "required": ["route", "refuel"]
       },
       "ApprovalData": {
         "type": "object",
@@ -1651,6 +1939,7 @@
               "XDAI",
               "POLYGON",
               "FANTOM",
+              "BOBA",
               "ARBITRUM",
               "AVALANCHE",
               "AURORA"
@@ -1779,63 +2068,6 @@
         },
         "required": ["success", "result"]
       },
-      "TokenAsset": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "Name of token.",
-            "example": "USD Coin"
-          },
-          "address": {
-            "type": "string",
-            "description": "Address of token.",
-            "example": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174"
-          },
-          "icon": {
-            "type": "string",
-            "description": "URL for icon of token.",
-            "example": "https://maticnetwork.github.io/polygon-token-assets/assets/usdc.svg"
-          },
-          "decimals": {
-            "type": "number",
-            "description": "Decimal used for token.",
-            "example": 6
-          },
-          "symbol": {
-            "type": "string",
-            "description": "Symbol of token.",
-            "example": "USDC"
-          },
-          "chainId": {
-            "type": "string",
-            "description": "Chain id of the token",
-            "example": 137,
-            "enum": [
-              "ETHEREUM",
-              "OPTIMISM",
-              "BSC",
-              "XDAI",
-              "POLYGON",
-              "FANTOM",
-              "ARBITRUM",
-              "AVALANCHE",
-              "AURORA"
-            ]
-          },
-          "logoURI": {
-            "type": "string",
-            "description": "URL for icon of token.",
-            "example": "https://maticnetwork.github.io/polygon-token-assets/assets/usdc.svg"
-          },
-          "chainAgnosticId": {
-            "type": "string",
-            "description": "Unique Id over all chains",
-            "example": "DAI"
-          }
-        },
-        "required": ["address", "symbol", "chainId"]
-      },
       "QuoteOutputDTO": {
         "type": "object",
         "properties": {
@@ -1869,6 +2101,15 @@
               "toAsset": {
                 "required": true,
                 "$ref": "#/components/schemas/TokenAsset"
+              },
+              "refuel": {
+                "required": true,
+                "nullable": true,
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/RefuelData"
+                  }
+                ]
               }
             }
           }
@@ -1889,7 +2130,10 @@
               "hyphen",
               "arbitrum-bridge",
               "connext",
-              "celer"
+              "celer",
+              "across",
+              "optimism-bridge",
+              "refuel-bridge"
             ]
           },
           "icon": {
@@ -1996,6 +2240,19 @@
             "description": "Flag indicating whether receiving of tokens is supported to chain.",
             "example": true
           },
+          "refuel": {
+            "type": "object",
+            "properties": {
+              "sendingEnabled": {
+                "required": true,
+                "type": "boolean"
+              },
+              "receivingEnabled": {
+                "required": true,
+                "type": "boolean"
+              }
+            }
+          },
           "currency": {
             "$ref": "#/components/schemas/GasTokenDetails"
           },
@@ -2019,6 +2276,7 @@
           "isL1",
           "sendingEnabled",
           "receivingEnabled",
+          "refuel",
           "currency",
           "rpcs",
           "explorers"
@@ -2203,6 +2461,7 @@
               "XDAI",
               "POLYGON",
               "FANTOM",
+              "BOBA",
               "ARBITRUM",
               "AVALANCHE",
               "AURORA"
@@ -2219,6 +2478,7 @@
               "XDAI",
               "POLYGON",
               "FANTOM",
+              "BOBA",
               "ARBITRUM",
               "AVALANCHE",
               "AURORA"
@@ -2246,9 +2506,24 @@
                 "$ref": "#/components/schemas/Route"
               }
             ]
+          },
+          "refuel": {
+            "description": "Refuel data for if the user have selected bridge with gas option",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RefuelData"
+              }
+            ]
           }
         },
-        "required": ["fromChainId", "toChainId", "fromAssetAddress", "toAssetAddress", "route"]
+        "required": [
+          "fromChainId",
+          "toChainId",
+          "fromAssetAddress",
+          "toAssetAddress",
+          "route",
+          "refuel"
+        ]
       },
       "StartActiveRouteResponseDTO": {
         "type": "object",
@@ -2269,6 +2544,7 @@
               "XDAI",
               "POLYGON",
               "FANTOM",
+              "BOBA",
               "ARBITRUM",
               "AVALANCHE",
               "AURORA"
@@ -2441,6 +2717,7 @@
               "XDAI",
               "POLYGON",
               "FANTOM",
+              "BOBA",
               "ARBITRUM",
               "AVALANCHE",
               "AURORA"
