@@ -934,10 +934,10 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@socket.tech/ll-core@^0.1.8":
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/@socket.tech/ll-core/-/ll-core-0.1.8.tgz#32db8b198d606825d1054b54c6a13341b2a18a2c"
-  integrity sha512-K7jEQPXvmkIh9EF4Y7xPxmHvAR8ITuv32A77pvZeadQ4PP8yrD/Ok7tG+VaG9TQEXgzR0W+cAZU2OmoGxqs+4g==
+"@socket.tech/ll-core@^0.1.14":
+  version "0.1.14"
+  resolved "https://registry.yarnpkg.com/@socket.tech/ll-core/-/ll-core-0.1.14.tgz#16a0160da4d3fd702289f179147a2b06a4f49b9f"
+  integrity sha512-6gkUVN/RAoN1ZnjPcq5O9tmyagLXnWFjLDa5G8jz4Y+zFatwr9x345yFPJFHcRB59WfRMYpm2SxrPdpYAJiX8A==
 
 "@types/babel__core@^7.1.14":
   version "7.1.19"
