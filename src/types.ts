@@ -1,5 +1,6 @@
 import { Route } from "./client";
 import { QuotePreferences } from "./client/models/QuoteRequest";
+import { RefuelData } from "./client/models/RefuelData";
 import { Path } from "./path";
 
 /**
@@ -28,6 +29,7 @@ export interface SocketQuote extends QuoteParams {
    * The route retrieved for the quote
    */
   route: Route;
+  refuel?: RefuelData;
 }
 
 /** Sdk options */

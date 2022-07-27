@@ -1,3 +1,4 @@
+import { RefuelData } from "./RefuelData";
 import type { Route } from "./Route";
 
 export type StartActiveRouteInputDTO = {
@@ -26,4 +27,6 @@ export type StartActiveRouteInputDTO = {
    * Selected route by the user to bridge tokens from one chain to another.
    */
   route: Route;
+  /** Refuel data for if the user have selected bridge with gas option */
+  refuel?: RefuelData;
 };

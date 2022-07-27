@@ -178,6 +178,7 @@ export abstract class BaseSocket {
 
     return (
       quote.routes?.map((route) => ({
+        refuel: quote.refuel,
         route,
         path,
         address,
@@ -248,6 +249,7 @@ export abstract class BaseSocket {
       await Routes.startActiveRoute({
         startRequest: {
           route: quote.route,
+          refuel: quote.refuel,
           fromChainId: quote.path.fromToken.chainId,
           toChainId: quote.path.toToken.chainId,
           fromAssetAddress: quote.path.fromToken.address,

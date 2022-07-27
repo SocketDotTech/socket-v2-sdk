@@ -1,8 +1,10 @@
+import { RefuelData } from "./RefuelData";
 import type { Route } from "./Route";
 import type { Token } from "./Token";
 
 export type Quote = {
   routes?: Array<Route>;
+  refuel?: RefuelData;
   fromChainId?: number;
   fromAsset?: Token;
   toChainId?: number;
