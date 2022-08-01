@@ -3,7 +3,7 @@ import { ChainId } from "@socket.tech/ll-core/constants/types";
 import { ethers } from "ethers";
 import { SocketOptions, SocketQuote } from "./types";
 import { SocketTx } from ".";
-import { BaseSocket } from "./baseSocket";
+import { ActiveRouteGenerator, BaseSocket } from "./baseSocket";
 
 export interface AddEthereumChainParameters {
   chainId: string; // A 0x-prefixed hexadecimal string
@@ -27,6 +27,7 @@ export interface EventCallbacks {
   onApprove?: (tx: SocketTx) => TxDoneCallback | void;
   onSend?: (tx: SocketTx) => TxDoneCallback | void;
   onChainSwitch?: (fromChainId: ChainId, toChainId: ChainId) => ChainSwitchDoneCallback | void;
+  onDone?: (activerouteId: number) => void;
 }
 
 /**
@@ -91,7 +92,7 @@ export class Web3ConnectedSocket extends BaseSocket {
   }
 
   /** Execute the quote */
-  async _execute(iterator: AsyncGenerator<SocketTx, void, string>, callbacks: EventCallbacks) {
+  async _execute(iterator: ActiveRouteGenerator, callbacks: EventCallbacks) {
     let next = await iterator.next();
 
     while (!next.done && next.value) {
@@ -117,6 +118,8 @@ export class Web3ConnectedSocket extends BaseSocket {
       next = await iterator.next(sendTx.hash);
       if (txDoneCallback) txDoneCallback(tx);
     }
+
+    if (callbacks.onDone) callbacks.onDone(iterator.activeRouteId);
   }
 
   /**
@@ -124,9 +127,10 @@ export class Web3ConnectedSocket extends BaseSocket {
    * @param quote The quote to execute
    * @param callbacks optional callbacks for different states of the execution
    */
-  async start(quote: SocketQuote, callbacks: EventCallbacks) {
+  async start(quote: SocketQuote, callbacks: EventCallbacks): Promise<number> {
     const iterator = await this._startQuote(quote);
-    await this._execute(iterator, callbacks);
+    this._execute(iterator, callbacks);
+    return iterator.activeRouteId;
   }
 
   /**

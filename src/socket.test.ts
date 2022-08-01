@@ -85,6 +85,7 @@ describe("Socket - Execute", () => {
     });
 
     const generaetor = await socket.start(quote);
+    expect(generaetor.activeRouteId).toEqual(123);
     const tx0 = await generaetor.next();
     if (!tx0.value) throw new Error("did not give tx");
     expect(tx0.value.txData).toBe("0x0");

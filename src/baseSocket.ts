@@ -21,6 +21,11 @@ import { ActiveRoutesRequest } from "./client/models/ActiveRoutesRequest";
 import { SocketPreferences } from "./client/models/SocketPreferences";
 import { TokenListRequest } from "./client/models/TokenListRequest";
 
+export interface ActiveRouteGenerator extends AsyncGenerator<SocketTx, void, string> {
+  /** Active Route Id */
+  activeRouteId: number;
+}
+
 /**
  * The Socket represents the socket sdk. This is the starting point for interacting
  * with the socket SDK. It allows you to retrieve routes and start the execution of trades based on quotes
@@ -245,7 +250,7 @@ export abstract class BaseSocket {
    * @param quote
    * @returns An iterator that will yield each transaction required in the route
    */
-  async _startQuote(quote: SocketQuote) {
+  async _startQuote(quote: SocketQuote): Promise<ActiveRouteGenerator> {
     const routeStart = (
       await Routes.startActiveRoute({
         startRequest: {
@@ -260,7 +265,7 @@ export abstract class BaseSocket {
       })
     ).result;
 
-    return this._executor(routeStart);
+    return { activeRouteId: routeStart.activeRouteId, ...this._executor(routeStart) };
   }
 
   /**
@@ -268,13 +273,16 @@ export abstract class BaseSocket {
    * @param activeRouteId The active route id of the desired route to continue
    * @returns An iterator that will yield each transaction required in the route
    */
-  async _continueRoute(activeRouteId: number) {
+  async _continueRoute(activeRouteId: number): Promise<ActiveRouteGenerator> {
     const activeRoute = (await Routes.getActiveRoute({ activeRouteId: activeRouteId })).result;
     if (activeRoute.routeStatus === ActiveRouteStatus.COMPLETED) {
       throw new Error(`Route ${activeRoute.activeRouteId} is already complete`);
     }
 
     const tx = (await Routes.nextTx({ activeRouteId: activeRoute.activeRouteId })).result;
-    return this._executor(tx, activeRoute);
+    return {
+      activeRouteId: activeRoute.activeRouteId,
+      ...this._executor(tx, activeRoute),
+    };
   }
 }
