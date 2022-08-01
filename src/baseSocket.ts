@@ -178,11 +178,12 @@ export abstract class BaseSocket {
 
     return (
       quote.routes?.map((route) => ({
-        refuel: quote.refuel,
         route,
         path,
         address,
         amount,
+        refuel: quote.refuel,
+        errors: quote.bridgeRouteErrors,
       })) || []
     );
   }
