@@ -20,7 +20,7 @@
     "lint": "eslint . --ext .ts",
     "test": "jest",
     "generate": "npx openapi-typescript-codegen --input ./spec.json --output ./src/client --indent 2 --postfix \"\" --client axios --useOptions && prettier --write ./src/client-generated",
-    "generate:docs": "typedoc --plugin typedoc-plugin-markdown --out docs src/index.ts"
+    "generate:docs": "typedoc --excludeProtected --excludePrivate --plugin typedoc-plugin-markdown --out docs src/index.ts"
   },
   "devDependencies": {
     "@types/jest": "^28.1.1",

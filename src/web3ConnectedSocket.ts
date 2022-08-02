@@ -92,7 +92,7 @@ export class Web3ConnectedSocket extends BaseSocket {
   }
 
   /** Execute the quote */
-  async _execute(iterator: ActiveRouteGenerator, callbacks: EventCallbacks) {
+  private async _execute(iterator: ActiveRouteGenerator, callbacks: EventCallbacks) {
     let next = await iterator.next();
 
     while (!next.done && next.value) {

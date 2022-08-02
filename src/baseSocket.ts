@@ -36,17 +36,17 @@ export abstract class BaseSocket {
   /**
    * The api options
    */
-  _options: SocketOptions;
+  protected _options: SocketOptions;
 
   /**
    * Cached instance of all chain details
    */
-  _chainsCache: Chain[] | undefined;
+  protected _chainsCache: Chain[] | undefined;
 
   /**
    * The provider to use for executing routes
    */
-  _provider: Web3Provider | undefined;
+  protected _provider: Web3Provider | undefined;
 
   /**
    * API client for accessing the socket api directly
@@ -131,7 +131,7 @@ export abstract class BaseSocket {
    * Checks that the preferences desired are valid
    * @param preferences The socket preferences
    */
-  validatePreferences(preferences: SocketPreferences) {
+  private validatePreferences(preferences: SocketPreferences) {
     if (preferences.includeBridges && preferences.excludeBridges) {
       throw new Error("Only one of `includeBridges` or `excludeBridges` can be specified.");
     }
@@ -250,7 +250,7 @@ export abstract class BaseSocket {
    * @param quote
    * @returns An iterator that will yield each transaction required in the route
    */
-  async _startQuote(quote: SocketQuote): Promise<ActiveRouteGenerator> {
+  protected async _startQuote(quote: SocketQuote): Promise<ActiveRouteGenerator> {
     const routeStart = (
       await Routes.startActiveRoute({
         startRequest: {
@@ -273,7 +273,7 @@ export abstract class BaseSocket {
    * @param activeRouteId The active route id of the desired route to continue
    * @returns An iterator that will yield each transaction required in the route
    */
-  async _continueRoute(activeRouteId: number): Promise<ActiveRouteGenerator> {
+  protected async _continueRoute(activeRouteId: number): Promise<ActiveRouteGenerator> {
     const activeRoute = (await Routes.getActiveRoute({ activeRouteId: activeRouteId })).result;
     if (activeRoute.routeStatus === ActiveRouteStatus.COMPLETED) {
       throw new Error(`Route ${activeRoute.activeRouteId} is already complete`);

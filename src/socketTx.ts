@@ -15,7 +15,7 @@ export class SocketTx {
   /**
    * How often in ms to poll for status updates when checking the transaction
    */
-  statusCheckInterval: number;
+  private statusCheckInterval: number;
   /**
    * If the approval has been checked
    */
@@ -60,7 +60,7 @@ export class SocketTx {
     return allowanceValue.lt(minimumApprovalAmount);
   }
 
-  _validateSend(send: {
+  private _validateSend(send: {
     data?: string | undefined;
     to?: string | undefined;
     from?: string | undefined;

@@ -31,6 +31,8 @@ const MOCK_NEXT_TX: NextTxResponse = {
 describe("Socket", () => {
   it("assigns apikey", async () => {
     const socket = new Socket({ apiKey: "abc" });
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     expect(socket._options.apiKey).toBe("abc");
     expect(OpenAPI.API_KEY).toBe("abc");
   });
@@ -38,6 +40,8 @@ describe("Socket", () => {
   it("both include and exclude dex invalid", () => {
     const socket = new Socket({ apiKey: "abc" });
     expect(() =>
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       socket.validatePreferences({
         includeDexes: [Middleware.OneInch],
         excludeDexes: [Middleware.OneInch],
@@ -48,6 +52,8 @@ describe("Socket", () => {
   it("both include and exclude bridge invalid", () => {
     const socket = new Socket({ apiKey: "abc" });
     expect(() =>
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       socket.validatePreferences({
         includeBridges: [BridgeName.AnySwap],
         excludeBridges: [BridgeName.AnySwap],
