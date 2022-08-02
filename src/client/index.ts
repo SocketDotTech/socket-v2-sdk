@@ -3,7 +3,7 @@ export { CancelablePromise, CancelError } from "./core/CancelablePromise";
 export { OpenAPI } from "./core/OpenAPI";
 export type { OpenAPIConfig } from "./core/OpenAPI";
 
-export type { ActiveRouteResponse } from "./models/ActiveRouteResponse";
+export type { ActiveRouteResponse, ActiveRouteStatus } from "./models/ActiveRouteResponse";
 export type { ActiveRoutesOutputDTO } from "./models/ActiveRoutesOutputDTO";
 export type { ApprovalData } from "./models/ApprovalData";
 export type { ApprovalOutputDTO } from "./models/ApprovalOutputDTO";
@@ -21,7 +21,7 @@ export type { HealthResponseDTO } from "./models/HealthResponseDTO";
 export type { MinGasBalances } from "./models/MinGasBalances";
 export type { NextTxOutputDTO } from "./models/NextTxOutputDTO";
 export { NextTxResponse } from "./models/NextTxResponse";
-export type { QuoteOutputDTO } from "./models/QuoteOutputDTO";
+export type { QuoteOutputDTO, Quote } from "./models/QuoteOutputDTO";
 export type { Route } from "./models/Route";
 export { RouteStatusOutputDTO } from "./models/RouteStatusOutputDTO";
 export type { SingleTxDTO } from "./models/SingleTxDTO";
@@ -36,13 +36,26 @@ export type { TokenListOutputDTO } from "./models/TokenListOutputDTO";
 export type { TokenPriceResponseDTO } from "./models/TokenPriceResponseDTO";
 export type { TransactionReceiptResponseDTO } from "./models/TransactionReceiptResponseDTO";
 
-export { ChainId } from "./models/ChainId"
-export { Dexes } from "./models/Dexes"
-export { BridgeName } from "./models/BridgeDetails"
+export * from "./models/ChainId";
+export * from "./models/Dexes";
+export * from "./models/BridgeDetails";
+export * from "./models/UserTx";
+export * from "./models/TxType";
+export * from "./models/UserTxType";
+export * from "./models/QuoteRequest";
+export * from "./models/BridgeRouteErrors";
+export * from "./models/RefuelData";
+export * from "./models/ActiveRouteOutputDTO";
+export * from "./models/RouteStatusOutputDTO";
+export * from "./models/GasFee";
+export * from "./models/TxStatus";
+export * from "./models/ActiveRoutesRequest";
+export * from "./models/TokenListRequest";
+export * from "./models/SocketPreferences";
 
 export { Approvals } from "./services/Approvals";
 export { Balances } from "./services/Balances";
-export { Quote } from "./services/Quote";
+export { Quotes } from "./services/Quote";
 export { Routes } from "./services/Routes";
 export { Server } from "./services/Server";
 export { Supported } from "./services/Supported";

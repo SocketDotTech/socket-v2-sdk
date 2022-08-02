@@ -4,7 +4,7 @@ import {
   Balances,
   NextTxResponse,
   OpenAPI,
-  Quote,
+  Quotes,
   Routes,
   Server,
   Supported,
@@ -56,7 +56,7 @@ export abstract class BaseSocket {
     balances: Balances,
     approvals: Approvals,
     server: Server,
-    quote: Quote,
+    quotes: Quotes,
     supported: Supported,
     tokenLists: TokenLists,
   };
@@ -179,7 +179,7 @@ export abstract class BaseSocket {
       ...finalPreferences,
     };
 
-    const quote = (await Quote.getQuote(request)).result;
+    const quote = (await Quotes.getQuote(request)).result;
 
     return (
       quote.routes?.map((route) => ({
