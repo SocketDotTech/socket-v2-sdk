@@ -1,5 +1,7 @@
 # Socket v2 SDK
 
+-> [Docs](https://rugamoto.github.io/socket-v2-docs/) <-
+
 ## Install
 
 - `yarn add socket-v2-sdk`
