@@ -18,15 +18,23 @@ export interface AddEthereumChainParameters {
   iconUrls?: string[]; // Currently ignored.
 }
 
+/** Callback when a socket transaction is complete. */
 export type SocketTxDoneCallback = (tx: SocketTx) => void;
+/** Callback when a transaction for send/approval has completed.  */
 export type TxDoneCallback = (tx: SocketTx, hash: string) => void;
+/** Callback when chain switch has completed. */
 export type ChainSwitchDoneCallback = (chainId: ChainId) => void;
 
 export interface EventCallbacks {
+  /** Callback when a new socket transaction has begun. */
   onTx?: (tx: SocketTx) => SocketTxDoneCallback | void;
+  /** Callback when an approval is being requested. */
   onApprove?: (tx: SocketTx) => TxDoneCallback | void;
+  /** Callback when a send transaction is being requested. */
   onSend?: (tx: SocketTx) => TxDoneCallback | void;
+  /** Callback when switching chains is being requested. */
   onChainSwitch?: (fromChainId: ChainId, toChainId: ChainId) => ChainSwitchDoneCallback | void;
+  /** Callback when the route execution has completed. */
   onDone?: (activerouteId: number) => void;
 }
 
