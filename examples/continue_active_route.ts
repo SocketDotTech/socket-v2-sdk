@@ -13,7 +13,7 @@ const socket = new Socket({ apiKey: API_KEY });
 (async () => {
   const userAddress = await wallet.getAddress();
   // Cotninue latest active route
-  const routes = await (await socket.client.routes.getActiveRoutesForUser({ userAddress })).result;
+  const routes = await socket.getActiveRoutes({ userAddress });
   const route = routes.activeRoutes[0];
   const execute = await socket.continue(route.activeRouteId);
   await executeRoute(execute);
