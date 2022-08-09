@@ -73,9 +73,7 @@ export class SocketTx {
 
       // Current User Tx - Bridge Name
       const currentUserTx = route.userTxs[this.userTxIndex];
-      const bridgeStep = currentUserTx.steps.find((step) => {
-        if (step.type === "bridge") return step;
-      });
+      const bridgeStep = currentUserTx.steps.find((step) => step.type === 'bridge');
       if (bridgeStep) {
         const { name: protocolName } = bridgeStep.protocol;
         if (
