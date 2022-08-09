@@ -1,4 +1,4 @@
-import { addresses as socketAddresses } from "@socket.tech/ll-core";
+import { addresses as socketAddresses, constants as socketConstants } from "@socket.tech/ll-core";
 import { BigNumber } from "ethers";
 import { Approvals, NextTxResponse, Routes } from "./client";
 import { PrepareActiveRouteStatus } from "./client/models/RouteStatusOutputDTO";
@@ -60,15 +60,42 @@ export class SocketTx {
     return allowanceValue.lt(minimumApprovalAmount);
   }
 
-  private _validateSend(send: {
+  private async _validateSend(send: {
     data?: string | undefined;
     to?: string | undefined;
     from?: string | undefined;
   }) {
     if (this.userTxType === UserTxType.FUND_MOVR) {
-      const addresses = Object.values(socketAddresses[this.chainId]);
-      if (!addresses.includes(send.to)) {
-        throw new Error(`${send.to} is not a recognised socket address on chain ${this.chainId}`);
+      // Fetcg route.
+      const routeResponse = await Routes.getActiveRoute({ activeRouteId: this.activeRouteId });
+      if (!routeResponse.success) throw new Error("Error while fetching route.");
+      const route = routeResponse.result;
+
+      // Current User Tx - Bridge Name
+      const currentUserTx = route.userTxs[this.userTxIndex];
+      const bridgeStep = currentUserTx.steps.find((step) => {
+        if (step.type === "bridge") return step;
+      });
+      if (bridgeStep) {
+        const { name: protocolName } = bridgeStep.protocol;
+        if (
+          protocolName === socketConstants.bridges.PolygonBridge &&
+          this.chainId === socketConstants.chains.POLYGON_CHAIN_ID
+        ) {
+          const { address: fromAssetAddress } = bridgeStep.fromAsset;
+          if (fromAssetAddress.toLowerCase() !== send.to?.toLowerCase()) {
+            throw new Error(
+              `Polygon Native Bridge burns the token when withdrawn to Ethereum. ${send.to} does not match the token being burnt.`
+            );
+          }
+        } else {
+          const addresses = Object.values(socketAddresses[this.chainId]);
+          if (!addresses.includes(send.to)) {
+            throw new Error(
+              `${send.to} is not a recognised socket address on chain ${this.chainId}`
+            );
+          }
+        }
       }
     }
   }
@@ -117,7 +144,7 @@ export class SocketTx {
       value: this.value,
     };
 
-    this._validateSend(tx);
+    await this._validateSend(tx);
 
     return tx;
   }
