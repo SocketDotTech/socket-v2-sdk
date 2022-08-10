@@ -1,4 +1,5 @@
-import { addresses as socketAddresses, constants as socketConstants } from "@socket.tech/ll-core";
+import { addresses as socketAddresses } from "@socket.tech/ll-core";
+import { Bridge, ChainId } from "@socket.tech/ll-core/constants/types";
 import { BigNumber } from "ethers";
 import { Approvals, NextTxResponse, Routes } from "./client";
 import { PrepareActiveRouteStatus } from "./client/models/RouteStatusOutputDTO";
@@ -77,8 +78,8 @@ export class SocketTx {
       if (bridgeStep) {
         const { name: protocolName } = bridgeStep.protocol;
         if (
-          protocolName === socketConstants.bridges.PolygonBridge &&
-          this.chainId === socketConstants.chains.POLYGON_CHAIN_ID
+          protocolName === Bridge.PolygonBridge &&
+          this.chainId === ChainId.POLYGON_CHAIN_ID
         ) {
           const { address: fromAssetAddress } = bridgeStep.fromAsset;
           if (fromAssetAddress.toLowerCase() !== send.to?.toLowerCase()) {
