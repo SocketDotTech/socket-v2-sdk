@@ -14,7 +14,7 @@ export type BridgeDetails = {
   /**
    * Approx time for bridging in seconds.
    */
-  serviceTime: number;
+  serviceTime?: number;
   /**
    * Display name of bridge.
    */
