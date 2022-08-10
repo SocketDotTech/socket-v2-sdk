@@ -67,20 +67,17 @@ export class SocketTx {
     from?: string | undefined;
   }) {
     if (this.userTxType === UserTxType.FUND_MOVR) {
-      // Fetcg route.
+      // Fetch route.
       const routeResponse = await Routes.getActiveRoute({ activeRouteId: this.activeRouteId });
       if (!routeResponse.success) throw new Error("Error while fetching route.");
       const route = routeResponse.result;
 
       // Current User Tx - Bridge Name
       const currentUserTx = route.userTxs[this.userTxIndex];
-      const bridgeStep = currentUserTx.steps.find((step) => step.type === 'bridge');
+      const bridgeStep = currentUserTx.steps.find((step) => step.type === "bridge");
       if (bridgeStep) {
         const { name: protocolName } = bridgeStep.protocol;
-        if (
-          protocolName === Bridge.PolygonBridge &&
-          this.chainId === ChainId.POLYGON_CHAIN_ID
-        ) {
+        if (protocolName === Bridge.PolygonBridge && this.chainId === ChainId.POLYGON_CHAIN_ID) {
           const { address: fromAssetAddress } = bridgeStep.fromAsset;
           if (fromAssetAddress.toLowerCase() !== send.to?.toLowerCase()) {
             throw new Error(
