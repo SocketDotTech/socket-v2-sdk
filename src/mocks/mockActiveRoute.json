@@ -1,0 +1,95 @@
+{
+  "totalUserTx": 2,
+  "fromAmount": "7141717909854740",
+  "toAmount": "7141717909854740",
+  "activeRouteId": 123,
+  "userAddress": "0x0",
+  "fromChainId": 1,
+  "toChainId": 137,
+  "fromAssetAddress": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+  "toAssetAddress": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+  "routeStatus": "PENDING",
+  "createdAt": "",
+  "updatedAt": "",
+  "currentUserTxIndex": 0,
+  "fromAsset": {
+    "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "chainId": 1,
+    "symbol": "ETH"
+  },
+  "toAsset": {
+    "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "chainId": 137,
+    "symbol": "MATIC"
+  },
+  "userTxs": [
+    {
+      "userTxType": "fund-movr",
+      "txType": "eth_sendTransaction",
+      "chainId": 1,
+      "toAmount": "6766014423161256",
+      "toAsset": {
+        "chainId": 1,
+        "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "symbol": "ETH"
+      },
+      "stepCount": 1,
+      "routePath": "0-999",
+      "sender": "0xEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+      "approvalData": {
+        "minimumApprovalAmount": "7141717909854740",
+        "approvalTokenAddress": "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619",
+        "allowanceTarget": "0x88DCDC47D2f83a99CF0000FDF667A468bB958a78",
+        "owner": "0xEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
+      },
+      "steps": [
+        {
+          "type": "bridge",
+          "protocol": {
+            "name": "celer",
+            "displayName": "Celer",
+            "icon": "https://cbridge.celer.network/static/media/favicon.e3350473.png"
+          },
+          "fromChainId": 1,
+          "fromAsset": {
+            "chainId": 1,
+            "address": "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619",
+            "symbol": "WETH"
+          },
+          "fromAmount": "7141717909854740",
+          "toChainId": 137,
+          "toAsset": {
+            "chainId": 137,
+            "address": "0x2170Ed0880ac9A755fd29B2688956BD959F933F8",
+            "symbol": "ETH"
+          },
+          "toAmount": "6766014423161256",
+          "gasFees": {
+            "gasAmount": "10000",
+            "gasLimit": 120000,
+            "asset": {
+              "chainId": 137,
+              "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "symbol": "MATIC"
+            },
+            "feesInUsd": 0.003960684
+          },
+          "serviceTime": 1200
+        }
+      ],
+      "gasFees": {
+        "gasAmount": "10000",
+        "feesInUsd": 0.003960684,
+        "asset": {
+          "chainId": 137,
+          "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "symbol": "MATIC"
+        },
+        "gasLimit": 120000
+      },
+      "serviceTime": 1200,
+      "recipient": "0xEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+      "userTxIndex": 0
+    }
+  ]
+}

@@ -1,16 +1,20 @@
 import { NextTxResponse } from "./client";
 import { TxType } from "./client/models/TxType";
 import { UserTxType } from "./client/models/UserTxType";
+import { ActiveRouteResponse } from "./client/models/ActiveRouteResponse";
 import { SocketTx } from "./socketTx";
 import { Approvals } from "./client/services/Approvals";
 import { Routes } from "./client/services/Routes";
 import { PrepareActiveRouteStatus } from "./client/models/RouteStatusOutputDTO";
+import mockActiveRoute from "./mocks/mockActiveRoute.json";
 
 jest.mock("./client/services/Approvals");
 const mockedApprovals = jest.mocked(Approvals, true);
 
 jest.mock("./client/services/Routes");
 const mockedRoutes = jest.mocked(Routes, true);
+
+const MOCK_ACTIVE_ROUTE: ActiveRouteResponse = mockActiveRoute as ActiveRouteResponse;
 
 const MOCK_TX: NextTxResponse = {
   activeRouteId: 123,
@@ -94,6 +98,10 @@ describe("Socket Tx - Get Send Transaction", () => {
         value: "600",
         tokenAddress: "0x1",
       },
+    });
+    mockedRoutes.getActiveRoute.mockResolvedValue({
+      success: true,
+      result: MOCK_ACTIVE_ROUTE,
     });
     const required = await tx.approvalRequired();
     expect(required).toBe(false);
