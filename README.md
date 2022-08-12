@@ -1,6 +1,6 @@
 # Socket v2 SDK
 
--> [Docs](https://rugamoto.github.io/socket-v2-docs/) <-
+-> [Docs](https://socketdottech.github.io/socket-v2-sdk-docs/) <-
 
 ## Install
 
