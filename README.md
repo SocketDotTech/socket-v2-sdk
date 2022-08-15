@@ -4,11 +4,11 @@
 
 ## Install
 
-- `yarn add socket-v2-sdk`
+- `yarn add @socket.tech/socket-v2-sdk`
 
   or
 
-- `npm i socket-v2-sdk`
+- `npm i @socket.tech/socket-v2-sdk`
 
 ## Usage
 
