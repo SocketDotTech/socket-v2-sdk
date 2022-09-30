@@ -18,6 +18,10 @@ export interface QuotePreferences extends SocketPreferences {
   isContractCall?: boolean;
   /** include gas transfer with bridging tx **/
   bridgeWithGas?: boolean;
+  /** Default swap slippage for the route in percent between 0 and 100. Default Slippage assumed if not passed. **/
+  defaultSwapSlippage?: string;
+  /** default bridge slippage for the route in percent between 0 and 100. Default Slippage assumed if not passed. NOTE - Slippage is not present for all bridges. **/
+  defaultBridgeSlippage?: string;
 }
 
 export interface QuoteRequest extends QuotePreferences {
