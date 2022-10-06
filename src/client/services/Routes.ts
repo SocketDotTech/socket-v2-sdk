@@ -81,9 +81,15 @@ export class Routes {
    */
   public static nextTx({
     activeRouteId,
+    swapSlippage,
+    bridgeSlippage,
   }: {
     /** Id of Active Route. **/
     activeRouteId: number;
+    /** Swap Slippage **/
+    swapSlippage?: string;
+    /** Bridge Slippage */
+    bridgeSlippage?: string;
   }): CancelablePromise<NextTxOutputDTO> {
     return __request(OpenAPI, {
       method: "GET",
@@ -93,6 +99,8 @@ export class Routes {
       },
       query: {
         activeRouteId: activeRouteId,
+        swapSlippage: swapSlippage,
+        bridgeSlippage: bridgeSlippage,
       },
     });
   }

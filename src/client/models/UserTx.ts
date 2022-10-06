@@ -17,6 +17,8 @@ export type Step = {
   toAmount: string;
   gasFees: GasFee;
   serviceTime: number;
+  bridgeSlippage?: number;
+  swapSlippage?: number;
 };
 
 export type UserTx = {
@@ -39,4 +41,6 @@ export type UserTx = {
   sourceTransactionReceipt?: TransactionReceipt;
   destinationTxHash?: string;
   destinationTxReceipt?: TransactionReceipt;
+  bridgeSlippage?: number;
+  swapSlippage?: number;
 };
