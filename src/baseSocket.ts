@@ -7,6 +7,7 @@ import {
   Quotes,
   Routes,
   Server,
+  SortOptions,
   Supported,
   TokenLists,
 } from "./client";
@@ -149,7 +150,9 @@ export abstract class BaseSocket {
    */
   async getBestQuote(params: QuoteParams, preferences?: QuotePreferences) {
     const allRoutes = await this.getAllQuotes(params, preferences);
-    return allRoutes ? allRoutes[0] : null;
+    if (preferences?.sort === SortOptions.Time) {
+      return allRoutes ? allRoutes[allRoutes.length - 1] : null;
+    } else return allRoutes ? allRoutes[0] : null;
   }
 
   /**
