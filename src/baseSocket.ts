@@ -150,8 +150,10 @@ export abstract class BaseSocket {
    */
   async getBestQuote(params: QuoteParams, preferences?: QuotePreferences) {
     const allRoutes = await this.getAllQuotes(params, preferences);
+    // API returns the 'sort by time' in descending order of service time, hence reversing the order
+    // To be removed once API response is fixed
     if (preferences?.sort === SortOptions.Time) {
-      return allRoutes ? allRoutes[allRoutes.length - 1] : null;
+      return allRoutes ? allRoutes.reverse()[0] : null;
     } else return allRoutes ? allRoutes[0] : null;
   }
 
