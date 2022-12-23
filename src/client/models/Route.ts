@@ -46,4 +46,8 @@ export type Route = {
    * Estimate of total time in seconds, excluding the transaction time.
    */
   serviceTime: number;
+  /**
+   * Received value in USD
+   */
+  receivedValueInUsd: number;
 };
