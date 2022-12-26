@@ -1,6 +1,7 @@
 import { BridgeName } from "./BridgeDetails";
 import type { ChainGasBalances } from "./ChainGasBalances";
 import type { MinGasBalances } from "./MinGasBalances";
+import { Token } from "./Token";
 import { UserTx } from "./UserTx";
 
 export type Route = {
@@ -8,6 +9,12 @@ export type Route = {
    * Unique id for each route.
    */
   routeId: string;
+
+  /**
+   * Contains only on single swap.
+   */
+  isOnlySwapRoute: boolean;
+
   /**
    * Sending token amount.
    */
@@ -47,7 +54,19 @@ export type Route = {
    */
   serviceTime: number;
   /**
-   * Received value in USD
+   * Estimate of max time to exit from the chain in seconds.
    */
-  receivedValueInUsd: number;
+  maxServiceTime: number;
+  /**
+   * Receive Value
+   */
+  receivedValueInUsd?: number;
+
+  /**
+   * Integrator Fee.
+   */
+  integratorFee: {
+    amount: string;
+    asset: Token;
+  };
 };

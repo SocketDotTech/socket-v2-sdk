@@ -17,6 +17,12 @@ export type Step = {
   toAmount: string;
   gasFees: GasFee;
   serviceTime: number;
+  maxServiceTime: number;
+  protocolFees: {
+    amount: string;
+    feesInUsd: number;
+    asset: Token;
+  };
   bridgeSlippage?: number;
   swapSlippage?: number;
 };
@@ -34,6 +40,7 @@ export type UserTx = {
   steps: Step[];
   gasFees: GasFee;
   serviceTime: number;
+  maxServiceTime: number;
   recipient: string;
   userTxIndex: number;
   userTxStatus?: PrepareActiveRouteStatus;
