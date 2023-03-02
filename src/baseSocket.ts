@@ -69,6 +69,7 @@ export abstract class BaseSocket {
   constructor(options: SocketOptions) {
     this._options = options;
     OpenAPI.API_KEY = this._options.apiKey;
+    OpenAPI.BASE = this._options.baseUrl ?? OpenAPI.BASE;
   }
 
   /**
