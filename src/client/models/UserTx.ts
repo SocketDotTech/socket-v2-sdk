@@ -2,6 +2,7 @@ import { TransactionReceipt } from "@ethersproject/abstract-provider";
 import { ApprovalData, BridgeDetails, Token } from "..";
 import { ChainId } from "./ChainId";
 import { GasFee } from "./GasFee";
+import { InsuranceFee } from "./InsuranceFee";
 import { PrepareActiveRouteStatus } from "./RouteStatusOutputDTO";
 import { TxType } from "./TxType";
 import { UserTxType } from "./UserTxType";
@@ -25,6 +26,7 @@ export type Step = {
   };
   bridgeSlippage?: number;
   swapSlippage?: number;
+  insuranceFee?: InsuranceFee
 };
 
 export type UserTx = {
