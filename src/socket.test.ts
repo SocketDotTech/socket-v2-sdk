@@ -37,6 +37,14 @@ describe("Socket", () => {
     expect(OpenAPI.API_KEY).toBe("abc");
   });
 
+  it("assigns base Url", async () => {
+    const socket = new Socket({ apiKey: "abc", baseUrl: "http://localhost:8080" });
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    expect(socket._options.baseUrl).toBe("http://localhost:8080");
+    expect(OpenAPI.BASE).toBe("http://localhost:8080");
+  });
+
   it("both include and exclude dex invalid", () => {
     const socket = new Socket({ apiKey: "abc" });
     expect(() =>
