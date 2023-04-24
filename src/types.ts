@@ -36,6 +36,6 @@ export interface SocketOptions {
   statusCheckInterval?: number;
   /** The preferences used when retrieving quotes from the api */
   defaultQuotePreferences?: QuotePreferences;
-  /** Optional Base Url */
+  /** Optional Base URL for the API */
   baseUrl?: string;
 }

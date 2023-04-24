@@ -1,18 +1,28 @@
+import { RefuelStatusResponse } from "./RefuelStatusResponse";
+import { Token } from "./Token";
 import { TxStatus } from "./TxStatus";
 
 export type BridgeStatusResponse = {
   /**
-   * Source Transaction.
+   * Destination Transaction hash.
    */
-  sourceTx: string;
+  destinationTransactionHash?: string;
   /**
    * Status of source transaction while bridging.
    */
   sourceTxStatus: TxStatus;
   /**
-   * Destination Transaction hash.
+   * Bridge name
    */
-  destinationTransactionHash?: string;
+  bridgeName: string;
+  /**
+   * Indicates whether the tx is a socket transaction
+   */
+  isSocketTx: boolean;
+  /**
+   * Source Transaction.
+   */
+  sourceTransactionHash: string;
   /**
    * Status of destination transaction while bridging.
    */
@@ -25,4 +35,40 @@ export type BridgeStatusResponse = {
    * Destination Chain Id.
    */
   toChainId: number;
+  /**
+   * Refuel
+   */
+  refuel?: RefuelStatusResponse;
+  /**
+   * Source Asset
+   */
+  fromAsset?: Token;
+  /**
+   * Destination Asset (actual received token)
+   */
+  toAsset?: Token;
+  /**
+   * Source Token Price
+   */
+  srcTokenPrice?: number;
+  /**
+   * Destination Token Price
+   */
+  destTokenPrice?: number;
+  /**
+   * Source Amount
+   */
+  fromAmount?: string;
+  /**
+   * Destination Amount (actual amount received)
+   */
+  toAmount?: string;
+  /**
+   * Address of the sender
+   */
+  sender?: string;
+  /**
+   * Address of the recipient
+   */
+  recipient?: string;
 };

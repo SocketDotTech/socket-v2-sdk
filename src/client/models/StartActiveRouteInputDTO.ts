@@ -1,3 +1,4 @@
+import { BridgeInsuranceData } from "./BridgeInsuranceData";
 import { RefuelData } from "./RefuelData";
 import type { Route } from "./Route";
 
@@ -29,4 +30,6 @@ export type StartActiveRouteInputDTO = {
   route: Route;
   /** Refuel data for if the user have selected bridge with gas option */
   refuel?: RefuelData;
+  /** Bridge Insurance data if the user has opted for bridge insurance */
+  bridgeInsuranceData?: BridgeInsuranceData
 };

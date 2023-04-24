@@ -61,6 +61,14 @@ export type Route = {
    * Receive Value
    */
   receivedValueInUsd?: number;
+  /**
+   * Input Value 
+   */
+  inputValueInUsd: number;
+  /**
+   * Output Value
+   */
+  outputValueInUsd: number;
 
   /**
    * Integrator Fee.
