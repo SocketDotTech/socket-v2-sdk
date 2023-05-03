@@ -934,6 +934,11 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
+"@socket.tech/ll-core-v2@^0.0.32":
+  version "0.0.32"
+  resolved "https://registry.yarnpkg.com/@socket.tech/ll-core-v2/-/ll-core-v2-0.0.32.tgz#a6188800a2aec798dc33d2fb17656361001da56b"
+  integrity sha512-E2i07xDale6CMwIoyvafRRWwIkfTnkuN7s3BGY+vOaSmBP7xvFAukRWRtgFs4M8OnYTbI2jxuAruw7uJPRs1ww==
+
 "@socket.tech/ll-core@^0.1.14":
   version "0.1.14"
   resolved "https://registry.yarnpkg.com/@socket.tech/ll-core/-/ll-core-0.1.14.tgz#16a0160da4d3fd702289f179147a2b06a4f49b9f"
