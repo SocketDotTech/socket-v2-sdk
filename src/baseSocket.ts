@@ -91,7 +91,7 @@ export abstract class BaseSocket {
    * @param chainId The numeric id of the chain
    * @returns The requested chain
    */
-  async getChain(chainId: typeof ChainId) {
+  async getChain(chainId: ChainId) {
     const chains = await this.getChains();
     const chain = chains.find((c) => c.chainId === chainId);
     if (!chain) {
