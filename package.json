@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "@socket.tech/ll-core": "^0.1.14",
+    "@socket.tech/ll-core-v2": "^0.0.32",
     "axios": "^0.27.2",
     "ethers": "^5.6.5",
     "form-data": "^4.0.0",

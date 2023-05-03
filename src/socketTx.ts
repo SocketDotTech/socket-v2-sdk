@@ -1,4 +1,5 @@
-import { addresses as socketAddresses } from "@socket.tech/ll-core";
+import { addresses as socketV1Addresses } from "@socket.tech/ll-core";
+import { addresses as socketV2Addresses } from "@socket.tech/ll-core-v2";
 import { Bridge, ChainId } from "@socket.tech/ll-core/constants/types";
 import { BigNumber } from "ethers";
 import { Approvals, NextTxResponse, Routes } from "./client";
@@ -85,7 +86,9 @@ export class SocketTx {
             );
           }
         } else {
-          const addresses = Object.values(socketAddresses[this.chainId]);
+          const addressesV1 = Object.values(socketV1Addresses[this.chainId]);
+          const addressesV2 = Object.values(socketV2Addresses[this.chainId]);
+          const addresses = addressesV1.concat(addressesV2);
           if (!addresses.includes(send.to)) {
             throw new Error(
               `${send.to} is not a recognised socket address on chain ${this.chainId}`
