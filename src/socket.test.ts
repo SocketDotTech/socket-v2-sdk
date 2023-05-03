@@ -8,7 +8,7 @@ import { UserTxType } from "./client/models/UserTxType";
 import { TxType } from "./client/models/TxType";
 import { BridgeName } from "./client/models/BridgeDetails";
 import { PrepareActiveRouteStatus } from "./client/models/RouteStatusOutputDTO";
-import { Middleware } from "@socket.tech/ll-core/constants/types";
+import { Middleware } from "@socket.tech/ll-core";
 
 jest.mock("./client/services/Routes");
 const mockedRoutes = jest.mocked(Routes, true);

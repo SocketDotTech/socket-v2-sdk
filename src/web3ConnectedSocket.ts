@@ -1,5 +1,5 @@
 import type { Web3Provider } from "@ethersproject/providers";
-import { ChainId } from "@socket.tech/ll-core/constants/types";
+import { ChainId } from "@socket.tech/ll-core";
 import { ethers } from "ethers";
 import { SocketOptions, SocketQuote } from "./types";
 import { SocketTx } from ".";

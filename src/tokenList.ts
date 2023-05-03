@@ -1,4 +1,4 @@
-import { ChainId } from "@socket.tech/ll-core/constants/types";
+import { ChainId } from "@socket.tech/ll-core";
 import { Token } from ".";
 import { NATIVE_TOKEN_ADDRESS } from "./constants";
 
