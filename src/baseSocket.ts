@@ -112,14 +112,14 @@ export abstract class BaseSocket {
   async getTokenList(request: TokenListRequest) {
     const fromTokenListData = (
       await TokenLists.getFromTokenList({
-        ...request,
         isShortList: true,
+        ...request,
       })
     ).result;
     const toTokenListData = (
       await TokenLists.getToTokenList({
-        ...request,
         isShortList: true,
+        ...request,
       })
     ).result;
 
