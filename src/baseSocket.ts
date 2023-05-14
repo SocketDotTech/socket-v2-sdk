@@ -17,7 +17,7 @@ import { SocketTx } from "./socketTx";
 import { TokenList } from "./tokenList";
 import { QuoteParams, SocketOptions, SocketQuote } from "./types";
 import { Web3Provider } from "@ethersproject/providers";
-import { ChainId } from "@socket.tech/ll-core/constants/types";
+import { ChainId } from "@socket.tech/ll-core";
 import { ActiveRoutesRequest } from "./client/models/ActiveRoutesRequest";
 import { SocketPreferences } from "./client/models/SocketPreferences";
 import { TokenListRequest } from "./client/models/TokenListRequest";

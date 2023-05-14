@@ -1,6 +1,6 @@
 import { addresses as socketV1Addresses } from "@socket.tech/ll-core";
 import { addresses as socketV2Addresses } from "@socket.tech/ll-core-v2";
-import { Bridge, ChainId } from "@socket.tech/ll-core/constants/types";
+import { Bridge, ChainId } from "@socket.tech/ll-core";
 import { BigNumber } from "ethers";
 import { Approvals, NextTxResponse, Routes } from "./client";
 import { PrepareActiveRouteStatus } from "./client/models/RouteStatusOutputDTO";

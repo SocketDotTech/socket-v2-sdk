@@ -1,4 +1,4 @@
-import { Bridge } from "@socket.tech/ll-core/constants/types";
+import { Bridge } from "@socket.tech/ll-core";
 
 export import BridgeName = Bridge;
 

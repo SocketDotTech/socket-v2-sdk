@@ -4,7 +4,7 @@ import type { SupportedChainsOutputDTO } from "../models/SupportedChainsOutputDT
 import type { CancelablePromise } from "../core/CancelablePromise";
 import { OpenAPI } from "../core/OpenAPI";
 import { request as __request } from "../core/request";
-import { ChainId } from "@socket.tech/ll-core/constants/types";
+import { ChainId } from "@socket.tech/ll-core";
 
 export class Supported {
   /**
