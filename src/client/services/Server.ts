@@ -107,6 +107,7 @@ export class Server {
     fromChainId,
     toChainId,
     bridgeName,
+    isBridgeProtectionTx
   }: {
     /** Transaction hash originating from the source chain while bridging assets. **/
     transactionHash: string;
@@ -116,6 +117,8 @@ export class Server {
     toChainId: number;
     /** Name of the bridge used while bridging. **/
     bridgeName?: BridgeName;
+    /** To indicate if bridge protection is enabled for the transaction */
+    isBridgeProtectionTx?: boolean;
   }): CancelablePromise<BridgeStatusResponseDTO> {
     return __request(OpenAPI, {
       method: "GET",
@@ -128,6 +131,7 @@ export class Server {
         fromChainId: fromChainId,
         toChainId: toChainId,
         bridgeName: bridgeName,
+        isBridgeProtectionTx: isBridgeProtectionTx,
       },
     });
   }
