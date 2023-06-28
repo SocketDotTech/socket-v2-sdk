@@ -168,7 +168,7 @@ export abstract class BaseSocket {
   async getAllQuotes(
     { path, address, amount }: QuoteParams,
     preferences?: QuotePreferences
-  ): Promise<SocketQuote[] | { bridgeRouteErrors: BridgeRouteErrors }> {
+  ): Promise<SocketQuote[] | [{ bridgeRouteErrors: BridgeRouteErrors }]> {
     const finalPreferences = {
       ...(this._options.defaultQuotePreferences || {}),
       ...(preferences || {}),
@@ -196,7 +196,7 @@ export abstract class BaseSocket {
         amount,
         refuel: quote.refuel,
         errors: quote.bridgeRouteErrors,
-      })) || { bridgeRouteErrors: quote.bridgeRouteErrors }
+      })) || [{ bridgeRouteErrors: quote.bridgeRouteErrors }]
     );
   }
 
