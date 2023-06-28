@@ -2,6 +2,7 @@ import { Chain } from "./chain";
 import {
   Approvals,
   Balances,
+  BridgeRouteErrors,
   NextTxResponse,
   OpenAPI,
   Quotes,
@@ -167,7 +168,7 @@ export abstract class BaseSocket {
   async getAllQuotes(
     { path, address, amount }: QuoteParams,
     preferences?: QuotePreferences
-  ): Promise<SocketQuote[]> {
+  ): Promise<SocketQuote[] | { bridgeRouteErrors: BridgeRouteErrors }> {
     const finalPreferences = {
       ...(this._options.defaultQuotePreferences || {}),
       ...(preferences || {}),
@@ -195,7 +196,7 @@ export abstract class BaseSocket {
         amount,
         refuel: quote.refuel,
         errors: quote.bridgeRouteErrors,
-      })) || []
+      })) || { bridgeRouteErrors: quote.bridgeRouteErrors }
     );
   }
 
