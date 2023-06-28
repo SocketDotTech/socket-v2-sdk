@@ -187,17 +187,17 @@ export abstract class BaseSocket {
     };
 
     const quote = (await Quotes.getQuote(request)).result;
-
-    return (
-      quote.routes?.map((route) => ({
-        route,
-        path,
-        address,
-        amount,
-        refuel: quote.refuel,
-        errors: quote.bridgeRouteErrors,
-      })) || [{ bridgeRouteErrors: quote.bridgeRouteErrors }]
-    );
+    if(!!quote?.routes?.length){
+      return (
+        quote?.routes?.map((route) => ({
+          route,
+          path,
+          address,
+          amount,
+          refuel: quote.refuel,
+          errors: quote.bridgeRouteErrors,
+        })))
+    } else return [{bridgeRouteErrors: quote.bridgeRouteErrors}];
   }
 
   /**
