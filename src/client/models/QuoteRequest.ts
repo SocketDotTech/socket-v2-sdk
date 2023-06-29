@@ -22,6 +22,14 @@ export interface QuotePreferences extends SocketPreferences {
   defaultSwapSlippage?: string;
   /** default bridge slippage for the route in percent between 0 and 100. Default Slippage assumed if not passed. NOTE - Slippage is not present for all bridges. **/
   defaultBridgeSlippage?: string;
+  /** Address that collects the fees */
+  feeTakerAddress?: string;
+  /**
+   * percentage of fee to be cut from source token amount.
+   * Fee percent cannot be greater than 5
+   * Supports up to 3 decimal places
+   */
+  feePercent?: string;
 }
 
 export interface QuoteRequest extends QuotePreferences {

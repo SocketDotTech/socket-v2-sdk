@@ -76,5 +76,6 @@ export type Route = {
   integratorFee: {
     amount: string;
     asset: Token;
+    feeTakerAddress?: string;
   };
 };

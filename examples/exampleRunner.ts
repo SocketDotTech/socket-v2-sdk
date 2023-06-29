@@ -1,12 +1,13 @@
 import axios from "axios";
-import { Socket } from "../src";
+import { Server, Socket } from "../src";
 import * as ethers from "ethers";
 import { Path } from "../src/path";
-import { BridgeName } from "../src/client/models/BridgeDetails";
+// import { BridgeName } from "../src/client/models/BridgeDetails";
 import { ChainId } from "../src/client/models/ChainId";
 import { SocketTx } from "../src/socketTx";
+// import { Bridge } from "@socket.tech/ll-core";
 
-const API_KEY = "645b2c8c-5825-4930-baf3-d9b997fcd88c"; // Testing key
+const API_KEY = "72a5b4b0-e727-48be-8aa1-5da9d62fe635"; // Testing key
 
 const wallet = process.env.PRIVATE_KEY
   ? new ethers.Wallet(process.env.PRIVATE_KEY)
@@ -42,16 +43,22 @@ export async function runRoute({
   toChainId,
   fromTokenAddress,
   toTokenAddress,
-  bridge,
+  // bridge,
   multiTx = false,
+  feeTakerAddress,
+  feePercent,
+  bridgeWithGas = false,
 }: {
   fromAmount: string;
   fromChainId: ChainId;
   toChainId: ChainId;
   fromTokenAddress: string;
   toTokenAddress: string;
-  bridge?: BridgeName;
+  // bridge?: BridgeName;
   multiTx?: boolean;
+  feeTakerAddress?: string;
+  feePercent?: string;
+  bridgeWithGas?: boolean
 }) {
   const socket = new Socket({
     apiKey: API_KEY,
@@ -75,24 +82,32 @@ export async function runRoute({
     throw new Error("danger! from token has no decimals!");
   }
   const amount = ethers.utils.parseUnits(fromAmount, fromToken.decimals).toString();
-  const prefs = bridge ? { includeBridges: [bridge] } : undefined;
+  // const prefs = bridge ? { includeBridges: [bridge] } : undefined;
   const quote = await socket.getBestQuote(
     {
       path: path,
       amount,
       address: userAddress,
     },
-    prefs
+    {
+      feePercent: feePercent,
+      feeTakerAddress: feeTakerAddress,
+      bridgeWithGas,
+      singleTxOnly: true,
+      // @ts-ignore
+      excludeBridges: ['synapse', 'across']
+    }
   );
 
   if (!quote) {
     throw new Error("no quote available");
   }
 
-  console.log("Running Quote", JSON.stringify(quote, null, 2));
-
-  const execute = await socket.start(quote);
-  await executeRoute(execute);
+  console.log('quote', quote);
+  const execute = await Server.getSingleTx({requestBody: {route: quote?.route, refuel: quote?.refuel}});
+  console.log('execute', execute);
+  // const execute = await socket.start(quote);
+  // await executeRoute(execute);
 }
 
 export async function executeRoute(execute: AsyncGenerator<SocketTx, void, string>) {
