@@ -19,4 +19,8 @@ export type BridgeDetails = {
    * Display name of bridge.
    */
   displayName: string;
+  /**
+   * Security score of bridge.
+   */
+  securityScore?: number;
 };

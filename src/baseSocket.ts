@@ -2,6 +2,7 @@ import { Chain } from "./chain";
 import {
   Approvals,
   Balances,
+  BridgeRouteErrors,
   NextTxResponse,
   OpenAPI,
   Quotes,
@@ -150,12 +151,12 @@ export abstract class BaseSocket {
    * @returns The best quote if found or null
    */
   async getBestQuote(params: QuoteParams, preferences?: QuotePreferences) {
-    const allRoutes = await this.getAllQuotes(params, preferences);
+    const {routes} = await this.getAllQuotes(params, preferences);
     // API returns the 'sort by time' in descending order of service time, hence reversing the order
     // To be removed once API response is fixed
     if (preferences?.sort === SortOptions.Time) {
-      return allRoutes ? allRoutes.reverse()[0] : null;
-    } else return allRoutes ? allRoutes[0] : null;
+      return routes ? routes.reverse()[0] : null;
+    } else return routes ? routes[0] : null;
   }
 
   /**
@@ -167,7 +168,7 @@ export abstract class BaseSocket {
   async getAllQuotes(
     { path, address, amount }: QuoteParams,
     preferences?: QuotePreferences
-  ): Promise<SocketQuote[]> {
+  ): Promise<{ routes: SocketQuote[]; bridgeRouteErrors: BridgeRouteErrors }> {
     const finalPreferences = {
       ...(this._options.defaultQuotePreferences || {}),
       ...(preferences || {}),
@@ -186,26 +187,18 @@ export abstract class BaseSocket {
     };
 
     const quote = (await Quotes.getQuote(request)).result;
-    if (!!quote?.routes?.length) {
-      return quote?.routes?.map((route) => ({
-        route,
-        path,
-        address,
-        amount,
-        refuel: quote.refuel,
-        errors: quote.bridgeRouteErrors,
-      }));
-    } else
-      return [
-        {
-          route: null,
-          refuel: null,
-          address: null,
-          amount: null,
-          path: null,
+    return {
+      routes:
+        quote.routes?.map((route) => ({
+          route,
+          path,
+          address,
+          amount,
+          refuel: quote.refuel,
           errors: quote.bridgeRouteErrors,
-        },
-      ];
+        })) || [],
+      bridgeRouteErrors: quote.bridgeRouteErrors,
+    };
   }
 
   /**

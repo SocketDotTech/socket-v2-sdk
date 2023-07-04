@@ -27,6 +27,7 @@ export type Step = {
   bridgeSlippage?: number;
   swapSlippage?: number;
   insuranceFee?: InsuranceFee
+  minAmountOut?: string;
 };
 
 export type UserTx = {
@@ -52,4 +53,9 @@ export type UserTx = {
   destinationTxReceipt?: TransactionReceipt;
   bridgeSlippage?: number;
   swapSlippage?: number;
+  protocol?: {
+    name: string;
+    displayName: string;
+    icon: string;
+  }
 };
