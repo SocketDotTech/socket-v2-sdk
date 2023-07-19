@@ -1,5 +1,6 @@
 import { BridgeName } from "./BridgeDetails";
 import type { ChainGasBalances } from "./ChainGasBalances";
+import { ExtraData } from "./ExtraData";
 import type { MinGasBalances } from "./MinGasBalances";
 import { Token } from "./Token";
 import { UserTx } from "./UserTx";
@@ -78,4 +79,9 @@ export type Route = {
     asset: Token;
     feeTakerAddress?: string;
   };
+
+  /**
+   * Extra Data, includes OP Rebate details
+   */
+  extraData?: ExtraData
 };
