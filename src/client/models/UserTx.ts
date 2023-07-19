@@ -6,6 +6,7 @@ import { InsuranceFee } from "./InsuranceFee";
 import { PrepareActiveRouteStatus } from "./RouteStatusOutputDTO";
 import { TxType } from "./TxType";
 import { UserTxType } from "./UserTxType";
+import { ExtraData } from "./ExtraData";
 
 export type Step = {
   type: string;
@@ -28,6 +29,7 @@ export type Step = {
   swapSlippage?: number;
   insuranceFee?: InsuranceFee
   minAmountOut?: string;
+  extraData?: ExtraData
 };
 
 export type UserTx = {
