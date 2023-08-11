@@ -15,6 +15,9 @@ export class Supported {
     return __request(OpenAPI, {
       method: "GET",
       url: "/v2/supported/bridges",
+      headers: {
+        "API-KEY": OpenAPI.API_KEY,
+      },
     });
   }
 

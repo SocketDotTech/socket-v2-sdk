@@ -43,6 +43,9 @@ export class Balances {
     return __request(OpenAPI, {
       method: "GET",
       url: "/v2/balances/token-balance",
+      headers: {
+        "API-KEY": OpenAPI.API_KEY,
+      },
       query: {
         tokenAddress: tokenAddress,
         chainId: chainId,
