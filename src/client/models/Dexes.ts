@@ -1,3 +1,3 @@
-import { Middleware } from "@socket.tech/ll-core";
+import { DexNames } from "@socket.tech/ll-core";
 
-export type Dexes = Middleware.OneInch | Middleware.ZeroX;
+export type Dexes = DexNames.OneInch | DexNames.ZeroX;
