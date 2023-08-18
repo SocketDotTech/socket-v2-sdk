@@ -17,7 +17,6 @@ export type { ChainDetails } from "./models/ChainDetails";
 export type { ChainGasBalances } from "./models/ChainGasBalances";
 export type { GasPriceResponseDTO } from "./models/GasPriceResponseDTO";
 export type { GasTokenDetails } from "./models/GasTokenDetails";
-export type { HealthResponseDTO } from "./models/HealthResponseDTO";
 export type { MinGasBalances } from "./models/MinGasBalances";
 export type { NextTxOutputDTO } from "./models/NextTxOutputDTO";
 export { NextTxResponse } from "./models/NextTxResponse";

@@ -1,37 +1,6 @@
 {
   "openapi": "3.0.0",
   "paths": {
-    "/v2/health": {
-      "get": {
-        "operationId": "AppController_getHealth",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Health Check for Fund Movr API",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HealthResponseDTO"
-                }
-              }
-            }
-          }
-        },
-        "tags": ["Health"]
-      }
-    },
-    "/v2/health-rpc": {
-      "get": {
-        "operationId": "AppController_getHealthRPC",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Health Check for Fund Movr API RPCS"
-          }
-        },
-        "tags": ["Health"]
-      }
-    },
     "/v2/gas-price": {
       "get": {
         "operationId": "AppController_getGasPrice",
@@ -1540,7 +1509,7 @@
   "servers": [],
   "components": {
     "schemas": {
-      "HealthResponseDTO": {
+      "ResponseDTO": {
         "type": "object",
         "properties": {
           "ok": {

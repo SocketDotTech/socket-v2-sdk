@@ -103,6 +103,36 @@ export abstract class BaseSocket {
   }
 
   /**
+   * get Balances for a user address
+   * @param userAddress The user address 
+   */
+  async getBalances({userAddress}) {
+    return await Balances.getBalances({userAddress})
+  }
+
+
+  /**
+   * get Balance for a user address
+   * @param tokenAddress The token address
+   * @param chainId The chain id
+   * @param userAddress The user address
+   * @returns The balance
+   */
+
+  async getBalance({
+    tokenAddress,
+    chainId,
+    userAddress,
+  }) {
+    return await Balances.getBalance({
+      tokenAddress,
+      chainId,
+      userAddress,
+    })
+  }
+
+
+  /**
    * Get the list of tokens available for each chain for a given path
    * @param options
    * @param options.fromChainId The source chain id e.g. 0x1

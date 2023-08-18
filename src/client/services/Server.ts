@@ -1,6 +1,5 @@
 import type { BridgeStatusResponseDTO } from "../models/BridgeStatusResponseDTO";
 import type { GasPriceResponseDTO } from "../models/GasPriceResponseDTO";
-import type { HealthResponseDTO } from "../models/HealthResponseDTO";
 import type { SingleTxDTO } from "../models/SingleTxDTO";
 import type { SingleTxOutputDTO } from "../models/SingleTxOutputDTO";
 import type { TokenPriceResponseDTO } from "../models/TokenPriceResponseDTO";
@@ -13,27 +12,8 @@ import { BridgeName } from "../models/BridgeDetails";
 import { ChainId } from "../models/ChainId";
 
 export class Server {
-  /**
-   * @returns HealthResponseDTO Health Check for Fund Movr API
-   * @throws ApiError
-   */
-  public static getHealth(): CancelablePromise<HealthResponseDTO> {
-    return __request(OpenAPI, {
-      method: "GET",
-      url: "/v2/health",
-    });
-  }
 
-  /**
-   * @returns any Health Check for Fund Movr API RPCS
-   * @throws ApiError
-   */
-  public static getHealthRpc(): CancelablePromise<any> {
-    return __request(OpenAPI, {
-      method: "GET",
-      url: "/v2/health-rpc",
-    });
-  }
+
 
   /**
    * @returns GasPriceResponseDTO Current gas prices for a chain
@@ -51,6 +31,9 @@ export class Server {
       query: {
         chainId: chainId,
       },
+      headers: {
+        "API-KEY": OpenAPI.API_KEY,
+      }
     });
   }
 
@@ -70,6 +53,9 @@ export class Server {
     return __request(OpenAPI, {
       method: "GET",
       url: "/v2/token-price",
+      headers: { 
+        "API-KEY": OpenAPI.API_KEY,
+      },
       query: {
         tokenAddress: tokenAddress,
         chainId: chainId,
