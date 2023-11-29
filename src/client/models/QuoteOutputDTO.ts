@@ -1,6 +1,7 @@
 import { BridgeRouteErrors } from "./BridgeRouteErrors";
 import { RefuelData } from "./RefuelData";
 import type { Route } from "./Route";
+import { SocketRoute } from "./SocketRoute";
 import type { Token } from "./Token";
 
 export type Quote = {
@@ -11,6 +12,7 @@ export type Quote = {
   toChainId?: number;
   toAsset?: Token;
   bridgeRouteErrors: BridgeRouteErrors;
+  socketRoute?: SocketRoute
 };
 
 export type QuoteOutputDTO = {

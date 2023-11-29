@@ -22,6 +22,7 @@ import { ChainId } from "@socket.tech/ll-core";
 import { ActiveRoutesRequest } from "./client/models/ActiveRoutesRequest";
 import { SocketPreferences } from "./client/models/SocketPreferences";
 import { TokenListRequest } from "./client/models/TokenListRequest";
+import { SocketRoute } from "./client/models/SocketRoute";
 
 export interface ActiveRouteGenerator extends AsyncGenerator<SocketTx, void, string> {
   /** Active Route Id */
@@ -104,12 +105,11 @@ export abstract class BaseSocket {
 
   /**
    * get Balances for a user address
-   * @param userAddress The user address 
+   * @param userAddress The user address
    */
-  async getBalances({userAddress}) {
-    return await Balances.getBalances({userAddress})
+  async getBalances({ userAddress }) {
+    return await Balances.getBalances({ userAddress });
   }
-
 
   /**
    * get Balance for a user address
@@ -119,18 +119,13 @@ export abstract class BaseSocket {
    * @returns The balance
    */
 
-  async getBalance({
-    tokenAddress,
-    chainId,
-    userAddress,
-  }) {
+  async getBalance({ tokenAddress, chainId, userAddress }) {
     return await Balances.getBalance({
       tokenAddress,
       chainId,
       userAddress,
-    })
+    });
   }
-
 
   /**
    * Get the list of tokens available for each chain for a given path
@@ -181,7 +176,7 @@ export abstract class BaseSocket {
    * @returns The best quote if found or null
    */
   async getBestQuote(params: QuoteParams, preferences?: QuotePreferences) {
-    const {routes} = await this.getAllQuotes(params, preferences);
+    const { routes } = await this.getAllQuotes(params, preferences);
     // API returns the 'sort by time' in descending order of service time, hence reversing the order
     // To be removed once API response is fixed
     if (preferences?.sort === SortOptions.Time) {
@@ -198,7 +193,11 @@ export abstract class BaseSocket {
   async getAllQuotes(
     { path, address, amount }: QuoteParams,
     preferences?: QuotePreferences
-  ): Promise<{ routes: SocketQuote[]; bridgeRouteErrors: BridgeRouteErrors }> {
+  ): Promise<{
+    routes: SocketQuote[];
+    bridgeRouteErrors: BridgeRouteErrors;
+    socketRoute: SocketRoute;
+  }> {
     const finalPreferences = {
       ...(this._options.defaultQuotePreferences || {}),
       ...(preferences || {}),
@@ -228,6 +227,7 @@ export abstract class BaseSocket {
           errors: quote.bridgeRouteErrors,
         })) || [],
       bridgeRouteErrors: quote.bridgeRouteErrors,
+      socketRoute: quote.socketRoute,
     };
   }
 

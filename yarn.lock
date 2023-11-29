@@ -969,15 +969,15 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@socket.tech/ll-core-v2@^0.0.55":
-  version "0.0.55"
-  resolved "https://registry.yarnpkg.com/@socket.tech/ll-core-v2/-/ll-core-v2-0.0.55.tgz#1e1210169dea9a54923245517b2a0ace6fe90061"
-  integrity sha512-f2aVQMBWhye49j0mvpWT90Lf01haqP5iZMRQRS4gaIIatw6Izrv0ah/OvVePsRz7TuXdc1xQ1vogGUdweV+DkA==
+"@socket.tech/ll-core-v2@^0.0.66":
+  version "0.0.66"
+  resolved "https://registry.yarnpkg.com/@socket.tech/ll-core-v2/-/ll-core-v2-0.0.66.tgz#3969a044b89d6143b470525aa5406e7493eff638"
+  integrity sha512-ecsuBSz83NKZXAt8pkIwVOJ+/XwzHOSrzlnVnYYGn2cRkn84UZyCns5G7lqglvYTO97LwHYcWyOAoUqn4/4/rA==
 
-"@socket.tech/ll-core@0.1.46":
-  version "0.1.46"
-  resolved "https://registry.yarnpkg.com/@socket.tech/ll-core/-/ll-core-0.1.46.tgz#0db6cd92c7eec4690b4fd6257ded8d059caa712e"
-  integrity sha512-yKsITqdgwXp6d5VeItkO/FG12sW/7J44q/Ln9Obi6mVBKQcTabCOYtguGz02rEpY+8iGJpiZrDWo9wcu+QPJYg==
+"@socket.tech/ll-core@^0.1.49":
+  version "0.1.49"
+  resolved "https://registry.yarnpkg.com/@socket.tech/ll-core/-/ll-core-0.1.49.tgz#dd3c28ddb7fd43f2d91c482edd43ccfca2da4972"
+  integrity sha512-V/xPaXOeYEsKiFoEnHqhJM0tgHvGBjoO41AqHIPuZipK684WmAeYD+72Hz2W/S7ysrdqMp1B1leR/hc9UzbDjg==
 
 "@types/babel__core@^7.1.14":
   version "7.20.1"
