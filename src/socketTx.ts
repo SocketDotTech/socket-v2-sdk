@@ -85,31 +85,6 @@ export class SocketTx {
               `Polygon Native Bridge burns the token when withdrawn to Ethereum. ${send.to} does not match the token being burnt.`
             );
           }
-        } else {
-          const addressesV1 = socketV1Addresses[this.chainId];
-          const addressesV2 = socketV2Addresses[this.chainId];
-
-          let addresses = [];
-          let addressesV1Values = [];
-          let addressesV2Values = [];
-
-          if (addressesV1) {
-            addressesV1Values = Object.values(addressesV1);
-          }
-          if (addressesV2) {
-            addressesV2Values = Object.values(addressesV2);
-          }
-
-          if (addressesV1Values) {
-            addresses = addressesV1Values.concat(addressesV2Values);
-          } else {
-            addresses = addressesV2Values;
-          }
-          if (!addresses.includes(send.to)) {
-            throw new Error(
-              `${send.to} is not a recognised socket address on chain ${this.chainId}`
-            );
-          }
         }
       }
     }
