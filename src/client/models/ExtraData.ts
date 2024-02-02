@@ -1,5 +1,5 @@
-import { OpRebateData } from "./OpRebateData";
+import { RewardData } from "./RewardData";
 
 export type ExtraData = {
-  opRebateData?: OpRebateData;
+  rewards?: RewardData[];
 };

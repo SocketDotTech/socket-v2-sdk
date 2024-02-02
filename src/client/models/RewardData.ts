@@ -1,7 +1,8 @@
 import { Token } from "./Token";
 
-export type OpRebateData = {
+export type RewardData = {
   amount: string;
   asset: Token;
   amountInUsd: number;
+  chainId: number;
 };
