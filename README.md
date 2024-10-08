@@ -1,3 +1,7 @@
+# This repository is deprecated and was archived
+# Please see [docs.bungee.exchange](https://docs.bungee.exchange/) for the up to date API
+
+
 # Socket v2 SDK
 
 -> [Docs](https://socketdottech.github.io/socket-v2-sdk-docs/) <-
